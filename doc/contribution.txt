@@ -1,0 +1,9 @@
+Contribution:
+So far, Grammar was discussed and generated . In the meeting we had discussed how to generate bytecode , The bytecode for the language, how to generate abstract syntax tree.
+We had discuss how to tokenize , parse and runtime environment.
+
+The meetings were  by attended by all the members and the tentative plan is 
+Ejaz : works on developing runtime environment 
+Balachandar : works on developing parse tree.0
+Amaresh : Works on developing byte code
+Prasanth: works on developing lexical analyzer of input.
