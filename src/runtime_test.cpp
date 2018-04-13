@@ -15,6 +15,7 @@ static int test1[] = {
         EXIT
 };
 
+/*
 int main() {
     run(test1, sizeof(test1)/4);
-}
+}*/
