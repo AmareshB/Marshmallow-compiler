@@ -37,10 +37,11 @@
                     sp--;
                     break;
                 case STORE:
-                    storage[code[++ip]] = stack[sp--];
+                    storage[code[ip++]] = stack[sp--];
                     break;
                 case LOAD:
-                    stack[++sp] = storage[code[++ip]];
+                    stack[++sp] = storage[code[ip++]];
+                    break;
                 case ADD:
                     a = stack[sp--];
                     b = stack[sp--];
@@ -113,6 +114,16 @@
                 case PRINT:
                     a = stack[sp--];
                     std::cout << a << std::endl;
+                    break;
+                case BRF:
+                    a = stack[sp--];
+                    if(a == FALSE)
+                        ip = code[ip];
+                    else
+                        ip++;
+                    break;
+                case BR:
+                    ip = code[ip];
                     break;
             }
             opcode = code[ip];

@@ -27,36 +27,3 @@
 #define PRINT 22
 #define EXIT  23
 #define NOOP  24
-
-typedef struct {
-    int opcode;
-    int nargs;
-} Instruction;
-
-static Instruction instructions[] = {
-        {PUSH,  1},
-        {POP,   0},
-        {STORE, 1},
-        {LOAD,  1},
-        {ADD,   0},
-        {SUB,   0},
-        {MUL,   0},
-        {DIV,   0},
-        {MOD,   0},
-        {EQ,    0},
-        {NEQ,   0},
-        {LT,    0},
-        {GT,    0},
-        {LTE,   0},
-        {GTE,   0},
-        {NOT,   0},
-        {AND,   0},
-        {OR,    0},
-        {BRF,   1},
-        {BR,    1},
-        {CALL,  3},
-        {RET,   0},
-        {PRINT, 0},
-        {EXIT,  0},
-        {NOOP, 0}
-};
