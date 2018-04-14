@@ -7,5 +7,13 @@
 
 IdenNode::IdenNode(const std::string &name) : name(name) {}
 
+const std::string &IdenNode::getName() const {
+    return name;
+}
+
+void IdenNode::setName(const std::string &name) {
+    IdenNode::name = name;
+}
+
 
 

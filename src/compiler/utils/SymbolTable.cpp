@@ -4,6 +4,5 @@
 
 #include "SymbolTable.h"
 
-SymbolTable::SymbolTable(const std::unordered_map<std::string, int> &symbolTableMap,
-                         const std::vector<SymbolTable> &childMaps) : symbolTableMap(symbolTableMap),
-                                                                      childMaps(childMaps) {}
+
+

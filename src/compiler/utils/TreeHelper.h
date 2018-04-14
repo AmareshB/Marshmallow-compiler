@@ -14,8 +14,11 @@
 
 class TreeHelper {
 
+public:
+    TreeHelper();
 
-     enum string_value {
+private:
+    enum string_value {
         mod,
         div,
         mul,

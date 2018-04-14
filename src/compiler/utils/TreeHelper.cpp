@@ -134,3 +134,5 @@ Node* TreeHelper::makeAST(std::string name, Node &exp, Node &newNode1, Node &new
     }
     return resultNode;
 }
+
+TreeHelper::TreeHelper() {}

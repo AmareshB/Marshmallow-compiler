@@ -30,8 +30,8 @@ public:
     Node* while_stmt(SymbolTable &symbolTable);
     Node* cont_stmt();
     Node* break_stmt();
-    Node* print_stmt();
-    Node* assign_stmt();
+    Node* print_stmt(SymbolTable &symbolTable);
+    Node* assign_stmt(SymbolTable &symbolTable);
     Node* expression(SymbolTable &symbolTable);
     Node* or_expr(SymbolTable &symbolTable);
     Node* and_expr(SymbolTable &symbolTable);
