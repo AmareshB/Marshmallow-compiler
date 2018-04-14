@@ -13,11 +13,12 @@
 
 class TreeHelper {
 public:
-    static Node makeAST(std::string name,Node lhs, Node rhs);
-    static Node makeAST(std::string name, std::vector<Node> nodes);
-    static Node makeAST(std::string name, Node exp, Node newNode1, Node newNode2);
-    static void generateAddress(int startingAdress, SymbolTable node );
-    static void iterateAddress(SymbolTable symbolTable);
+    static Node* makeAST(std::string name,Node& lhs, Node& rhs);
+    static Node* makeAST(std::string name, std::vector<Node>& nodes);
+    static Node* makeAST(std::string name, Node& exp, Node& newNode1, Node& newNode2);
+    static void generateAddress(int startingAdress, SymbolTable& node );
+    static void iterateAddress(SymbolTable& symbolTable);
+    static void initialise();
 };
 
 

@@ -15,7 +15,7 @@ class ProgramNode : public Node{
     std::string name;
     std::vector<Node> childStmt;
 public:
-    ProgramNode(const std::string &name, const std::vector<Node> &childStmt);
+    ProgramNode(std::string &name,std::vector<Node> &childStmt);
 
     friend std::ostream &operator<<(std::ostream &os, const ProgramNode &node);
 };
