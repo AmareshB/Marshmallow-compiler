@@ -17,7 +17,6 @@ class ProgramNode : public Node{
 public:
     ProgramNode(std::string &name,std::vector<Node> &childStmt);
 
-    friend std::ostream &operator<<(std::ostream &os, const ProgramNode &node);
 };
 
 #endif //SER502_SPRING2018_TEAM15_PROGRAMNODE_H

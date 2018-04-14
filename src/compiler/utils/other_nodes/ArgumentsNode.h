@@ -17,7 +17,6 @@ class ArgumentsNode : public ExpNode{
 public:
     ArgumentsNode(const std::string &name, const std::vector<Node> &arguments);
 
-    friend std::ostream &operator<<(std::ostream &os, const ArgumentsNode &node);
 
 };
 

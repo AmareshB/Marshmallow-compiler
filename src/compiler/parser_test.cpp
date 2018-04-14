@@ -29,6 +29,7 @@ void print( vector<MyClass> );
 
 void print1(list<MyClass> list);
 
+/*
 int main()
 {
     vector<MyClass> vec;
@@ -48,7 +49,8 @@ int main()
     print1(lis);
 
     //vector elements initialized by MyClass's no-arg      constructor:
-   /* vector<MyClass> vec_2( 5 );
+   */
+/* vector<MyClass> vec_2( 5 );
     print( vec_2 );
     vec_2.resize( 7 );
     print( vec_2 );
@@ -73,9 +75,11 @@ int main()
     vec_2.clear();
     print( vec_2 );
     cout << vec_2.capacity() << endl;
-*/
+*//*
+
     return 0;
 }
+*/
 
 void print1(list<MyClass> v) {
     cout << "\nvector size is: " << v.size() << endl;

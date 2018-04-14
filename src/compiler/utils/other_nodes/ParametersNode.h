@@ -18,7 +18,7 @@ class ParametersNode : public Node {
 public:
     ParametersNode(const std::string &name, const std::vector<Node> &parameters);
 
-    friend std::ostream &operator<<(std::ostream &os, const ParametersNode &node);
+
 };
 
 

@@ -8,8 +8,8 @@
 
 #include <string>
 #include <vector>
-#include <compiler/utils/other_nodes/Node.h>
 #include <compiler/utils/SymbolTable.h>
+#include <compiler/utils/other_nodes/IdenNode.h>
 
 class Parser {
     std::vector<std::string> tokens;

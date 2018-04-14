@@ -19,7 +19,7 @@ public:
 private:
     std::string name;
 public:
-    friend std::ostream &operator<<(std::ostream &os, const IdenNode &node);
+
 
 };
 

@@ -16,7 +16,7 @@ public:
 public:
     int val;
 
-    friend std::ostream &operator<<(std::ostream &os, const NumberNode &node);
+
 };
 
 

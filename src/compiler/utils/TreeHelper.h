@@ -6,19 +6,53 @@
 #define SER502_SPRING2018_TEAM15_TREEHELPER_H
 
 
-#include <compiler/utils/other_nodes/Node.h>
+
 #include <string>
 #include <vector>
 #include "SymbolTable.h"
 
+
 class TreeHelper {
+
+
+     enum string_value {
+        mod,
+        div,
+        mul,
+        minus,
+        plus,
+        not_equals,
+        equals,
+        greater_than,
+        lesser_than,
+        greater_equals,
+        lesser_equals,
+        _or,
+        _and,
+        _not,
+        assign,
+        _print,
+        _continue,
+        _break,
+        _while,
+        _callFunc,
+        block,
+        program,
+        parameters,
+        arguments,
+        _function,
+        _else,
+        _if,
+        _elif
+    };
+     std::map<std::string, string_value> map_values;
 public:
-    static Node* makeAST(std::string name,Node& lhs, Node& rhs);
-    static Node* makeAST(std::string name, std::vector<Node>& nodes);
-    static Node* makeAST(std::string name, Node& exp, Node& newNode1, Node& newNode2);
-    static void generateAddress(int startingAdress, SymbolTable& node );
-    static void iterateAddress(SymbolTable& symbolTable);
-    static void initialise();
+     Node* makeAST(std::string name,Node& lhs, Node& rhs);
+     Node* makeAST(std::string name, std::vector<Node>& nodes);
+     Node* makeAST(std::string name, Node& exp, Node& newNode1, Node& newNode2);
+     void generateAddress(int startingAdress, SymbolTable& node );
+     void iterateAddress(SymbolTable& symbolTable);
+     void initialise();
 };
 
 

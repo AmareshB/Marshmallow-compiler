@@ -16,41 +16,11 @@
 #include <compiler/utils/other_nodes/ArgumentsNode.h>
 #include <compiler/utils/stmt/FuncNode.h>
 #include <compiler/utils/stmt/BranchNode.h>
+#include <map>
 #include "TreeHelper.h"
 #include "BlockNode.h"
 
-static enum string_value {
-    mod,
-    div,
-    mul,
-    minus,
-    plus,
-    not_equals,
-    equals,
-    greater_than,
-    lesser_than,
-    greater_equals,
-    lesser_equals,
-    _or,
-    _and,
-    _not,
-    assign,
-    _print,
-    _continue,
-    _break,
-    _while,
-    _callFunc,
-    block,
-    program,
-    parameters,
-    arguments,
-    _function,
-    _else,
-    _if,
-    _elif
-};
-static std::map<std::string, string_value> map_values;
-static void initialise() {
+void TreeHelper::initialise() {
     map_values["%"] = mod;
     map_values["/"] = div;
     map_values["*"] = mul;
@@ -164,4 +134,3 @@ Node* TreeHelper::makeAST(std::string name, Node &exp, Node &newNode1, Node &new
     }
     return resultNode;
 }
-

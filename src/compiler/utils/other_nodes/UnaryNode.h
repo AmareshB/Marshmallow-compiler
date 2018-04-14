@@ -18,7 +18,6 @@ public:
 
     UnaryNode(const std::string &name, const Node &onlyChild);
 
-    friend std::ostream &operator<<(std::ostream &os, const UnaryNode &node);
 };
 
 

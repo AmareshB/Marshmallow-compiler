@@ -7,7 +7,5 @@
 
 IdenNode::IdenNode(const std::string &name) : name(name) {}
 
-std::ostream &operator<<(std::ostream &os, const IdenNode &node) {
-    os << static_cast<const ExpNode &>(node) << " name: " << node.name;
-    return os;
-}
+
+

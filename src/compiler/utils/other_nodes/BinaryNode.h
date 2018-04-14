@@ -16,7 +16,7 @@ class BinaryNode: public ExpNode {
 public:
     BinaryNode(const std::string &name, const Node &lhs, const Node &rhs);
 
-    friend std::ostream &operator<<(std::ostream &os, const BinaryNode &node);
+
 };
 
 

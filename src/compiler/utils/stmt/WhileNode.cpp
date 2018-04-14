@@ -8,8 +8,3 @@ WhileNode::WhileNode(const std::string &name, const Node &expression, const Node
                                                                                            expression(expression),
                                                                                            block(block) {}
 
-std::ostream &operator<<(std::ostream &os, const WhileNode &node) {
-    os << static_cast<const StatementNode &>(node) << " name: " << node.name << " expression: " << node.expression
-       << " block: " << node.block;
-    return os;
-}

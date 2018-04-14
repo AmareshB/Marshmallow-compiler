@@ -6,7 +6,3 @@
 
 ContinueNode::ContinueNode(const std::string &name) : name(name) {}
 
-std::ostream &operator<<(std::ostream &os, const ContinueNode &node) {
-    os << static_cast<const StatementNode &>(node) << " name: " << node.name;
-    return os;
-}
