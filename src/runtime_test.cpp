@@ -64,7 +64,9 @@ static int test3[] = {
 
 
 int main() {
+    runtime *r = new runtime(test3, sizeof(test3)/ sizeof(int));
     //run(test1, sizeof(test1)/ sizeof(int));
     //run(test2, sizeof(test2)/ sizeof(int));
-    run(test3, sizeof(test3)/ sizeof(int));
+    r->run();
+    delete(r);
 }
