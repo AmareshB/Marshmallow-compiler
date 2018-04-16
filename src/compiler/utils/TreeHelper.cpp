@@ -180,11 +180,10 @@ void TreeHelper::iterateAddress(SymbolTable &symbolTable) {
         cout<<"Empty Table"<<"\n";
     cout<<"Symbol Table Starting Address: "<<symbolTable.startingAddress<<"    Symbol Table Ending Address:  "<<symbolTable.endingAddress;
     int start = symbolTable.startingAddress;
-    for(auto & x :symbolTable.symbolTableMap)
+    for(auto& x :symbolTable.symbolTableMap)
     {
-        string key = x.first;
-        symbolTable.symbolTableMap.emplace(key,start);
+        x.second = start;
         ++start;
-        cout<<start<<"  :start"<<x.first<<": lol"<<symbolTable.symbolTableMap[key]<<"\n";
+        cout<<x.first<<": "<<x.second<<"\n";
     }
 }
