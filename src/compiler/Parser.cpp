@@ -6,12 +6,14 @@
 #include "Parser.h"
 #include <iostream>
 #include <compiler/utils/TreeHelper.h>
+#include <compiler/utils/other_nodes/NumberNode.h>
+
 using namespace std;
 
 Parser::Parser(const std::vector<std::string> &tokens) : tokens(tokens) {}
 
 Node* Parser::parseIdentifier() {
-    IdenNode* res = NULL;
+    IdenNode* res = nullptr;
     if(tokens[i][0]!='_' && (tokens[i][0]<'a' || tokens[i][0]>'z') && (tokens[i][0]<'A' || tokens[i][0]>'Z'))
         std::cout << "Identifier wrong "<<tokens[0]<<"at line"+instLine;
     else
@@ -31,7 +33,7 @@ Node* Parser::parseIdentifier() {
   */
 Node* Parser::getProgram(SymbolTable &symbolTable)
 {
-    Node* res=NULL;
+    Node* res=nullptr;
     std::vector<Node> statements;
     while(i<tokens.size())
     {
@@ -42,6 +44,47 @@ Node* Parser::getProgram(SymbolTable &symbolTable)
     return res;
 }
 
+/**
+ * block ::= NEWLINE INDENT (stmt )+ DEDENT
+ * @return
+ */
+Node* Parser::parseBlock(SymbolTable &symbolTable)
+{
+    std::vector<Node> statements;
+    if(tokens[i] != "NEWLINE")
+    {
+        cout<<"No new line found at "<<tokens[i]<<"at line"+instLine;
+        return nullptr;
+    }
+    //consume newline
+    ++i;
+    ++instLine;
+    if(tokens[i] == "INDENT")
+    {
+        //consume indent
+        ++i;
+        while (true)
+        {
+            if(tokens[i] == "DEDENT")
+            {
+                break;
+            }
+            else
+            {
+                statements.push_back(*parseStatement(symbolTable));
+            }
+        }
+        //consume dedent
+        ++i;
+        TreeHelper treeHelper;
+        return treeHelper.makeAST("block",statements);
+    }
+    else
+    {
+        cout<<"no indent inside block"<<tokens[i]<<"at line"<<instLine;
+    }
+    return nullptr;
+}
 /**
     * stmt     ::= assignment_stmt NEWLINE
     | print_stmt NEWLINE
@@ -58,7 +101,7 @@ Node* Parser::getProgram(SymbolTable &symbolTable)
     */
 Node* Parser::parseStatement( SymbolTable& symbolTable)
 {
-    Node* stmtNode = NULL;
+    Node* stmtNode = nullptr;
     //statements
     //always do lookahead after checking LL0 first
     if(tokens[i] == "print")
@@ -66,8 +109,8 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
         stmtNode = print_stmt(symbolTable);
         if(tokens[i]!="NEWLINE")
         {
-            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine);
-            return NULL;
+            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine;
+            return nullptr;
         }
         //consume newline
         ++i;
@@ -78,8 +121,8 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
         stmtNode = break_stmt();
         if(tokens[i]!="NEWLINE")
         {
-            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine);
-            return NULL;
+            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine;
+            return nullptr;
         }
         //consume newline
         ++i;
@@ -90,8 +133,8 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
         stmtNode = cont_stmt();
         if(tokens[i]!="NEWLINE")
         {
-            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine);
-            return NULL;
+            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine;
+            return nullptr;
         }
         //consume newline
         ++i;
@@ -114,8 +157,8 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
         stmtNode = exec_stmt(symbolTable);
         if(tokens[i]!="NEWLINE")
         {
-            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine);
-            return NULL;
+            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine;
+            return nullptr;
         }
         //consume newline
         ++i;
@@ -126,8 +169,8 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
         stmtNode = assign_stmt(symbolTable);
         if(tokens[i]!="NEWLINE")
         {
-            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine);
-            return NULL;
+            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine;
+            return nullptr;
         }
         //consume newline
         ++i;
@@ -147,16 +190,16 @@ Node* Parser::exec_stmt(SymbolTable &symbolTable) {
     Node* identifier = parseIdentifier();
     if(tokens[i]!="(")
     {
-        cout<<"Missing '(' in function call"<<"at line"<<instLine);
-        return NULL;
+        cout<<"Missing '(' in function call"<<"at line"<<instLine;
+        return nullptr;
     }
     //consume "("
     ++i;
     Node* arguments = parseArguments(symbolTable);
     if(tokens[i]!=")")
     {
-        cout<<"Missing ')' in function call"<<"at line"<<instLine);
-        return NULL;
+        cout<<"Missing ')' in function call"<<"at line"<<instLine;
+        return nullptr;
     }
     //consume ")"
     ++i;
@@ -173,13 +216,13 @@ Node* Parser::exec_stmt(SymbolTable &symbolTable) {
 Node* Parser::func_def(SymbolTable &symbolTable) {
     //consume function
     ++i;
-    Node* identifier = NULL;
+    Node* identifier = nullptr;
     identifier = parseIdentifier();
-    Node* res=NULL;
+    Node* res=nullptr;
     if(tokens[i]!="(")
     {
         cout<<"Missing '(' in function def"<<"at line"<<instLine;
-        return NULL;
+        return nullptr;
     }
     //consume "("
     ++i;
@@ -190,7 +233,7 @@ Node* Parser::func_def(SymbolTable &symbolTable) {
     if(tokens[i]!=")")
     {
         cout<<"Missing ')' in function def"<<"at line"<<instLine;
-        return NULL;
+        return nullptr;
     }
     //consume ")"
     ++i;
@@ -220,6 +263,336 @@ Node* Parser::parseArguments(SymbolTable &symbolTable) {
     return res;
 }
 
+/**
+   * parameters ::= identifier (',' identifier)*
+   * @return
+   */
+Node* Parser::parseParameters(SymbolTable &symbolTable) {
+    vector<Node> parametersNodes;
+    while(tokens[i]!=")")
+    {
+        IdenNode* iden = static_cast<IdenNode *>(parseIdentifier());
+        parametersNodes.push_back(*iden);
+        std::string name = iden->getName();
+        symbolTable.symbolTableMap.emplace(name,0);
+        //consume ,
+        if(tokens[i]==",")
+            ++i;
+    }
+    TreeHelper treeHelp;
+    Node* res = treeHelp.makeAST("parameters",parametersNodes);
+    return res;
+}
+
+
+
+/**
+ if_stmt ::= "if" expression block
+            ( "elif" expression block )*
+            ("else" block)?
+
+ * @return
+ */
+Node* Parser::if_stmt(SymbolTable &symbolTable) {
+    Node* res = nullptr;
+    Node* exp = nullptr;
+    Node* block = nullptr;
+    Node* newBranch = nullptr;
+    string name = "";
+    SymbolTable* childTable = new SymbolTable();
+    symbolTable.childMaps.push_back(childTable);
+    childTable->parentMap = &symbolTable;
+    if(tokens[i]=="if" || tokens[i]=="elif")
+    {
+        name = tokens[i];
+        //consume if
+        ++i;
+        exp = expression(symbolTable);
+        block = parseBlock(*childTable);
+        if(i<tokens.size() && (tokens[i]=="elif" || tokens[i]=="else"))
+        {
+            newBranch = if_stmt(symbolTable);
+        }
+    }
+    else if(tokens[i]=="else")
+    {
+        name = tokens[i];
+        //consume else
+        ++i;
+        block = parseBlock(*childTable);
+    }
+    TreeHelper treeHelp;
+    res = treeHelp.makeAST(name,*exp,*block,*newBranch);
+    return res;
+}
+
+
+/**
+ * while_stmt ::= "while" expression block
+ * @return
+ */
+Node* Parser::while_stmt(SymbolTable &symbolTable) {
+    //consume while
+    ++i;
+    Node* exp = expression(symbolTable);
+    SymbolTable* childTable = new SymbolTable();
+    symbolTable.childMaps.push_back(childTable);
+    childTable->parentMap = &symbolTable;
+    Node* block = parseBlock(*childTable);
+    TreeHelper treeHelper;
+    return treeHelper.makeAST("while",*exp,*block);
+}
+
+Node* Parser::cont_stmt() {
+    //consume continue
+    ++i;
+    TreeHelper treeHelper;
+    Node* lhs = nullptr;
+    Node* rhs = nullptr;
+    return treeHelper.makeAST("continue",*lhs,*rhs);
+}
+
+Node* Parser::break_stmt() {
+    //consume break
+    ++i;
+    TreeHelper treeHelper;
+    Node* lhs = nullptr;
+    Node* rhs = nullptr;
+    return treeHelper.makeAST("break",*lhs,*rhs);
+}
+
+Node* Parser::print_stmt(SymbolTable &symbolTable) {
+    //consume print
+    ++i;
+    Node* res = expression(symbolTable);
+    Node* rhs = nullptr;
+    TreeHelper treeHelper;
+    res = treeHelper.makeAST("print",*res,*rhs);
+    return res;
+}
+
+Node* Parser::assign_stmt(SymbolTable &symbolTable) {
+    Node* res = nullptr;
+    res = parseIdentifier();
+    IdenNode* iden = (IdenNode*)res;
+    if(!lookup(iden->getName(),symbolTable))
+        symbolTable.symbolTableMap.emplace(iden->getName(),0);
+    //consume =
+    i+=1;
+    Node* rhs = expression(symbolTable);
+    TreeHelper treeHelper;
+    res = treeHelper.makeAST("=",*res,*rhs);
+    return res;
+}
+
+/*
+expression ::= or_expr
+
+or_expr ::= and_expr | and_expr "or" or_expr
+
+and_expr ::= not_expr | not_expr "and" and_expr
+
+not_expr ::= comp_expr | "not" not_expr
+
+comp_expr ::= a_expr | a_expr comp_opr comp_expr
+
+a_expr ::= m_expr | m_expr "+" a_expr | m_expr "-" a_expr
+
+m_expr ::= atom| atom "*" m_expr | atom "/" m_expr | atom "%" m_expr
+
+Atom ::= integer | identifier | “(” expression“)”
+
+comp_opr ::= "=="|"<>"|"<"|">"|"<="|">="
+
+*/
+
+Node* Parser::expression(SymbolTable &symbolTable){
+
+    Node* res = nullptr;
+    res = or_expr(symbolTable);
+    return res;
+}
+
+Node* Parser::or_expr(SymbolTable &symbolTable){
+    Node* res = nullptr;
+    res = and_expr(symbolTable);
+    if(i >= tokens.size())
+        return res;
+    if(tokens[i] == "or"){
+        i++;
+        Node* rhs = or_expr(symbolTable);
+        TreeHelper treeHelper;
+        res = treeHelper.makeAST("or",*res/*lhs*/,*rhs);
+    }
+    return res;
+}
+
+
+Node* Parser::and_expr(SymbolTable &symbolTable){
+    Node* res = nullptr;
+    res = not_expr(symbolTable);
+    if(i >= tokens.size())
+        return res;
+    if(tokens[i] == "and"){
+        i++;
+        Node* rhs = and_expr(symbolTable);
+        TreeHelper treeHelper;
+        res = treeHelper.makeAST("and",*res/*lhs*/,*rhs);
+    }
+    return res;
+}
+
+Node* Parser::not_expr(SymbolTable &symbolTable){
+    Node* res = nullptr;
+    if(i >= tokens.size())
+        return res;
+    if(tokens[i] == "not") {
+        i++;
+        // This should go to top expression i guess like here or || will correct later
+        //changed
+        Node* res1 = or_expr(symbolTable);
+        TreeHelper treeHelper;
+        Node *rhs = nullptr;
+        res = treeHelper.makeAST("not", *res1, *rhs);
+    }
+    else {
+        res = compar_exp(symbolTable);
+    }
+    return res;
+}
+
+
+
+Node* Parser::compar_exp(SymbolTable &symbolTable) {
+    Node* res = nullptr;
+    Node* res1 = nullptr;
+    TreeHelper treeHelper;
+    res = a_expr(symbolTable);
+    if(i >= tokens.size())
+        return res;
+    if(tokens[i] == "=="){
+        i++;
+        res1 = compar_exp(symbolTable);
+        res = treeHelper.makeAST("==",*res,*res1);
+    } else if(tokens[i] == "<>"){
+        i++;
+        res1 = compar_exp(symbolTable);
+        res = treeHelper.makeAST("<>",*res,*res1);
+    } else if(tokens[i] == "<"){
+        i++;
+        res1 = compar_exp(symbolTable);
+        res = treeHelper.makeAST("<",*res,*res1);
+    } else if(tokens[i] == ">"){
+        i++;
+        res1 = compar_exp(symbolTable);
+        res = treeHelper.makeAST(">",*res,*res1);
+    } else if(tokens[i] == "<="){
+        i++;
+        res1 = compar_exp(symbolTable);
+        res = treeHelper.makeAST("<=",*res,*res1);
+    } else if(tokens[i] == ">="){
+        i++;
+        res1 = compar_exp(symbolTable);
+        res = treeHelper.makeAST(">=",*res,*res1);
+    }
+    return res;
+}
+
+
+Node* Parser::a_expr(SymbolTable &symbolTable){
+    Node* res = nullptr;
+    Node* res1 = nullptr;
+    TreeHelper treeHelper;
+    res = m_expr(symbolTable);
+    if(i >= tokens.size())
+        return res;
+    if(tokens[i] == "+"){
+        i++;
+        res1 = a_expr(symbolTable);
+        res = treeHelper.makeAST("+",*res,*res1);
+    } else if(tokens[i] == "-"){
+        i++;
+        res1 = a_expr(symbolTable);
+        res = treeHelper.makeAST("-",*res,*res1);
+    }
+    return res;
+}
+
+
+Node* Parser::m_expr(SymbolTable &symbolTable){
+    Node* res = nullptr;
+    Node* res1 = nullptr;
+    res = atom(symbolTable);
+    TreeHelper treeHelper;
+    //need an else condition to throw error i guess
+    i++;
+    if(i >= tokens.size())
+        return res;
+    if(tokens[i] == "*"){
+        i++;
+        res1 = m_expr(symbolTable);
+        res = treeHelper.makeAST("*",*res,*res1);
+    } else if(tokens[i] == "/"){
+        i++;
+        res1 = m_expr(symbolTable);
+        res = treeHelper.makeAST("/",*res,*res1);
+    } else if(tokens[i] == "%"){
+        i++;
+        res1 = m_expr(symbolTable);
+        res = treeHelper.makeAST("%",*res,*res1);
+    }
+    return res;
+}
+
+
+Node* Parser::atom(SymbolTable &symbolTable)
+{
+    Node* res = nullptr;
+    Node* res1 = nullptr;
+    if(tokens[i] == "("){ //(3+4)*5
+        i++;
+        //need minor changes i guess if we are allowing (3<4)*4...should be top expression like here or_exp
+        res = expression(symbolTable);
+        if(tokens[i] != ")") {
+            cout<<"Expected )"<<"at line"<<instLine;
+            return nullptr;
+        }
+    }else if(tokens[i][0] >= '0' && tokens[i][0] <= '9'){
+        //should here be parsing number
+        res = new NumberNode(stoi(tokens[i]));
+    }else
+    { // java bugs ; can be written after if
+        if(!lookup(tokens[i],symbolTable))
+        {
+            cout<<tokens[i]<<" not defined earlier at line no "<<instLine;
+            exit(-1);
+        }
+        res = new IdenNode(tokens[i]);
+    }
+    return res;
+}
+
+//traverse up till you get a identifierName
+
+/**
+ *
+ * @param idenName
+ * @param symbolTable
+ * @return true if found
+ */
+bool Parser::lookup(string idenName, SymbolTable &symbolTable) {
+
+    if(symbolTable.symbolTableMap.count(idenName) > 0)
+    {
+        return true;
+    }
+    else if(symbolTable.parentMap!= nullptr)
+    {
+        return lookup(idenName,*symbolTable.parentMap);
+    }
+    return false;
+}
+
 
 
 int main()
@@ -233,5 +606,3 @@ int main()
    // Parser* parser = new Parser(token);
     //parser -> parseIdentifier();
 }
-
-

@@ -18,6 +18,7 @@ class Parser {
     int address = 0;
 public:
     Parser(const std::vector<std::string> &tokens);
+    Node* compar_exp(SymbolTable &symbolTable);
     Node* parseIdentifier();
     Node* getProgram(SymbolTable &symbolTable);
     Node* parseBlock(SymbolTable &symbolTable);
@@ -36,7 +37,6 @@ public:
     Node* or_expr(SymbolTable &symbolTable);
     Node* and_expr(SymbolTable &symbolTable);
     Node* not_expr(SymbolTable &symbolTable);
-    Node* compr_expr(SymbolTable &symbolTable);
     Node* a_expr(SymbolTable &symbolTable);
     Node* m_expr(SymbolTable &symbolTable);
     Node* atom(SymbolTable &symbolTable);
