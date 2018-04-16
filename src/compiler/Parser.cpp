@@ -554,7 +554,7 @@ Node* Parser::atom(SymbolTable &symbolTable)
         //need minor changes i guess if we are allowing (3<4)*4...should be top expression like here or_exp
         res = expression(symbolTable);
         if(tokens[i] != ")") {
-            cout<<"Expected )"<<"at line"<<instLine;
+            cout<<"Expected )"<<"at line"<<instLine<<"\n";
             return nullptr;
         }
     }else if(tokens[i][0] >= '0' && tokens[i][0] <= '9'){
@@ -564,7 +564,7 @@ Node* Parser::atom(SymbolTable &symbolTable)
     { // java bugs ; can be written after if
         if(!lookup(tokens[i],symbolTable))
         {
-            cout<<tokens[i]<<" not defined earlier at line no "<<instLine;
+            cout<<tokens[i]<<" not defined earlier at line no "<<instLine<<"\n";
             exit(-1);
         }
         res = new IdenNode(tokens[i]);
@@ -606,8 +606,9 @@ int main()
     SymbolTable *symbolTable1 = new SymbolTable();
     vector<std::string> program3 = {"function","complete","(","c",",","d",",","e",",","f",")","NEWLINE","INDENT","a","=","5","NEWLINE","i","=","1","NEWLINE","if","(","a","%","2","==","0",")","NEWLINE","INDENT","print","(","a",")","NEWLINE","DEDENT","else","NEWLINE","INDENT","while","(","i","<","10",")","NEWLINE","INDENT","print","(","i",")","NEWLINE","i","=","i","+","1","NEWLINE","DEDENT","DEDENT","DEDENT","complete","(","2","+","3",",","3","6","+","3",",","7",")","NEWLINE"};
     Parser *parser6 = new Parser(program3);
-    parser6->getProgram(*symbolTable1);
-    cout<<"done";
+    Node* node = parser6->getProgram(*symbolTable1);
+    TreeHelper treeHelper;
+    treeHelper.generateAddress(0,*symbolTable1);
    // Parser* parser = new Parser(token);
     //parser -> parseIdentifier();
 }

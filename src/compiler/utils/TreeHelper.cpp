@@ -17,8 +17,10 @@
 #include <compiler/utils/stmt/FuncNode.h>
 #include <compiler/utils/stmt/BranchNode.h>
 #include <map>
+#include <queue>
 #include "TreeHelper.h"
 #include "BlockNode.h"
+using namespace std;
 
 void TreeHelper::initialise() {
     map_values["%"] = mod;
@@ -136,3 +138,53 @@ Node* TreeHelper::makeAST(std::string name, Node &exp, Node &newNode1, Node &new
 }
 
 TreeHelper::TreeHelper() {}
+
+void TreeHelper::generateAddress(int startingAdress, SymbolTable &node) {
+    for( int i = 0; i < 3; ++i) {
+        cout<<" ";
+    }
+    int address=startingAdress;
+    queue<SymbolTable> que;
+    que.push(node);
+    node.startingAddress = startingAdress;
+    if(node.symbolTableMap.size()>0)
+    {
+        node.endingAddress = node.symbolTableMap.size()>0?node.startingAddress+node.symbolTableMap.size()-1:node.startingAddress;
+    }
+    while (!que.empty())
+    {
+        int size = que.size();
+        for(int i=0;i<size;i++)
+        {
+            SymbolTable currNode = que.front();
+            que.pop();
+            iterateAddress(currNode);
+            for(SymbolTable* childNode:currNode.childMaps)
+            {
+                childNode->startingAddress = currNode.symbolTableMap.size()>0?currNode.endingAddress+1:currNode.endingAddress;
+                if(childNode->symbolTableMap.size()==0)
+                {
+                    childNode->endingAddress = childNode->startingAddress;
+                }
+                else
+                    childNode->endingAddress = childNode->startingAddress + childNode->symbolTableMap.size()-1;
+                que.push(*childNode);
+            }
+        }
+        cout<<"New LEVEL"<<"\n";
+    }
+}
+
+void TreeHelper::iterateAddress(SymbolTable &symbolTable) {
+    if(symbolTable.symbolTableMap.size()==0)
+        cout<<"Empty Table"<<"\n";
+    cout<<"Symbol Table Starting Address: "<<symbolTable.startingAddress<<"    Symbol Table Ending Address:  "<<symbolTable.endingAddress;
+    int start = symbolTable.startingAddress;
+    for(auto & x :symbolTable.symbolTableMap)
+    {
+        string key = x.first;
+        symbolTable.symbolTableMap.emplace(key,start);
+        ++start;
+        cout<<start<<"  :start"<<x.first<<": lol"<<symbolTable.symbolTableMap[key]<<"\n";
+    }
+}
