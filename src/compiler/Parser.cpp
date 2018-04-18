@@ -609,6 +609,7 @@ int main()
     Node* node = parser6->getProgram(*symbolTable1);
     TreeHelper treeHelper;
     treeHelper.generateAddress(0,*symbolTable1);
+    cout<<"dome";
    // Parser* parser = new Parser(token);
     //parser -> parseIdentifier();
 }
