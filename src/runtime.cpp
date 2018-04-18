@@ -14,10 +14,39 @@
 #define TRUE 1
 #define FALSE 0
 
-int nglobals = -1;
-std::vector<int> globals;
+context::context(context *caller, int ip){
 
-void add_global(int ind, int val){
+caller_context = caller;
+return_ip = ip;
+}
+
+void context::add_local(int ind, int val){
+
+    if(ind > nlocals){
+        nlocals++;
+        locals.push_back(val);
+    }else{
+        locals.at(ind) = val;
+    };
+}
+
+int context::get_local(int ind) {
+
+    return locals.at(ind);
+}
+
+context::~context(){
+
+    locals.clear();
+}
+
+runtime::runtime(int *c, int c_len){
+
+    code = c;
+    code_len = c_len;
+}
+
+void runtime::add_global(int ind, int val){
 
     if(ind > nglobals){
         nglobals++;
@@ -27,17 +56,17 @@ void add_global(int ind, int val){
     };
 }
 
-int get_global(int ind){
+int runtime::get_global(int ind){
 
     return globals.at(ind);
 }
 
-void run(int *code, int codelen) {
+void runtime::run() {
     int ip = code[0];
-    run(code, codelen, ip);
+    run(ip);
 }
 
-void run(int *code, int codelen, int ip) {
+void runtime::run(int ip) {
     int sp = -1;
     int a = 0;
     int b = 0;
@@ -45,7 +74,7 @@ void run(int *code, int codelen, int ip) {
     int stack[STACK_SIZE];
     int opcode = code[ip];
     context *ctx = new context(NULL, 0);
-    while (ip < codelen) {
+    while (ip < code_len) {
         ip++;
         switch (opcode) {
             case PUSH: {
@@ -195,18 +224,20 @@ void run(int *code, int codelen, int ip) {
                 break;
             }
             case EXIT: {
-                delete (ctx);
-                globals.clear();
                 std::cout << "Program exited successfully" << std::endl;
                 break;
             }
             default: {
-                delete (ctx);
-                globals.clear();
-                std::cout << "Program exited. Something went wrong." << std::endl;
+                std::cout << "Program exited due to invalid op-code. Something went wrong." << std::endl;
                 break;
             }
         }
         opcode = code[ip];
     }
+}
+
+runtime::~runtime() {
+
+    delete(ctx);
+    globals.clear();
 }

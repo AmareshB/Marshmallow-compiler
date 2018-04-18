@@ -12,39 +12,28 @@ public:
     context *caller_context;
     int return_ip;
 
-    context(context *caller, int ip){
-
-        caller_context = caller;
-        return_ip = ip;
-    }
-
-    void add_local(int ind, int val){
-
-        if(ind > nlocals){
-            nlocals++;
-            locals.push_back(val);
-        }else{
-            locals.at(ind) = val;
-        };
-    }
-
-    int get_local(int ind) {
-
-        return locals.at(ind);
-    }
-
-    ~context(){
-
-        locals.clear();
-    }
+    context(context *caller, int ip);
+    void add_local(int ind, int val);
+    int get_local(int ind);
+    ~context();
 };
 
-void run(int *code, int codelen);
+class runtime{
 
-void run(int *code, int codelen, int ip);
+private:
+    int *code;
+    int code_len;
+    int nglobals = -1;
+    std::vector<int> globals;
+    context *ctx;
+    void run(int ip);
+    void add_global(int ind, int val);
+    int get_global(int ind);
 
-void add_global(int ind, int val);
-
-int get_global(int ind);
+public:
+    runtime(int *c, int c_len);
+    void run();
+    ~runtime();
+};
 
 
