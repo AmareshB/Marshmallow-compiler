@@ -14,10 +14,8 @@ class BreakNode : public StatementNode {
     std::string name;
 
 public:
-    BreakNode(const std::string &name);
-
-    friend std::ostream &operator<<(std::ostream &os, const BreakNode &node);
-
+    BreakNode( std::string &name);
+    std::string getType();
 };
 
 

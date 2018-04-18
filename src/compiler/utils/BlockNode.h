@@ -14,9 +14,8 @@ class BlockNode : public Node{
     std::vector<Node*> childStmt;
 
 public:
-    BlockNode(const std::string &name, const std::vector<Node*> &childStmt);
-
-    friend std::ostream &operator<<(std::ostream &os, const BlockNode &node);
+    BlockNode( std::string &name,  std::vector<Node*> &childStmt);
+    std::string getType();
 
 };
 

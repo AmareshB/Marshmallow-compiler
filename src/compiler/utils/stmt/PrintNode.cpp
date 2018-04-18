@@ -4,6 +4,10 @@
 
 #include "PrintNode.h"
 
-PrintNode::PrintNode(const std::string &name, const Node &child) : name(name), child(child) {}
+std::string PrintNode::getType() {
+    return name;
+}
+
+PrintNode::PrintNode( std::string &name, Node *child) : name(name), child(child) {}
 
 

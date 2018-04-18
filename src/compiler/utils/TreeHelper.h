@@ -50,9 +50,9 @@ private:
     };
      std::map<std::string, string_value> map_values;
 public:
-     Node* makeAST(std::string name,Node& lhs, Node& rhs);
+     Node* makeAST(std::string name,Node* lhs, Node* rhs);
      Node* makeAST(std::string name, std::vector<Node *>& nodes);
-     Node* makeAST(std::string name, Node& exp, Node& newNode1, Node& newNode2);
+     Node* makeAST(std::string name, Node* exp, Node* newNode1, Node* newNode2);
      void generateAddress(int startingAdress, SymbolTable& node );
      void iterateAddress(SymbolTable& symbolTable);
      void initialise();

@@ -12,14 +12,15 @@
 
 class AssignNode : public StatementNode{
 
-    std::string name;
-    Node lhs;
-    Node rhs;
-
 public:
-    AssignNode(const std::string &name, const Node &lhs, const Node &rhs);
+    std::string name;
+    Node* lhs;
+    Node* rhs;
 
-    friend std::ostream &operator<<(std::ostream &os, const AssignNode &node);
+    AssignNode( std::string &name, Node *lhs, Node *rhs);
+
+    std::string getType();
+    friend std::ostream &operator<<(std::ostream &os,  AssignNode &node);
 };
 
 

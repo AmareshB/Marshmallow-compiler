@@ -3,3 +3,7 @@
 //
 
 #include "Node.h"
+
+std::string Node::getType() {
+    return "node";
+}

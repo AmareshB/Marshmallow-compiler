@@ -5,14 +5,16 @@
 #include <string>
 #include "IdenNode.h"
 
-IdenNode::IdenNode(const std::string &name) : name(name) {}
+IdenNode::IdenNode( std::string &name) : name(name) {}
 
-const std::string &IdenNode::getName() const {
+ std::string &IdenNode::getName()  {
     return name;
 }
 
-void IdenNode::setName(const std::string &name) {
-    IdenNode::name = name;
+
+
+std::string IdenNode::getType() {
+    return "identifier";
 }
 
 

@@ -9,6 +9,8 @@
 #include <compiler/utils/other_nodes/Node.h>
 
 class StatementNode : public Node{
+public:
+    virtual std::string getType();
 
 };
 

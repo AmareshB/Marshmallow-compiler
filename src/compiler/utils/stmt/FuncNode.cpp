@@ -4,7 +4,15 @@
 
 #include "FuncNode.h"
 
-FuncNode::FuncNode(const std::string &name, const Node &identifier, const Node &parameters, const Node &block) : name(
-        name), identifier(identifier), parameters(parameters), block(block) {}
+
+
+std::string FuncNode::getType() {
+    return name;
+}
+
+FuncNode::FuncNode( std::string &name, Node *identifier, Node *parameters, Node *block) : name(name),
+                                                                                               parameters(parameters),
+                                                                                               block(block),
+                                                                                               identifier(identifier) {}
 
 

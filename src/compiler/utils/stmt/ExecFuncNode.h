@@ -13,13 +13,14 @@
 class ExecFuncNode : public StatementNode{
 
     std::string name;
-    Node funcName;
-    Node params;
+    Node* funcName;
+    Node* params;
 
 public:
-    ExecFuncNode(const std::string &name, const Node &funcName, const Node &params);
+    ExecFuncNode( std::string &name, Node *funcName, Node *params);
 
-    friend std::ostream &operator<<(std::ostream &os, const ExecFuncNode &node);
+    std::string getType();
+
 
 };
 

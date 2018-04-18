@@ -12,13 +12,14 @@
 
 class BranchNode : public StatementNode{
     std::string name;
-    Node condition;
-    Node bodyBlock;
-    Node branch;
+    Node* condition;
+    Node* bodyBlock;
+    Node* branch;
 
 public:
-    BranchNode(const std::string &name, const Node &condition, const Node &bodyBlock, const Node &branch);
+    BranchNode( std::string &name, Node *condition, Node *bodyBlock, Node *branch);
 
+    std::string getType();
 };
 
 

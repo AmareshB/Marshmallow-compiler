@@ -4,6 +4,14 @@
 
 #include "BranchNode.h"
 
-BranchNode::BranchNode(const std::string &name, const Node &condition, const Node &bodyBlock, const Node &branch)
-        : name(name), condition(condition), bodyBlock(bodyBlock), branch(branch) {}
+
+
+std::string BranchNode::getType() {
+    return name;
+}
+
+BranchNode::BranchNode( std::string &name, Node *condition, Node *bodyBlock, Node *branch) : name(name),
+                                                                                                  condition(condition),
+                                                                                                  bodyBlock(bodyBlock),
+                                                                                                  branch(branch) {}
 
