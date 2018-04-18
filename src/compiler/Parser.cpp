@@ -34,10 +34,10 @@ Node* Parser::parseIdentifier() {
 Node* Parser::getProgram(SymbolTable &symbolTable)
 {
     Node* res=nullptr;
-    std::vector<Node> statements;
+    std::vector<Node *> statements;
     while(i<tokens.size())
     {
-        statements.push_back(*parseStatement(symbolTable));
+        statements.push_back(parseStatement(symbolTable));
     }
     TreeHelper treeH;
     res = treeH.makeAST("program", statements);
@@ -50,7 +50,7 @@ Node* Parser::getProgram(SymbolTable &symbolTable)
  */
 Node* Parser::parseBlock(SymbolTable &symbolTable)
 {
-    std::vector<Node> statements;
+    std::vector<Node*> statements;
     if(tokens[i] != "NEWLINE")
     {
         cout<<"No new line found at "<<tokens[i]<<"at line"+instLine;
@@ -71,7 +71,7 @@ Node* Parser::parseBlock(SymbolTable &symbolTable)
             }
             else
             {
-                statements.push_back(*parseStatement(symbolTable));
+                statements.push_back(parseStatement(symbolTable));
             }
         }
         //consume dedent
@@ -250,10 +250,10 @@ Node* Parser::func_def(SymbolTable &symbolTable) {
    * @return
    */
 Node* Parser::parseArguments(SymbolTable &symbolTable) {
-    vector<Node> argumentNodes;
+    vector<Node*> argumentNodes;
     while(tokens[i]!=")")
     {
-        argumentNodes.push_back(*expression(symbolTable));
+        argumentNodes.push_back(expression(symbolTable));
         //consume ,
         if(tokens[i]==",")
             ++i;
@@ -268,11 +268,11 @@ Node* Parser::parseArguments(SymbolTable &symbolTable) {
    * @return
    */
 Node* Parser::parseParameters(SymbolTable &symbolTable) {
-    vector<Node> parametersNodes;
+    vector<Node*> parametersNodes;
     while(tokens[i]!=")")
     {
         IdenNode* iden = static_cast<IdenNode *>(parseIdentifier());
-        parametersNodes.push_back(*iden);
+        parametersNodes.push_back(iden);
         std::string name = iden->getName();
         symbolTable.symbolTableMap.emplace(name,0);
         //consume ,
@@ -592,7 +592,6 @@ bool Parser::lookup(string idenName, SymbolTable &symbolTable) {
     }
     return false;
 }
-
 
 
 int main()

@@ -4,7 +4,7 @@
 
 #include "ArgumentsNode.h"
 
-ArgumentsNode::ArgumentsNode(const std::string &name, const std::vector<Node> &arguments) : name(name),
+ArgumentsNode::ArgumentsNode(const std::string &name, const std::vector<Node*> &arguments) : name(name),
                                                                                             arguments(arguments) {}
 
 

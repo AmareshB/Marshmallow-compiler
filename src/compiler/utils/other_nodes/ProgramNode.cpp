@@ -4,7 +4,7 @@
 
 #include "ProgramNode.h"
 
-ProgramNode::ProgramNode( std::string &name, std::vector<Node> &childStmt) : name(name),
+ProgramNode::ProgramNode( std::string &name, std::vector<Node*> &childStmt) : name(name),
                                                                                         childStmt(childStmt) {}
 
 

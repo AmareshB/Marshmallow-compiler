@@ -4,7 +4,7 @@
 
 #include "ParametersNode.h"
 
-ParametersNode::ParametersNode(const std::string &name, const std::vector<Node> &parameters) : name(name),
+ParametersNode::ParametersNode(const std::string &name, const std::vector<Node*> &parameters) : name(name),
                                                                                                parameters(parameters) {}
 
 

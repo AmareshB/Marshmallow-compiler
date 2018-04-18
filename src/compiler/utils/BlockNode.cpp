@@ -4,5 +4,5 @@
 
 #include "BlockNode.h"
 
-BlockNode::BlockNode(const std::string &name, const std::vector<Node> &childStmt) : name(name), childStmt(childStmt) {}
+BlockNode::BlockNode(const std::string &name, const std::vector<Node*> &childStmt) : name(name), childStmt(childStmt) {}
 

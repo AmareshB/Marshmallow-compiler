@@ -14,9 +14,9 @@
 class ParametersNode : public Node {
 
     std::string name;
-    std::vector<Node> parameters;
+    std::vector<Node*> parameters;
 public:
-    ParametersNode(const std::string &name, const std::vector<Node> &parameters);
+    ParametersNode(const std::string &name, const std::vector<Node*> &parameters);
 
 
 };

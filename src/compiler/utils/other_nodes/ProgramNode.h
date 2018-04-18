@@ -13,9 +13,9 @@
 
 class ProgramNode : public Node{
     std::string name;
-    std::vector<Node> childStmt;
+    std::vector<Node*> childStmt;
 public:
-    ProgramNode(std::string &name,std::vector<Node> &childStmt);
+    ProgramNode(std::string &name,std::vector<Node*> &childStmt);
 
 };
 

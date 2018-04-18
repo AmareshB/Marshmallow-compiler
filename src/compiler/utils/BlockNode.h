@@ -11,10 +11,10 @@
 
 class BlockNode : public Node{
     std::string name;
-    std::vector<Node> childStmt;
+    std::vector<Node*> childStmt;
 
 public:
-    BlockNode(const std::string &name, const std::vector<Node> &childStmt);
+    BlockNode(const std::string &name, const std::vector<Node*> &childStmt);
 
     friend std::ostream &operator<<(std::ostream &os, const BlockNode &node);
 

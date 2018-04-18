@@ -99,7 +99,7 @@ Node* TreeHelper::makeAST(std::string name, Node& lhs, Node& rhs) {
     return resultNode;
 }
 
-Node* TreeHelper::makeAST(std::string name, std::vector<Node> &nodes) {
+Node* TreeHelper::makeAST(std::string name, std::vector<Node *> &nodes) {
     initialise();
     Node* resultNode = NULL;
     //will add identifier later
