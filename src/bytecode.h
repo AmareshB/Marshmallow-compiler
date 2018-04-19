@@ -2,6 +2,9 @@
 // Created by Ejaz on 4/12/2018.
 //
 
+#ifndef SER502_SPRING2018_TEAM15_BYTECODE_H
+#define SER502_SPRING2018_TEAM15_BYTECODE_H
+
 #define PUSH   0
 #define POP    1
 #define STORE  2
@@ -29,3 +32,5 @@
 #define NOOP   24
 #define GSTORE 25
 #define GLOAD  26
+
+#endif

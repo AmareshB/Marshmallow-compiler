@@ -18,7 +18,7 @@ static int test1[] = {
 
 static int test2[]{
         1,
-        //Check is number is odd or even -1 if even, -2 if odd
+        //Check is number is odd or even, -1 if even, -2 if odd
         PUSH, 5,  //1
         STORE, 0, //3
         PUSH, 2,  //5
@@ -38,6 +38,32 @@ static int test2[]{
 };
 
 static int test3[] = {
+        1,
+        //prints even numbers from 20 - 0
+        PUSH, 20,   //1
+        GSTORE, 0,  //3
+        PUSH, 0,    //5
+        GLOAD, 0,   //7
+        GT,         //9
+        BRF, 36,    //10
+        PUSH, 2,    //12
+        GLOAD, 0,   //14
+        MOD,        //16
+        PUSH, 0,    //17
+        EQ,         //19
+        BRF, 27,    //20
+        GLOAD, 0,   //22
+        PRINT,      //24
+        BR, 27,     //25
+        PUSH, 1,    //27
+        GLOAD, 0,   //29
+        SUB,        //31
+        GSTORE, 0,  //32
+        BR, 5,     //34
+        EXIT        //36
+
+};
+static int test4[] = {
         23,
 // Factorial of a number
 //	IF N < 2 RETURN 1
@@ -62,12 +88,13 @@ static int test3[] = {
         EXIT                  // 29
 };
 
+/*int main() {
 
-/*
-int main() {
-    runtime *r = new runtime(test3, sizeof(test3)/ sizeof(int));
-    //run(test1, sizeof(test1)/ sizeof(int));
-    //run(test2, sizeof(test2)/ sizeof(int));
-    r->run();
+    runtime *r;
+
+    r = new runtime(test1, sizeof(test1)/ sizeof(int)); r->run();
+    r = new runtime(test2, sizeof(test2)/ sizeof(int)); r->run();
+    r = new runtime(test3, sizeof(test3)/ sizeof(int)); r->run();
+    r = new runtime(test4, sizeof(test4)/ sizeof(int)); r->run();
     delete(r);
 }*/

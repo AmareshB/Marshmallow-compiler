@@ -595,15 +595,15 @@ bool Parser::lookup(string idenName, SymbolTable &symbolTable) {
     return false;
 }
 
-/*
+
 int main()
 {
-    /*std::vector<IdenNode *> token;
-    token.push_back(new IdenNode("bala"));
-    token.push_back(new IdenNode("bals"));
-    std::cout<<token[0]->getName();
-    token[0]->setName("Ejaz");
-    std::cout<<token[0]->getName();
+    std::vector<IdenNode *> token;
+    //token.push_back(new IdenNode("bala"));
+    //token.push_back(new IdenNode("bals"));
+    //std::cout<<token[0]->getName();
+    //token[0]->setName("Ejaz");
+    //std::cout<<token[0]->getName();
     SymbolTable *symbolTable1 = new SymbolTable();
     //vector<std::string> program3 = {"function","complete","(","c",",","d",",","e",",","f",")","NEWLINE","INDENT","a","=","5","NEWLINE","i","=","1","NEWLINE","if","(","a","%","2","==","0",")","NEWLINE","INDENT","print","(","a",")","NEWLINE","DEDENT","else","NEWLINE","INDENT","while","(","i","<","10",")","NEWLINE","INDENT","print","(","i",")","NEWLINE","i","=","i","+","1","NEWLINE","DEDENT","DEDENT","DEDENT","complete","(","2","+","3",",","3","6","+","3",",","7",")","NEWLINE"};
     vector<string> program3 = {"print","2","+","3","NEWLINE"};
@@ -612,12 +612,14 @@ int main()
     TreeHelper treeHelper;
     treeHelper.generateAddress(0,*symbolTable1);
     cout<<node->getType();
-    ProgramNode *programNode = dynamic_cast<ProgramNode *>(node);
-    cout<<"number of children " << programNode->childStmt.size();
-   //FuncNode *funcNode = static_cast<FuncNode *>(programNode->childStmt[0]);
-    //cout<< funcNode->name;
-    //IdenNode *idenNode = static_cast<IdenNode *>(funcNode->identifier);
 
+   if(node->getType()=="program") {
+        ProgramNode *programNode = dynamic_cast<ProgramNode *>(node);
+        FuncNode *funcNode = static_cast<FuncNode *>(programNode->childStmt[0]);
+        IdenNode *idenNode = static_cast<IdenNode *>(funcNode->identifier);
+    }
+        cout<<"expansion";
    // Parser* parser = new Parser(token);
     //parser -> parseIdentifier();
-}*/
+}
+

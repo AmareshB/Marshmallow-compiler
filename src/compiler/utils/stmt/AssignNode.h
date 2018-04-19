@@ -20,7 +20,6 @@ public:
     AssignNode( std::string &name, Node *lhs, Node *rhs);
 
     std::string getType();
-    friend std::ostream &operator<<(std::ostream &os,  AssignNode &node);
 };
 
 

@@ -15,8 +15,6 @@
 class IdenNode : public ExpNode {
 public:
     IdenNode( std::string &name);
-
-private:
     std::string name;
 public:
      std::string &getName() ;

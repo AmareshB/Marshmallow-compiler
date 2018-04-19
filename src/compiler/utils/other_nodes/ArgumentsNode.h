@@ -12,9 +12,9 @@
 #include "ExpNode.h"
 
 class ArgumentsNode : public ExpNode{
+public:
     std::string name;
     std::vector<Node*> arguments;
-public:
     ArgumentsNode( std::string &name,  std::vector<Node*> &arguments);
     std::string getType();
 
