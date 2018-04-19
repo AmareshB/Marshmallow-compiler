@@ -14,14 +14,13 @@
 #define TRUE 1
 #define FALSE 0
 
-context::context(context *caller, int ip){
-
-caller_context = caller;
-return_ip = ip;
+context::context(context *caller, int ip) {
+    caller_context = caller;
+    return_ip = ip;
+    locals.clear();
 }
 
 void context::add_local(int ind, int val){
-
     if(ind > nlocals){
         nlocals++;
         locals.push_back(val);
@@ -31,23 +30,21 @@ void context::add_local(int ind, int val){
 }
 
 int context::get_local(int ind) {
-
     return locals.at(ind);
 }
 
 context::~context(){
-
-    locals.clear();
+     //locals.push_back(-1);
+     locals.clear();
 }
 
 runtime::runtime(int *c, int c_len){
-
     code = c;
     code_len = c_len;
+    globals.clear();
 }
 
 void runtime::add_global(int ind, int val){
-
     if(ind > nglobals){
         nglobals++;
         globals.push_back(val);
@@ -57,7 +54,6 @@ void runtime::add_global(int ind, int val){
 }
 
 int runtime::get_global(int ind){
-
     return globals.at(ind);
 }
 
@@ -225,11 +221,13 @@ void runtime::run(int ip) {
             }
             case EXIT: {
                 std::cout << "Program exited successfully" << std::endl;
-                break;
+                delete (ctx);
+                return;
             }
             default: {
                 std::cout << "Program exited due to invalid op-code. Something went wrong." << std::endl;
-                break;
+                delete (ctx);
+                return;
             }
         }
         opcode = code[ip];
@@ -237,7 +235,5 @@ void runtime::run(int ip) {
 }
 
 runtime::~runtime() {
-
-    delete(ctx);
     globals.clear();
 }
