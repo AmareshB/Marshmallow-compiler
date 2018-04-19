@@ -11,12 +11,13 @@
 #include "StatementNode.h"
 
 class BranchNode : public StatementNode{
+public:
     std::string name;
     Node* condition;
     Node* bodyBlock;
     Node* branch;
 
-public:
+
     BranchNode( std::string &name, Node *condition, Node *bodyBlock, Node *branch);
 
     std::string getType();

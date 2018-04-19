@@ -12,9 +12,9 @@
 
 class PrintNode : public StatementNode {
 
+public:
     std::string name;
     Node* child;
-public:
     PrintNode( std::string &name, Node *child);
 
     std::string getType();

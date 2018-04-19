@@ -12,8 +12,8 @@
 #include "Node.h"
 
 class ProgramNode : public Node{
-    std::string name;
 public:
+    std::string name;
     ProgramNode(std::string &name,std::vector<Node*> &childStmt);
     std::string getType();
 

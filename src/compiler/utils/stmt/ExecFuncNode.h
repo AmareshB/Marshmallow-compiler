@@ -12,11 +12,12 @@
 
 class ExecFuncNode : public StatementNode{
 
+public:
     std::string name;
     Node* funcName;
     Node* params;
 
-public:
+
     ExecFuncNode( std::string &name, Node *funcName, Node *params);
 
     std::string getType();

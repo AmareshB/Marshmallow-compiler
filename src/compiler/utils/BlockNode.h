@@ -10,10 +10,11 @@
 #include <ostream>
 
 class BlockNode : public Node{
+public:
     std::string name;
     std::vector<Node*> childStmt;
 
-public:
+
     BlockNode( std::string &name,  std::vector<Node*> &childStmt);
     std::string getType();
 

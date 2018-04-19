@@ -611,10 +611,13 @@ int main()
     TreeHelper treeHelper;
     treeHelper.generateAddress(0,*symbolTable1);
     cout<<node->getType();
-    ProgramNode *programNode = dynamic_cast<ProgramNode *>(node);
-    FuncNode *funcNode = static_cast<FuncNode *>(programNode->childStmt[0]);
-    IdenNode *idenNode = static_cast<IdenNode *>(funcNode->identifier);
-    cout<<"expansion";
+    if(node->getType()=="program") {
+        ProgramNode *programNode = dynamic_cast<ProgramNode *>(node);
+        FuncNode *funcNode = static_cast<FuncNode *>(programNode->childStmt[0]);
+        IdenNode *idenNode = static_cast<IdenNode *>(funcNode->identifier);
+    }
+        cout<<"expansion";
    // Parser* parser = new Parser(token);
     //parser -> parseIdentifier();
 }
+
