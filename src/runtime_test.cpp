@@ -5,12 +5,6 @@
 #include <iostream>
 #include "bytecode.h"
 #include "runtime.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
 
 static int test1[] = {
         1, //Starting opcode and storage mem
@@ -88,7 +82,7 @@ static int test4[] = {
         MUL,                  // 21
         RET,                  // 22
 // MAIN
-        PUSH, 7,              // 23
+        PUSH, 5,              // 23
         CALL, 1, 1,           // 25
         PRINT,                // 28
         EXIT                  // 29
@@ -103,7 +97,4 @@ int main() {
     r = new runtime(test3, sizeof(test3)/ sizeof(int)); r->run();
     r = new runtime(test4, sizeof(test4)/ sizeof(int)); r->run();
     delete(r);
-
 }
-
-
