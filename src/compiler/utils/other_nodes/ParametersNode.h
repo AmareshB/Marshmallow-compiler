@@ -13,9 +13,9 @@
 
 class ParametersNode : public Node {
 
+public:
     std::string name;
     std::vector<Node*> parameters;
-public:
     ParametersNode( std::string &name,  std::vector<Node*> &parameters);
     std::string getType();
 

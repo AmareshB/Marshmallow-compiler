@@ -11,9 +11,10 @@
 #include "ExpNode.h"
 
 class BinaryNode: public ExpNode {
+public:
     std::string name;
     Node *lhs,*rhs;
-public:
+
     BinaryNode(const std::string &name, Node *lhs, Node *rhs);
 
 public:

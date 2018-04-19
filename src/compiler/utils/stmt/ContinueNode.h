@@ -12,8 +12,9 @@
 
 class ContinueNode : public StatementNode{
 
-    std::string name;
 public:
+    std::string name;
+
     ContinueNode( std::string &name);
     std::string getType();
 };

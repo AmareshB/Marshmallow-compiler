@@ -11,9 +11,10 @@
 #include "StatementNode.h"
 
 class BreakNode : public StatementNode {
+public:
     std::string name;
 
-public:
+
     BreakNode( std::string &name);
     std::string getType();
 };

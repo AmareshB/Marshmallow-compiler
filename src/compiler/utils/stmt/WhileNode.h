@@ -12,10 +12,11 @@
 
 class WhileNode : public StatementNode{
 
+public:
     std::string name;
     Node* expression;
     Node* block;
-public:
+
     WhileNode( std::string &name, Node *expression, Node *block);
 
     std::string getType();
