@@ -3,3 +3,7 @@
 //
 
 #include "ExpNode.h"
+
+std::string ExpNode::getType() {
+    return "expnode";
+}

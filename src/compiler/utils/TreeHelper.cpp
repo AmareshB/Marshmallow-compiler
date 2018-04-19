@@ -52,7 +52,7 @@ void TreeHelper::initialise() {
     map_values["if"] = _if;
     map_values["elif"] = _elif;
 };
-Node* TreeHelper::makeAST(std::string name, Node& lhs, Node& rhs) {
+Node* TreeHelper::makeAST(std::string name, Node* lhs, Node* rhs) {
 
     initialise();
 
@@ -99,7 +99,7 @@ Node* TreeHelper::makeAST(std::string name, Node& lhs, Node& rhs) {
     return resultNode;
 }
 
-Node* TreeHelper::makeAST(std::string name, std::vector<Node> &nodes) {
+Node* TreeHelper::makeAST(std::string name, std::vector<Node *> &nodes) {
     initialise();
     Node* resultNode = NULL;
     //will add identifier later
@@ -121,7 +121,7 @@ Node* TreeHelper::makeAST(std::string name, std::vector<Node> &nodes) {
     return resultNode;
 }
 
-Node* TreeHelper::makeAST(std::string name, Node &exp, Node &newNode1, Node &newNode2) {
+Node* TreeHelper::makeAST(std::string name, Node* exp, Node *newNode1, Node *newNode2) {
     initialise();
     Node* resultNode = NULL;
     switch(map_values[name])

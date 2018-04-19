@@ -6,5 +6,9 @@
 
 NumberNode::NumberNode(int val) : val(val) {}
 
+std::string NumberNode::getType() {
+    return "number";
+}
+
 
 

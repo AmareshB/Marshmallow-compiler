@@ -4,6 +4,11 @@
 
 #include "AssignNode.h"
 
-AssignNode::AssignNode(const std::string &name, const Node &lhs, const Node &rhs) : name(name), lhs(lhs), rhs(rhs) {}
+std::string AssignNode::getType() {
+    return "assign";
+}
+
+AssignNode::AssignNode(std::string &name, Node *lhs, Node *rhs) : name(name), lhs(lhs), rhs(rhs) {}
+
 
 

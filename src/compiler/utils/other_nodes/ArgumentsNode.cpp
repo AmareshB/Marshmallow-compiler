@@ -4,7 +4,11 @@
 
 #include "ArgumentsNode.h"
 
-ArgumentsNode::ArgumentsNode(const std::string &name, const std::vector<Node> &arguments) : name(name),
+ArgumentsNode::ArgumentsNode( std::string &name,  std::vector<Node*> &arguments) : name(name),
                                                                                             arguments(arguments) {}
+
+std::string ArgumentsNode::getType() {
+    return name;
+}
 
 

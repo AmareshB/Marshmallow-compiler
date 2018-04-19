@@ -13,12 +13,13 @@
 class WhileNode : public StatementNode{
 
     std::string name;
-    Node expression;
-    Node block;
+    Node* expression;
+    Node* block;
 public:
-    WhileNode(const std::string &name, const Node &expression, const Node &block);
+    WhileNode( std::string &name, Node *expression, Node *block);
 
-    friend std::ostream &operator<<(std::ostream &os, const WhileNode &node);
+    std::string getType();
+
 };
 
 

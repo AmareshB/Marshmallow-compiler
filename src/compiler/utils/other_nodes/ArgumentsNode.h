@@ -13,10 +13,10 @@
 
 class ArgumentsNode : public ExpNode{
     std::string name;
-    std::vector<Node> arguments;
+    std::vector<Node*> arguments;
 public:
-    ArgumentsNode(const std::string &name, const std::vector<Node> &arguments);
-
+    ArgumentsNode( std::string &name,  std::vector<Node*> &arguments);
+    std::string getType();
 
 };
 

@@ -13,11 +13,12 @@
 class PrintNode : public StatementNode {
 
     std::string name;
-    Node child;
+    Node* child;
 public:
-    PrintNode(const std::string &name, const Node &child);
+    PrintNode( std::string &name, Node *child);
 
-    friend std::ostream &operator<<(std::ostream &os, const PrintNode &node);
+    std::string getType();
+
 };
 
 

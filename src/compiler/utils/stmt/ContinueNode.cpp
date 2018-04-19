@@ -4,5 +4,9 @@
 
 #include "ContinueNode.h"
 
-ContinueNode::ContinueNode(const std::string &name) : name(name) {}
+ContinueNode::ContinueNode( std::string &name) : name(name) {}
+
+std::string ContinueNode::getType() {
+    return name;
+}
 

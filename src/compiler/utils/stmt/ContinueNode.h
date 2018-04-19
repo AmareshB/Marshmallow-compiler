@@ -14,9 +14,8 @@ class ContinueNode : public StatementNode{
 
     std::string name;
 public:
-    ContinueNode(const std::string &name);
-
-    friend std::ostream &operator<<(std::ostream &os, const ContinueNode &node);
+    ContinueNode( std::string &name);
+    std::string getType();
 };
 
 

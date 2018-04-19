@@ -3,3 +3,7 @@
 //
 
 #include "StatementNode.h"
+
+std::string StatementNode::getType() {
+    return "statement";
+}

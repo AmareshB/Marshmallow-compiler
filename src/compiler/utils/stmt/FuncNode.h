@@ -12,15 +12,14 @@
 
 class FuncNode : public StatementNode{
 
-    std::string name;
-    Node identifier;
-    Node parameters;
-    Node block;
-
 public:
-    FuncNode(const std::string &name, const Node &identifier, const Node &parameters, const Node &block);
+    std::string name;
+    Node* parameters;
+    Node* block;
+    Node* identifier;
+    std::string getType();
 
-    friend std::ostream &operator<<(std::ostream &os, const FuncNode &node);
+    FuncNode(std::string &name, Node *identifier, Node *parameters, Node *block);
 };
 
 

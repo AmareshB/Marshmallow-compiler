@@ -13,10 +13,11 @@
 
 class ProgramNode : public Node{
     std::string name;
-    std::vector<Node> childStmt;
 public:
-    ProgramNode(std::string &name,std::vector<Node> &childStmt);
+    ProgramNode(std::string &name,std::vector<Node*> &childStmt);
+    std::string getType();
 
+    std::vector<Node*> childStmt;
 };
 
 #endif //SER502_SPRING2018_TEAM15_PROGRAMNODE_H

@@ -14,15 +14,14 @@
 
 class IdenNode : public ExpNode {
 public:
-    IdenNode(const std::string &name);
+    IdenNode( std::string &name);
 
 private:
     std::string name;
 public:
-    const std::string &getName() const;
+     std::string &getName() ;
 
-    void setName(const std::string &name);
-
+    std::string getType();
 };
 
 

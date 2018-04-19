@@ -12,10 +12,13 @@
 
 class BinaryNode: public ExpNode {
     std::string name;
-    Node lhs,rhs;
+    Node *lhs,*rhs;
 public:
-    BinaryNode(const std::string &name, const Node &lhs, const Node &rhs);
+    BinaryNode(const std::string &name, Node *lhs, Node *rhs);
 
+public:
+
+    std::string getType();
 
 };
 

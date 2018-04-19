@@ -8,7 +8,8 @@
 #include "Node.h"
 
 class ExpNode : public Node{
-
+public:
+    virtual std::string getType();
 };
 
 

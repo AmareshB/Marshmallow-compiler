@@ -4,6 +4,12 @@
 
 #include "BinaryNode.h"
 
-BinaryNode::BinaryNode(const std::string &name, const Node &lhs, const Node &rhs) : name(name), lhs(lhs), rhs(rhs) {}
+
+
+std::string BinaryNode::getType() {
+    return "binaryNode";
+}
+
+BinaryNode::BinaryNode(const std::string &name, Node *lhs, Node *rhs) : name(name), lhs(lhs), rhs(rhs) {}
 
 

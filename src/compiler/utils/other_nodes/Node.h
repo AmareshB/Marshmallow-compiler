@@ -6,9 +6,12 @@
 #define SER502_SPRING2018_TEAM15_NODE_H
 
 
+#include <string>
 
 class Node {
 
+public:
+    virtual std::string getType();
 };
 
 #endif //SER502_SPRING2018_TEAM15_NODE_H

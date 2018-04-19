@@ -4,7 +4,13 @@
 
 #include "UnaryNode.h"
 
-UnaryNode::UnaryNode(const std::string &name, const Node &onlyChild) : name(name), onlyChild(onlyChild) {}
+
+
+std::string UnaryNode::getType() {
+    return "unary";
+}
+
+UnaryNode::UnaryNode(std::string &name, Node *onlyChild) : name(name), onlyChild(onlyChild) {}
 
 
 

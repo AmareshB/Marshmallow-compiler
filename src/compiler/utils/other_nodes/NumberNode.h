@@ -12,9 +12,9 @@
 class NumberNode : public ExpNode{
 public:
     NumberNode(int val);
-
 public:
     int val;
+    std::string getType();
 
 
 };

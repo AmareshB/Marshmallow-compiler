@@ -4,6 +4,10 @@
 
 #include "BreakNode.h"
 
-BreakNode::BreakNode(const std::string &name) : name(name) {}
+BreakNode::BreakNode( std::string &name) : name(name) {}
+
+std::string BreakNode::getType() {
+    return name;
+}
 
 

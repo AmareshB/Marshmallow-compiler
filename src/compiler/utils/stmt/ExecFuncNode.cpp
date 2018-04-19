@@ -4,8 +4,13 @@
 
 #include "ExecFuncNode.h"
 
-ExecFuncNode::ExecFuncNode(const std::string &name, const Node &funcName, const Node &params) : name(name),
-                                                                                                funcName(funcName),
-                                                                                                params(params) {}
+
+
+std::string ExecFuncNode::getType() {
+    return name;
+}
+
+ExecFuncNode::ExecFuncNode( std::string &name, Node *funcName, Node *params) : name(name), funcName(funcName),
+                                                                                    params(params) {}
 
 

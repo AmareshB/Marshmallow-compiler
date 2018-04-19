@@ -12,12 +12,14 @@
 
 class UnaryNode : public ExpNode{
 
-    std::string name;
+
 public:
-    Node onlyChild;
+    std::string name;
+    Node* onlyChild;
 
-    UnaryNode(const std::string &name, const Node &onlyChild);
+    UnaryNode( std::string &name, Node *onlyChild);
 
+    std::string getType();
 };
 
 
