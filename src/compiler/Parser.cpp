@@ -596,7 +596,7 @@ bool Parser::lookup(string idenName, SymbolTable &symbolTable) {
 }
 
 
-int main()
+/*int main()
 {
     std::vector<IdenNode *> token;
     //token.push_back(new IdenNode("bala"));
@@ -621,5 +621,5 @@ int main()
         cout<<"expansion";
    // Parser* parser = new Parser(token);
     //parser -> parseIdentifier();
-}
+}*/
 
