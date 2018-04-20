@@ -38,8 +38,8 @@ context::~context(){
      locals.clear();
 }
 
-runtime::runtime(int *c, int c_len){
-    code = c;
+runtime::runtime(std::vector<int> *c, int c_len){
+    code = c->data();
     code_len = c_len;
     globals.clear();
 }
