@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(SER502_Spring2018_Team15)
 
 set(CMAKE_CXX_STANDARD 11)
+add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
 
 include_directories(src)
 

@@ -34,7 +34,7 @@ private:
     int get_global(int ind);
 
 public:
-    runtime(int *c, int c_len);
+    runtime(std::vector<int> *c, int c_len);
     void run();
     ~runtime();
 };

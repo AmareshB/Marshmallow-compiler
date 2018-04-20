@@ -50,6 +50,7 @@ vector<int> byte_code::generateByteCode(Node *node,string typeName, std::vector<
     cout << "\ntype " << typeName;
     if(typeName == "program") {
         cout << "\n Inside program block";
+        vec.push_back(1);
         ProgramNode *programNode = static_cast<ProgramNode *>(node);
         cout <<programNode->childStmt.size();
         while(i < programNode->childStmt.size()){
@@ -57,23 +58,33 @@ vector<int> byte_code::generateByteCode(Node *node,string typeName, std::vector<
             generateByteCode(programNode->childStmt[i],childType,vec);
             i++;
         }
-        //TODO: Need to push into vector here
         cout << "End of recursion" << int(vec.size())<<"\n";
         for(int j=0; j<vec.size(); j++)
-            std::cout<<"vec val " << vec[j] << ' ';
+            std::cout<< vec[j] << ' ';
     } else if( typeName == "print") {
         cout <<"\ninside  print block ";
         PrintNode *printNode = static_cast<PrintNode *>(node);
         childType = printNode->child->getType();
         generateByteCode(printNode->child,childType,vec);
-        //TODO: Need to push into vector here
+        vec.push_back(PRINT);
     } else if( typeName == "binaryNode") {
         cout <<"\ninside  binary block ";
         BinaryNode *binaryNode = static_cast<BinaryNode *>(node);
         generateByteCode(binaryNode->rhs,binaryNode->rhs->getType(),vec);
         generateByteCode(binaryNode->lhs,binaryNode->lhs->getType(),vec);
-        //TODO: Need to push into vector here
         cout <<"\nbinary node name" << binaryNode->name;
+        string operation = binaryNode->name;
+        if(operation == "+") {
+            vec.push_back(ADD);
+        } else if(operation == "-"){
+            vec.push_back(SUB);
+        } else if(operation == "*"){
+            vec.push_back(MUL);
+        } else if(operation == "/") {
+            vec.push_back(DIV);
+        } else if(operation == "%") {
+            vec.push_back(MOD);
+        }
     } else if(typeName == "number") {
         NumberNode *numberNode = static_cast<NumberNode *>(node);
         vec.push_back(PUSH);
