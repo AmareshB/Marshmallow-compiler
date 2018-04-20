@@ -88,7 +88,7 @@ static int test4[] = {
         EXIT                  // 29
 };
 
-int main() {
+/*int main() {
 
     runtime *r;
 
@@ -97,4 +97,4 @@ int main() {
     r = new runtime(test3, sizeof(test3)/ sizeof(int)); r->run();
     r = new runtime(test4, sizeof(test4)/ sizeof(int)); r->run();
     delete(r);
-}
+}*/
