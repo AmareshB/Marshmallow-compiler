@@ -10,12 +10,19 @@
 #include <compiler/utils/stmt/PrintNode.h>
 #include <compiler/utils/other_nodes/BinaryNode.h>
 #include <compiler/utils/other_nodes/NumberNode.h>
+#include <compiler/utils/stmt/AssignNode.h>
+#include <compiler/utils/other_nodes/IdenNode.h>
 #include "byte_code.h"
 using namespace std;
 
 byte_code::byte_code(){
     cout << "  \n inside constructor";
-
+     //symbolTable = new SymbolTable();
+}
+byte_code::byte_code(SymbolTable *symTable) {
+    symbolTable = symTable;
+    //cout << "symTable" <<symTable->symbolTableMap[0].;
+    //cout <<"symboltable" << symbolTable->symbolTableMap.find();
 }
 
 /*vector<int> byte_code::generateByteCode() {
@@ -58,7 +65,7 @@ vector<int> byte_code::generateByteCode(Node *node,string typeName, std::vector<
             generateByteCode(programNode->childStmt[i],childType,vec);
             i++;
         }
-        cout << "End of recursion" << int(vec.size())<<"\n";
+        cout << "\nEnd of recursion" << int(vec.size())<<"\n";
         for(int j=0; j<vec.size(); j++)
             std::cout<< vec[j] << ' ';
     } else if( typeName == "print") {
@@ -89,6 +96,18 @@ vector<int> byte_code::generateByteCode(Node *node,string typeName, std::vector<
         NumberNode *numberNode = static_cast<NumberNode *>(node);
         vec.push_back(PUSH);
         vec.push_back(numberNode->val);
+    } else if(typeName == "identifier") {
+        cout <<"\ninside  identifier block ";
+        IdenNode *idenNode = static_cast<IdenNode *> (node);
+        vec.push_back(STORE);
+        cout << idenNode->getName();
+        //cout<<symbolTable->symbolTableMap.find(idenNode->getName());
+    } else if (typeName == "assign") {
+        cout <<"\ninside  assign block ";
+        AssignNode *assignNode = static_cast<AssignNode *>(node);
+        generateByteCode(assignNode->rhs,assignNode->rhs->getType(),vec);
+        generateByteCode(assignNode->lhs,assignNode->lhs->getType(),vec);
+        vec.push_back(EQ);
     }
 }
 

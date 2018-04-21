@@ -11,16 +11,18 @@
 using  namespace std;
 
 int main() {
-    byte_code *b = new byte_code();
+
 
     SymbolTable *symbolTable1 = new SymbolTable();
-    vector<string> program3 = {"print","5","%","3","NEWLINE"};
+    vector<string> program3 = {"a","=","5","+","3","NEWLINE","print","a","NEWLINE"};
     Parser *parser6 = new Parser(program3);
     Node* node = parser6->getProgram(*symbolTable1);
     //TreeHelper treeHelper;
     //treeHelper.generateAddress(0,*symbolTable1);
     cout<<node->getType() <<"\n";
+
     vector<int> byteCodeVector;
+    byte_code *b = new byte_code(symbolTable1);
     b->generateByteCode(node,node->getType(),byteCodeVector);
     cout<<endl;
     runtime *r = new runtime(&byteCodeVector,byteCodeVector.size());

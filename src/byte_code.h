@@ -34,11 +34,15 @@
 #define GLOAD  26
 
 #include <iostream>
+#include <compiler/utils/SymbolTable.h>
+
 using namespace std;
 
 class byte_code {
 public:
+    SymbolTable *symbolTable;
     byte_code();
+    byte_code(SymbolTable *symTable);
     vector<int> generateByteCode(Node *node,string typeName, std::vector<int> &vec);
 };
 
