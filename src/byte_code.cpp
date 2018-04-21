@@ -15,6 +15,8 @@
 #include "byte_code.h"
 using namespace std;
 
+bool isAssign = false;
+
 byte_code::byte_code(){
     cout << "  \n inside constructor";
      //symbolTable = new SymbolTable();
@@ -22,7 +24,7 @@ byte_code::byte_code(){
 byte_code::byte_code(SymbolTable *symTable) {
     symbolTable = symTable;
     //cout << "symTable" <<symTable->symbolTableMap[0].;
-    //cout <<"symboltable" << symbolTable->symbolTableMap.find();
+    //cout <<"symboltable" << this->symbolTable->symbolTableMap.find("a");
 }
 
 /*vector<int> byte_code::generateByteCode() {
@@ -65,6 +67,7 @@ vector<int> byte_code::generateByteCode(Node *node,string typeName, std::vector<
             generateByteCode(programNode->childStmt[i],childType,vec);
             i++;
         }
+        vec.push_back(EXIT);
         cout << "\nEnd of recursion" << int(vec.size())<<"\n";
         for(int j=0; j<vec.size(); j++)
             std::cout<< vec[j] << ' ';
@@ -99,15 +102,25 @@ vector<int> byte_code::generateByteCode(Node *node,string typeName, std::vector<
     } else if(typeName == "identifier") {
         cout <<"\ninside  identifier block ";
         IdenNode *idenNode = static_cast<IdenNode *> (node);
-        vec.push_back(STORE);
+        if(!isAssign){
+            vec.push_back(LOAD);
+        }
+        isAssign =  false;
+        //vec.push_back(STORE);
         cout << idenNode->getName();
-        //cout<<symbolTable->symbolTableMap.find(idenNode->getName());
+        //cout<<symbolTable->symbolTableMap.find(idenNode->getName())->second;
+        //int idenAddr = symbolTable->symbolTableMap.find(idenNode->getName())->second;
+        vec.push_back(symbolTable->symbolTableMap.find(idenNode->getName())->second);
     } else if (typeName == "assign") {
         cout <<"\ninside  assign block ";
         AssignNode *assignNode = static_cast<AssignNode *>(node);
         generateByteCode(assignNode->rhs,assignNode->rhs->getType(),vec);
+        vec.push_back(STORE);
+        isAssign = true;
+        /*vec.push_back(0);
+        vec.push_back(LOAD);
+        vec.push_back(0);*/
         generateByteCode(assignNode->lhs,assignNode->lhs->getType(),vec);
-        vec.push_back(EQ);
     }
 }
 
