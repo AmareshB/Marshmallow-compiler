@@ -7,3 +7,51 @@ Ejaz : works on developing runtime environment
 Balachandar : works on developing parse tree.0
 Amaresh : Works on developing byte code
 Prasanth: works on developing lexical analyzer of input.
+
+Meeting 1: (03/17/2018)
+Created the basic structure for the repo
+
+Meeting 2: (03/21/2018)
+Discussed about what to do for the grammar and did some search online to get up to speed about the different types of grammar and the various tools.
+
+Meeting 3: (03/30/2018)
+Started writing the grammar - draft 1
+
+
+Meeting 4: (04/02/2018)
+Balachandar: Contributed the grammar for expressions with appropriate precedence
+Ejaz: Contributed the grammar for functions, parameters, arguments
+Prashanth: Contributed the grammar for if, while loops
+Amaresh: Contributed the grammar for simple statements, for loop
+
+
+Meeting with TA: (04/03/2018)
+Spoke with the TA and decided to remove for and for each loops from the grammar
+
+
+Meeting 5: (04/05/2018):
+Finalized the grammar.
+
+Meeting 6: (04/08/2018)
+Ejaz: Discussed the dependencies for runtime
+Prashanth: Discussed the basics for lexer
+Amaresh: Discussed the dependencies for bytecode generation
+Balachander: Discussed the basics for semantic analysis.
+
+Meeting 7: (04/13/2018)
+Prashanth: Started working on Lexer
+Amar: Brainstormed the byte code for branching situations and started writing bytecode
+Ejaz: Finished runtime and tested with hardcoded samples.
+balachandar: Generating Parse tree after semantic analysis.
+
+Meeting 8: (04/16/2018)
+Prashanth: Lexer code almost done, explained Indent, dedent semantics
+Ejaz: Treewalk brainstorm and sample code.
+Amaresh: Treewalk brainstorm and byte code for expressions
+Balachandar: Explained his implementation of recursive descent parsing and AST generation. Code changes for better accessing.
+
+Meeting 9: (04/21/2018)
+Ejaz: Helped Byte code for branching part done.
+Amaresh: Byte code for statements except functions done - pending tests.
+Balachandar: Helped with fixing symbolTable to support scopes.
+Prashanth: Working on tokenizing function calls and declrations.
