@@ -154,7 +154,7 @@ void TreeHelper::generateAddress(int startingAdress, SymbolTable &node) {
     while (!que.empty())
     {
         int size = que.size();
-        for(int i=0;i<size;i++)
+        /*for(int i=0;i<size;i++)
         {
             SymbolTable* currNode = que.front();
             que.pop();
@@ -171,7 +171,7 @@ void TreeHelper::generateAddress(int startingAdress, SymbolTable &node) {
                 que.push(childNode);
             }
         }
-        cout<<"New LEVEL"<<"\n";
+        cout<<"New LEVEL"<<"\n";*/
     }
 }
 

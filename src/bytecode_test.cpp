@@ -14,7 +14,7 @@ int main() {
 
 
     SymbolTable *symbolTable1 = new SymbolTable();
-    vector<string> program3 = {"a","=","15","NEWLINE","b","=","10","NEWLINE","print","(","a","+","b",")","NEWLINE"};
+    vector<string> program3 = {"a","=","not","15",">","10","NEWLINE","print","a","NEWLINE"};
     Parser *parser6 = new Parser(program3);
     Node* node = parser6->getProgram(*symbolTable1);
     //TreeHelper treeHelper;

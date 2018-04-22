@@ -12,6 +12,7 @@
 #include <compiler/utils/other_nodes/NumberNode.h>
 #include <compiler/utils/stmt/AssignNode.h>
 #include <compiler/utils/other_nodes/IdenNode.h>
+#include <compiler/utils/other_nodes/UnaryNode.h>
 #include "byte_code.h"
 using namespace std;
 
@@ -51,7 +52,8 @@ byte_code::byte_code(SymbolTable *symTable) {
 
 vector<int> byte_code::generateByteCode(Node *node,string typeName, std::vector<int> &vec) {
 
-    int children = 0, i = 0;
+    //int children = 0;
+    int i= 0;
     string childType = "";
     //cout << "\nchild " << programNode->childStmt[i]->getType();
     //node = new Node();
@@ -94,15 +96,33 @@ vector<int> byte_code::generateByteCode(Node *node,string typeName, std::vector<
             vec.push_back(DIV);
         } else if(operation == "%") {
             vec.push_back(MOD);
+        } else if(operation ==  "==") {
+            vec.push_back(EQ);
+        } else if(operation ==  "<>") {
+            vec.push_back(NEQ);
+        } else if(operation ==  ">") {
+            vec.push_back(GT);
+        } else if(operation ==  ">=") {
+            vec.push_back(GTE);
+        } else if(operation ==  "<") {
+            vec.push_back(LT);
+        } else if(operation ==  "<=") {
+            vec.push_back(LTE);
+        } else if (operation == "and"){
+            vec.push_back(AND);
+        } else if (operation == "or"){
+            vec.push_back(OR);
         }
     } else if(typeName == "number") {
         NumberNode *numberNode = static_cast<NumberNode *>(node);
         vec.push_back(PUSH);
-        vec.push_back(numberNode->val);
+        int *val = new int(numberNode->val);
+        vec.push_back(*val);
     } else if(typeName == "identifier") {
         cout <<"\ninside  identifier block ";
         IdenNode *idenNode = static_cast<IdenNode *> (node);
         if(!isAssign){
+            cout<<"load inst"<<endl;
             vec.push_back(LOAD);
         }
         isAssign =  false;
@@ -110,7 +130,8 @@ vector<int> byte_code::generateByteCode(Node *node,string typeName, std::vector<
         cout << idenNode->getName();
         //cout<<symbolTable->symbolTableMap.find(idenNode->getName())->second;
         //int idenAddr = symbolTable->symbolTableMap.find(idenNode->getName())->second;
-        vec.push_back(symbolTable->symbolTableMap.find(idenNode->getName())->second);
+        int *val1 = new int(symbolTable->symbolTableMap.find(idenNode->getName())->second);
+        vec.push_back(*val1);
     } else if (typeName == "assign") {
         cout <<"\ninside  assign block ";
         AssignNode *assignNode = static_cast<AssignNode *>(node);
@@ -121,6 +142,13 @@ vector<int> byte_code::generateByteCode(Node *node,string typeName, std::vector<
         vec.push_back(LOAD);
         vec.push_back(0);*/
         generateByteCode(assignNode->lhs,assignNode->lhs->getType(),vec);
+    } else if(typeName == "unary") {
+        UnaryNode *unaryNode = static_cast<UnaryNode *> (node);
+        generateByteCode(unaryNode->onlyChild,unaryNode->onlyChild->getType(),vec);
+        string operation = unaryNode->name;
+        if(operation == "not") {
+            vec.push_back(NOT);
+        }
     }
 }
 

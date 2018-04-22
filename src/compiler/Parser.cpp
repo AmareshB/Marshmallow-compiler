@@ -12,6 +12,7 @@
 
 using namespace std;
 
+static int blockCount = 0;
 Parser::Parser(const std::vector<std::string> &tokens) : tokens(tokens) {}
 
 Node* Parser::parseIdentifier() {
@@ -52,6 +53,10 @@ Node* Parser::getProgram(SymbolTable &symbolTable)
  */
 Node* Parser::parseBlock(SymbolTable &symbolTable)
 {
+    SymbolTable *newSymbolTable = new SymbolTable();
+    symbolTable.childMaps.insert({"block"+blockCount++, newSymbolTable});
+    newSymbolTable->parentMap = &symbolTable;
+    symbolTable = *newSymbolTable;
     std::vector<Node*> statements;
     if(tokens[i] != "NEWLINE")
     {
@@ -228,10 +233,11 @@ Node* Parser::func_def(SymbolTable &symbolTable) {
     }
     //consume "("
     ++i;
-    SymbolTable* childTable = new SymbolTable();
-    symbolTable.childMaps.push_back(childTable);
-    childTable->parentMap = &symbolTable;
-    Node* parameters = parseParameters(*childTable);
+    //SymbolTable* childTable = new SymbolTable();
+    //symbolTable.childMaps.push_back(childTable);
+
+    //childTable->parentMap = &symbolTable;
+    Node* parameters = parseParameters(symbolTable);
     if(tokens[i]!=")")
     {
         cout<<"Missing ')' in function def"<<"at line"<<instLine;
@@ -241,7 +247,7 @@ Node* Parser::func_def(SymbolTable &symbolTable) {
     ++i;
 
     //    childTable.startAddress=symbolTable.endAddress+1;
-    Node* block = parseBlock(*childTable);
+    Node* block = parseBlock(symbolTable);
     TreeHelper treeHelp;
     res = treeHelp.makeAST("function",identifier,parameters,block);
     return res;
@@ -301,16 +307,16 @@ Node* Parser::if_stmt(SymbolTable &symbolTable) {
     Node* block = nullptr;
     Node* newBranch = nullptr;
     string name = "";
-    SymbolTable* childTable = new SymbolTable();
-    symbolTable.childMaps.push_back(childTable);
-    childTable->parentMap = &symbolTable;
+    //SymbolTable* childTable = new SymbolTable();
+    //symbolTable.childMaps.push_back(childTable);
+    //childTable->parentMap = &symbolTable;
     if(tokens[i]=="if" || tokens[i]=="elif")
     {
         name = tokens[i];
         //consume if
         ++i;
         exp = expression(symbolTable);
-        block = parseBlock(*childTable);
+        block = parseBlock(symbolTable);
         if(i<tokens.size() && (tokens[i]=="elif" || tokens[i]=="else"))
         {
             newBranch = if_stmt(symbolTable);
@@ -321,7 +327,7 @@ Node* Parser::if_stmt(SymbolTable &symbolTable) {
         name = tokens[i];
         //consume else
         ++i;
-        block = parseBlock(*childTable);
+        block = parseBlock(symbolTable);
     }
     TreeHelper treeHelp;
     res = treeHelp.makeAST(name,exp,block,newBranch);
@@ -337,10 +343,10 @@ Node* Parser::while_stmt(SymbolTable &symbolTable) {
     //consume while
     ++i;
     Node* exp = expression(symbolTable);
-    SymbolTable* childTable = new SymbolTable();
-    symbolTable.childMaps.push_back(childTable);
-    childTable->parentMap = &symbolTable;
-    Node* block = parseBlock(*childTable);
+    //SymbolTable* childTable = new SymbolTable();
+    //symbolTable.childMaps.push_back(childTable);
+    //childTable->parentMap = &symbolTable;
+    Node* block = parseBlock(symbolTable);
     TreeHelper treeHelper;
     return treeHelper.makeAST("while",exp,block);
 }
