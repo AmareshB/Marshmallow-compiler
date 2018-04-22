@@ -43,6 +43,7 @@ public:
     bytecode();
     bytecode(SymbolTable *symTable);
     void generateByteCode(Node *node,std::string typeName, std::vector<int> &vec);
+    int findIdentifier(std::string name, SymbolTable *st);
 };
 
 

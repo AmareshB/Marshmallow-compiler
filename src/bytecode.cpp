@@ -18,7 +18,10 @@
 #include "bytecode.h"
 
 bool isAssign = false;
-std::vector<int> last;
+
+std::vector<int> current_breaks;
+int current_loopAddr;
+
 
 bytecode::bytecode(){
     std::cout << "  \n inside constructor";
@@ -132,7 +135,8 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
         std::cout << idenNode->getName();
         //cout<<symbolTable->symbolTableMap.find(idenNode->getName())->second;
         //int idenAddr = symbolTable->symbolTableMap.find(idenNode->getName())->second;
-        int val1 = * new int(symbolTable->symbolTableMap.find(idenNode->getName())->second);
+        //int val1 = * new int(symbolTable->symbolTableMap.find(idenNode->getName())->second);
+        int val1 = findIdentifier(idenNode->getName(),symbolTable);
         vec.push_back(val1);
     } else if (typeName == "assign") {
         std::cout <<"\ninside  assign block ";
@@ -152,18 +156,22 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
             vec.push_back(NOT);
         }
     } else if(typeName == "if" || typeName == "elif"){
+
         BranchNode *branchNode = static_cast<BranchNode*>(node);
 
         generateByteCode(branchNode->condition,branchNode->condition->getType(),vec);
         vec.push_back(BRF);
+        int fail_addr = vec.size();
         //last.push_back(vec.size() + 1);
-        vec.push_back(13);
+        vec.push_back(-1);
 
         generateByteCode(branchNode->bodyBlock,branchNode->bodyBlock->getType(),vec);
         vec.push_back(BR);
-        vec.push_back(16);
-
+        int complete_addr = vec.size();
+        vec.push_back(-1);
+        vec.at(fail_addr) = vec.size();
         generateByteCode(branchNode->branch,branchNode->branch->getType(),vec);
+        vec.at(complete_addr) = vec.size();
         //vec.push_back(BR);
         //vec.push_back(-1);
     } else if (typeName == "else"){
@@ -182,14 +190,45 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
     } else if(typeName == "while") {
         WhileNode *whileNode = static_cast<WhileNode*>(node);
 
+        int old_loop_addr = current_loopAddr;
+        std::vector<int> old_break = current_breaks;
+        current_breaks.clear();
+        current_loopAddr = vec.size();
         generateByteCode(whileNode->expression,whileNode->expression->getType(),vec);
         vec.push_back(BRF);
-        //last.push_back(vec.size() + 1);
-        vec.push_back(13);
-
+        int fail_addr = vec.size();
+        vec.push_back(-1);
         generateByteCode(whileNode->block,whileNode->block->getType(),vec);
         vec.push_back(BR);
-        vec.push_back(1);
+        vec.push_back(current_loopAddr);
+        vec.at(fail_addr) = vec.size();
+
+        for (int j =0 ; j < current_breaks.size(); j++){
+            vec.at(current_breaks[j]) = vec.size();
+        }
+        current_breaks = old_break;
+        current_loopAddr = old_loop_addr;
+    } else if(typeName == "continue") {
+        vec.push_back(BR);
+        vec.push_back(current_loopAddr);
+    }
+    else if(typeName == "break") {
+        vec.push_back(BR);
+        current_breaks.push_back(vec.size());
+        vec.push_back(-1);
+    }
+}
+
+int bytecode::findIdentifier(std::string name, SymbolTable *st){
+
+    std::unordered_map<std::string, int >::const_iterator it;
+    it = st->symbolTableMap.find(name);
+    if(it != st->symbolTableMap.end()) {
+        return it->second;
+    } else if(st->parentMap != NULL) {
+        return findIdentifier(name,st->parentMap);
+    } else {
+        throw "identifier not found:"+name;
     }
 }
 

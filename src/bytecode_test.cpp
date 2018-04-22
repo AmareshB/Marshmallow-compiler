@@ -15,9 +15,9 @@ int main() {
 
     SymbolTable *symbolTable1 = new SymbolTable();
     //vector<string> program3 = {"a","=","not","15",">","10","NEWLINE","print","a","NEWLINE"};
-    //vector<string> program3 = {"if","(","2","<","1",")","NEWLINE","INDENT","print","3","NEWLINE","DEDENT","else","NEWLINE","INDENT","print","4","NEWLINE","DEDENT"};
-    vector<string> program3 = {"while","(","2",">","1",")","NEWLINE","INDENT","print","3","NEWLINE","DEDENT"};
-
+    //vector<string> program3 = {"if","(","2",">","1",")","NEWLINE","INDENT","print","3","NEWLINE","DEDENT","else","NEWLINE","INDENT","print","4","NEWLINE","DEDENT"};
+    //vector<string> program3 = {"while","(","2",">","1",")","NEWLINE","INDENT","print","3","NEWLINE","DEDENT","print","5","NEWLINE"};
+    vector<string> program3 = {"a","=","10","NEWLINE","while","(","a",">","1",")","NEWLINE","INDENT","print","a","NEWLINE","a","=","a","-","1","NEWLINE","DEDENT","print","5","NEWLINE"};
 
     Parser *parser6 = new Parser(program3);
     Node* node = parser6->getProgram(*symbolTable1);
