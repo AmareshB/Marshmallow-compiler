@@ -11,8 +11,7 @@
 
 class NumberNode : public ExpNode{
 public:
-    NumberNode(int val);
-public:
+    NumberNode(int v);
     int val;
     std::string getType();
 

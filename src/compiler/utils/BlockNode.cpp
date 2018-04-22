@@ -7,6 +7,6 @@
 BlockNode::BlockNode( std::string &name,  std::vector<Node*> &childStmt) : name(name), childStmt(childStmt) {}
 
 std::string BlockNode::getType() {
-    return name;
+    return "block";
 }
 

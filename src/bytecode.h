@@ -33,4 +33,17 @@
 #define GSTORE 25
 #define GLOAD  26
 
+
+#include <compiler/utils/SymbolTable.h>
+#include <compiler/utils/other_nodes/Node.h>
+
+class bytecode {
+public:
+    SymbolTable *symbolTable;
+    bytecode();
+    bytecode(SymbolTable *symTable);
+    void generateByteCode(Node *node,std::string typeName, std::vector<int> &vec);
+};
+
+
 #endif

@@ -7,12 +7,11 @@
 #include <iostream>
 #include <compiler/utils/TreeHelper.h>
 #include <compiler/utils/other_nodes/NumberNode.h>
-#include <compiler/utils/other_nodes/ProgramNode.h>
-#include <compiler/utils/stmt/FuncNode.h>
 
 using namespace std;
 
 static int blockCount = 0;
+
 Parser::Parser(const std::vector<std::string> &tokens) : tokens(tokens) {}
 
 Node* Parser::parseIdentifier() {
@@ -54,9 +53,10 @@ Node* Parser::getProgram(SymbolTable &symbolTable)
 Node* Parser::parseBlock(SymbolTable &symbolTable)
 {
     SymbolTable *newSymbolTable = new SymbolTable();
-    symbolTable.childMaps.insert({"block"+blockCount++, newSymbolTable});
+    blockCount++;
+    symbolTable.childMaps.insert({"block"+to_string(blockCount), newSymbolTable});
     newSymbolTable->parentMap = &symbolTable;
-    symbolTable = *newSymbolTable;
+    //symbolTable = *newSymbolTable;
     std::vector<Node*> statements;
     if(tokens[i] != "NEWLINE")
     {
@@ -78,9 +78,10 @@ Node* Parser::parseBlock(SymbolTable &symbolTable)
             }
             else
             {
-                statements.push_back(parseStatement(symbolTable));
+                statements.push_back(parseStatement(*newSymbolTable));
             }
         }
+        //symbolTable = *symbolTable.parentMap;
         //consume dedent
         ++i;
         TreeHelper treeHelper;

@@ -21,7 +21,7 @@
 #include "TreeHelper.h"
 #include "BlockNode.h"
 using namespace std;
-
+static int blockCount = 0;
 void TreeHelper::initialise() {
     map_values["%"] = mod;
     map_values["/"] = div;
@@ -105,19 +105,26 @@ Node* TreeHelper::makeAST(std::string name, std::vector<Node *> &nodes) {
     //will add identifier later
     switch(map_values[name])
     {
-        case block:
-            resultNode = new BlockNode(name,nodes);
+        case block: {
+            blockCount++;
+            std::string blockName = name + to_string(blockCount);
+            resultNode = new BlockNode(blockName, nodes);
             break;
-        case program:
-            resultNode = new ProgramNode(name,nodes);
+        }
+        case program: {
+            resultNode = new ProgramNode(name, nodes);
             break;
-        case parameters:
-            resultNode = new ParametersNode(name,nodes);
+        }
+        case parameters: {
+            resultNode = new ParametersNode(name, nodes);
             break;
-        case arguments:
-            resultNode = new ArgumentsNode(name,nodes);
+        }
+        case arguments: {
+            resultNode = new ArgumentsNode(name, nodes);
             break;
+        }
     }
+
     return resultNode;
 }
 
