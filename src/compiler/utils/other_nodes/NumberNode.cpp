@@ -4,7 +4,7 @@
 
 #include "NumberNode.h"
 
-NumberNode::NumberNode(int val) : val(val) {}
+NumberNode::NumberNode(int v){val = v;}
 
 std::string NumberNode::getType() {
     return "number";

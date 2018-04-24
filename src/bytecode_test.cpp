@@ -5,22 +5,29 @@
 #include <iostream>
 #include <compiler/Parser.h>
 #include "bytecode_test.h"
-#include "byte_code.h"
+#include "bytecode.h"
 #include "runtime.h"
 
 using  namespace std;
 
 int main() {
-    byte_code *b = new byte_code();
+
 
     SymbolTable *symbolTable1 = new SymbolTable();
-    vector<string> program3 = {"print","5","%","3","NEWLINE"};
+    //vector<string> program3 = {"a","=","not","15",">","10","NEWLINE","print","a","NEWLINE"};
+    //vector<string> program3 = {"if","(","2",">","1",")","NEWLINE","INDENT","print","3","NEWLINE","DEDENT","else","NEWLINE","INDENT","print","4","NEWLINE","DEDENT"};
+    //vector<string> program3 = {"while","(","2",">","1",")","NEWLINE","INDENT","print","3","NEWLINE","DEDENT","print","5","NEWLINE"};
+    vector<string> program3 = {"a","=","10","NEWLINE","while","(","a",">","1",")","NEWLINE","INDENT","print","a","NEWLINE","a","=","a","-","1","NEWLINE","DEDENT","print","5","NEWLINE"};
+
     Parser *parser6 = new Parser(program3);
     Node* node = parser6->getProgram(*symbolTable1);
     //TreeHelper treeHelper;
     //treeHelper.generateAddress(0,*symbolTable1);
     cout<<node->getType() <<"\n";
+
     vector<int> byteCodeVector;
+    //byteCodeVector.reserve(100);
+    bytecode *b = new bytecode(symbolTable1);
     b->generateByteCode(node,node->getType(),byteCodeVector);
     cout<<endl;
     runtime *r = new runtime(&byteCodeVector,byteCodeVector.size());

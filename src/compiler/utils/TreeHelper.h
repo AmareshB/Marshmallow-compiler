@@ -11,7 +11,6 @@
 #include <vector>
 #include "SymbolTable.h"
 
-
 class TreeHelper {
 
 public:

@@ -13,7 +13,8 @@ class SymbolTable {
 
 public:
     std::unordered_map<std::string,int> symbolTableMap;
-    std::vector<SymbolTable *> childMaps;
+    //std::vector<SymbolTable *> childMaps;
+    std::unordered_map<std::string, SymbolTable *> childMaps;
     SymbolTable* parentMap;
     int startingAddress;
     int endingAddress;
