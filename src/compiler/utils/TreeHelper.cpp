@@ -161,13 +161,14 @@ void TreeHelper::generateAddress(int startingAdress, SymbolTable &node) {
     while (!que.empty())
     {
         int size = que.size();
-        /*for(int i=0;i<size;i++)
+        for(int i=0;i<size;i++)
         {
             SymbolTable* currNode = que.front();
             que.pop();
             iterateAddress(*currNode);
-            for(SymbolTable* childNode:currNode->childMaps)
+             for(auto& x : currNode->childMaps)
             {
+                SymbolTable* childNode = x.second;
                 childNode->startingAddress = currNode->symbolTableMap.size()>0?currNode->endingAddress+1:currNode->endingAddress;
                 if(childNode->symbolTableMap.size()==0)
                 {
@@ -178,7 +179,7 @@ void TreeHelper::generateAddress(int startingAdress, SymbolTable &node) {
                 que.push(childNode);
             }
         }
-        cout<<"New LEVEL"<<"\n";*/
+        cout<<"New LEVEL"<<"\n";
     }
 }
 
