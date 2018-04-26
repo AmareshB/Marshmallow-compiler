@@ -16,8 +16,7 @@ public:
     //std::vector<SymbolTable *> childMaps;
     std::unordered_map<std::string, SymbolTable *> childMaps;
     SymbolTable* parentMap;
-    int startingAddress;
-    int endingAddress;
+    int currentAddress=-1;
 };
 
 

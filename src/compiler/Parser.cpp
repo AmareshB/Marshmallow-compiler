@@ -25,7 +25,6 @@ Node* Parser::parseIdentifier() {
         ++i;
     }
     return res;
-
 }
 /**
   * The one generating symbol table
@@ -52,7 +51,9 @@ Node* Parser::getProgram(SymbolTable &symbolTable)
  */
 Node* Parser::parseBlock(SymbolTable &symbolTable)
 {
+
     SymbolTable *newSymbolTable = new SymbolTable();
+    newSymbolTable->currentAddress = symbolTable.currentAddress;
     blockCount++;
     symbolTable.childMaps.insert({"block"+to_string(blockCount), newSymbolTable});
     newSymbolTable->parentMap = &symbolTable;
@@ -187,7 +188,6 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
     //else if stay tuned for other statements
     return stmtNode;
 }
-
 
 /**
  * exec_stmt ::= funcname "(" arguments ")"
@@ -385,8 +385,8 @@ Node* Parser::assign_stmt(SymbolTable &symbolTable) {
     res = parseIdentifier();
     IdenNode* iden = (IdenNode*)res;
     if(!lookup(iden->getName(),symbolTable))
-        symbolTable.symbolTableMap.emplace(iden->getName(),0);
-    //consume =
+        symbolTable.symbolTableMap.emplace(iden->getName(),++symbolTable.currentAddress);
+    //consume
     i+=1;
     Node* rhs = expression(symbolTable);
     TreeHelper treeHelper;

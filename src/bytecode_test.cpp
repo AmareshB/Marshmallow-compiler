@@ -13,7 +13,6 @@ using  namespace std;
 
 int main() {
 
-
     SymbolTable *symbolTable1 = new SymbolTable();
     //vector<string> program3 = {"a","=","not","15",">","10","NEWLINE","print","a","NEWLINE"};
     //vector<string> program3 = {"if","(","2",">","1",")","NEWLINE","INDENT","print","3","NEWLINE","DEDENT","else","NEWLINE","INDENT","print","4","NEWLINE","DEDENT"};
@@ -24,7 +23,7 @@ int main() {
     Parser *parser6 = new Parser(program3);
     Node* node = parser6->getProgram(*symbolTable1);
     TreeHelper treeHelper;
-    treeHelper.generateAddress(0,*symbolTable1);
+  //  treeHelper.generateAddress(0,*symbolTable1);
     cout<<node->getType() <<"\n";
 
     vector<int> byteCodeVector;
@@ -32,9 +31,9 @@ int main() {
     bytecode *b = new bytecode(symbolTable1);
     b->generateByteCode(node,node->getType(),byteCodeVector);
     cout<<endl;
-  /*  runtime *r = new runtime(&byteCodeVector,byteCodeVector.size());
+    runtime *r = new runtime(&byteCodeVector,byteCodeVector.size());
     r->run();
-    */
+
    //cout << "Hello World";
     return 0;
 }

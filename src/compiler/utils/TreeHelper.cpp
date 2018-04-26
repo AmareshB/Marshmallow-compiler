@@ -153,7 +153,7 @@ void TreeHelper::generateAddress(int startingAdress, SymbolTable &node) {
     int address=startingAdress;
     queue<SymbolTable *> que;
     que.push(&node);
-    node.startingAddress = startingAdress;
+/*    node.startingAddress = startingAdress;
     if(node.symbolTableMap.size()>0)
     {
         node.endingAddress = node.symbolTableMap.size()>0?node.startingAddress+node.symbolTableMap.size()-1:node.startingAddress;
@@ -180,10 +180,10 @@ void TreeHelper::generateAddress(int startingAdress, SymbolTable &node) {
             }
         }
         cout<<"New LEVEL"<<"\n";
-    }
+    }*/
 }
 
-void TreeHelper::iterateAddress(SymbolTable &symbolTable) {
+/*void TreeHelper::iterateAddress(SymbolTable &symbolTable) {
     if(symbolTable.symbolTableMap.size()==0)
         cout<<"Empty Table"<<"\n";
     cout<<"Symbol Table Starting Address: "<<symbolTable.startingAddress<<"    Symbol Table Ending Address:  "<<symbolTable.endingAddress;
@@ -194,4 +194,4 @@ void TreeHelper::iterateAddress(SymbolTable &symbolTable) {
         ++start;
         cout<<x.first<<": "<<x.second<<"\n";
     }
-}
+}*/
