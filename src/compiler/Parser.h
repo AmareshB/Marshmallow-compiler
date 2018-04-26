@@ -16,12 +16,13 @@ class Parser {
     int i = 0;
     int instLine = 0;
     int address = 0;
+    SymbolTable* globalSymbolTable;
 public:
     Parser(const std::vector<std::string> &tokens);
     Node* compar_exp(SymbolTable &symbolTable);
     Node* parseIdentifier();
     Node* getProgram(SymbolTable &symbolTable);
-    Node* parseBlock(SymbolTable &symbolTable);
+    Node* parseBlock(SymbolTable &symbolTable, std::string type);
     Node* parseStatement(SymbolTable &symbolTable);
     Node* exec_stmt(SymbolTable &symbolTable);
     Node* func_def(SymbolTable &symbolTable);
@@ -31,6 +32,7 @@ public:
     Node* while_stmt(SymbolTable &symbolTable);
     Node* cont_stmt();
     Node* break_stmt();
+    Node* return_stmt(SymbolTable &symbolTable);
     Node* print_stmt(SymbolTable &symbolTable);
     Node* assign_stmt(SymbolTable &symbolTable);
     Node* expression(SymbolTable &symbolTable);

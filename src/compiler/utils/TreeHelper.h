@@ -45,7 +45,8 @@ private:
         _function,
         _else,
         _if,
-        _elif
+        _elif,
+        _return
     };
      std::map<std::string, string_value> map_values;
 public:

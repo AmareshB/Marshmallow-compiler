@@ -34,6 +34,7 @@ Node* Parser::parseIdentifier() {
   */
 Node* Parser::getProgram(SymbolTable &symbolTable)
 {
+    globalSymbolTable = &symbolTable;
     Node* res=nullptr;
     std::vector<Node *> statements;
     while(i<tokens.size())
@@ -49,14 +50,21 @@ Node* Parser::getProgram(SymbolTable &symbolTable)
  * block ::= NEWLINE INDENT (stmt )+ DEDENT
  * @return
  */
-Node* Parser::parseBlock(SymbolTable &symbolTable)
+Node* Parser::parseBlock(SymbolTable &symbolTable,std::string type)
 {
-
     SymbolTable *newSymbolTable = new SymbolTable();
-    newSymbolTable->currentAddress = symbolTable.currentAddress;
+    if(type == "function") {
+        newSymbolTable->currentAddress = -1;
+        newSymbolTable->parentMap = nullptr;
+    }
+    else
+    {
+        newSymbolTable->parentMap = &symbolTable;
+        newSymbolTable->currentAddress = symbolTable.currentAddress;
+    }
     blockCount++;
     symbolTable.childMaps.insert({"block"+to_string(blockCount), newSymbolTable});
-    newSymbolTable->parentMap = &symbolTable;
+
     //symbolTable = *newSymbolTable;
     std::vector<Node*> statements;
     if(tokens[i] != "NEWLINE")
@@ -125,6 +133,18 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
         ++i;
         ++instLine;
     }
+    else  if(tokens[i] == "return")
+    {
+        stmtNode = return_stmt(symbolTable);
+        if(tokens[i]!="NEWLINE")
+        {
+            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine;
+            return nullptr;
+        }
+        //consume newline
+        ++i;
+        ++instLine;
+    }
     else if(tokens[i] == "break")
     {
         stmtNode = break_stmt();
@@ -184,6 +204,10 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
         //consume newline
         ++i;
         ++instLine;
+    } else
+    {
+        cout<<"Bad syntax at line "<<tokens[i]<<"at line"<<instLine;
+        return nullptr;
     }
     //else if stay tuned for other statements
     return stmtNode;
@@ -248,7 +272,7 @@ Node* Parser::func_def(SymbolTable &symbolTable) {
     ++i;
 
     //    childTable.startAddress=symbolTable.endAddress+1;
-    Node* block = parseBlock(symbolTable);
+    Node* block = parseBlock(symbolTable,"function");
     TreeHelper treeHelp;
     res = treeHelp.makeAST("function",identifier,parameters,block);
     return res;
@@ -283,7 +307,7 @@ Node* Parser::parseParameters(SymbolTable &symbolTable) {
         IdenNode* iden = static_cast<IdenNode *>(parseIdentifier());
         parametersNodes.push_back(iden);
         std::string name = iden->getName();
-        symbolTable.symbolTableMap.emplace(name,0);
+        symbolTable.symbolTableMap.emplace(name,++symbolTable.currentAddress);
         //consume ,
         if(tokens[i]==",")
             ++i;
@@ -317,7 +341,7 @@ Node* Parser::if_stmt(SymbolTable &symbolTable) {
         //consume if
         ++i;
         exp = expression(symbolTable);
-        block = parseBlock(symbolTable);
+        block = parseBlock(symbolTable,"");
         if(i<tokens.size() && (tokens[i]=="elif" || tokens[i]=="else"))
         {
             newBranch = if_stmt(symbolTable);
@@ -328,7 +352,7 @@ Node* Parser::if_stmt(SymbolTable &symbolTable) {
         name = tokens[i];
         //consume else
         ++i;
-        block = parseBlock(symbolTable);
+        block = parseBlock(symbolTable,"");
     }
     TreeHelper treeHelp;
     res = treeHelp.makeAST(name,exp,block,newBranch);
@@ -347,7 +371,7 @@ Node* Parser::while_stmt(SymbolTable &symbolTable) {
     //SymbolTable* childTable = new SymbolTable();
     //symbolTable.childMaps.push_back(childTable);
     //childTable->parentMap = &symbolTable;
-    Node* block = parseBlock(symbolTable);
+    Node* block = parseBlock(symbolTable,"");
     TreeHelper treeHelper;
     return treeHelper.makeAST("while",exp,block);
 }
@@ -380,6 +404,15 @@ Node* Parser::print_stmt(SymbolTable &symbolTable) {
     return res;
 }
 
+Node* Parser::return_stmt(SymbolTable &symbolTable) {
+    //consume print
+    ++i;
+    Node* res = expression(symbolTable);
+    Node* rhs = nullptr;
+    TreeHelper treeHelper;
+    res = treeHelper.makeAST("return",res,rhs);
+    return res;
+}
 Node* Parser::assign_stmt(SymbolTable &symbolTable) {
     Node* res = nullptr;
     res = parseIdentifier();
@@ -591,6 +624,7 @@ Node* Parser::atom(SymbolTable &symbolTable)
  */
 bool Parser::lookup(string idenName, SymbolTable &symbolTable) {
 
+
     if(symbolTable.symbolTableMap.count(idenName) > 0)
     {
         return true;
@@ -599,9 +633,13 @@ bool Parser::lookup(string idenName, SymbolTable &symbolTable) {
     {
         return lookup(idenName,*symbolTable.parentMap);
     }
+    else if(&symbolTable!=globalSymbolTable)
+    {
+        if(globalSymbolTable->symbolTableMap.count(idenName) > 0)
+            return true;
+    }
     return false;
 }
-
 
 /*int main()
 {

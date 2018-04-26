@@ -18,6 +18,7 @@
 #include <compiler/utils/stmt/BranchNode.h>
 #include <map>
 #include <queue>
+#include <compiler/utils/stmt/ReturnNode.h>
 #include "TreeHelper.h"
 #include "BlockNode.h"
 using namespace std;
@@ -26,7 +27,7 @@ void TreeHelper::initialise() {
     map_values["%"] = mod;
     map_values["/"] = div;
     map_values["*"] = mul;
-    map_values["-"] = minus ;
+    map_values["-"] = minus;
     map_values["+"] = plus;
     map_values["<>"] = not_equals;
     map_values["=="] = equals;
@@ -51,6 +52,7 @@ void TreeHelper::initialise() {
     map_values["else"] = _else;
     map_values["if"] = _if;
     map_values["elif"] = _elif;
+    map_values["return"] = _return;
 };
 Node* TreeHelper::makeAST(std::string name, Node* lhs, Node* rhs) {
 
@@ -83,6 +85,9 @@ Node* TreeHelper::makeAST(std::string name, Node* lhs, Node* rhs) {
             break;
         case _print:
             resultNode = new PrintNode(name,lhs);
+            break;
+        case _return:
+            resultNode = new ReturnNode(name,lhs);
             break;
         case _continue:
             resultNode = new ContinueNode(name);
