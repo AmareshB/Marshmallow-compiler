@@ -60,7 +60,11 @@ Node* Parser::parseBlock(SymbolTable &symbolTable,std::string type)
     else
     {
         newSymbolTable->parentMap = &symbolTable;
-        newSymbolTable->currentAddress = symbolTable.currentAddress;
+        if(&symbolTable == globalSymbolTable){
+            newSymbolTable->currentAddress = -1;
+        }else {
+            newSymbolTable->currentAddress = symbolTable.currentAddress;
+        }
     }
     blockCount++;
     symbolTable.childMaps.insert({"block"+to_string(blockCount), newSymbolTable});

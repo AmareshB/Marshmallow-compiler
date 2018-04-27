@@ -21,13 +21,14 @@ bool isAssign = false;
 
 std::vector<int> current_breaks;
 int current_loopAddr;
-
+bool foundInGlobalTable = false;
 
 bytecode::bytecode(){
     std::cout << "  \n inside constructor";
      //symbolTable = new SymbolTable();
 }
 bytecode::bytecode(SymbolTable *symTable) {
+    globalSymbolTable = symTable;
     symbolTable = symTable;
     //cout << "symTable" <<symTable->symbolTableMap[0].;
     //cout <<"symboltable" << this->symbolTable->symbolTableMap.find("a");
@@ -126,23 +127,35 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
     } else if(typeName == "identifier") {
         std::cout <<"\ninside  identifier block ";
         IdenNode *idenNode = static_cast<IdenNode *> (node);
-        if(!isAssign){
-            std::cout<<"load inst"<<std::endl;
-            vec.push_back(LOAD);
-        }
-        isAssign =  false;
+
         //vec.push_back(STORE);
         std::cout << idenNode->getName();
         //cout<<symbolTable->symbolTableMap.find(idenNode->getName())->second;
         //int idenAddr = symbolTable->symbolTableMap.find(idenNode->getName())->second;
         //int val1 = * new int(symbolTable->symbolTableMap.find(idenNode->getName())->second);
         int val1 = findIdentifier(idenNode->getName(),symbolTable);
+        if(isAssign){
+            if(foundInGlobalTable){
+                vec.push_back(GSTORE);
+                foundInGlobalTable = false;
+            } else {
+                vec.push_back(STORE);
+            }
+        } else{
+            if(foundInGlobalTable){
+                vec.push_back(GLOAD);
+                foundInGlobalTable = false;
+            } else {
+                vec.push_back(LOAD);
+            }
+        }
+        isAssign =  false;
         vec.push_back(val1);
     } else if (typeName == "assign") {
         std::cout <<"\ninside  assign block ";
         AssignNode *assignNode = static_cast<AssignNode *>(node);
         generateByteCode(assignNode->rhs,assignNode->rhs->getType(),vec);
-        vec.push_back(STORE);
+        //vec.push_back(STORE);
         isAssign = true;
         /*vec.push_back(0);
         vec.push_back(LOAD);
@@ -221,15 +234,28 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
 
 int bytecode::findIdentifier(std::string name, SymbolTable *st){
 
-    std::unordered_map<std::string, int >::const_iterator it;
-    it = st->symbolTableMap.find(name);
-    if(it != st->symbolTableMap.end()) {
-        return it->second;
-    } else if(st->parentMap != NULL) {
-        return findIdentifier(name,st->parentMap);
-    } else {
+    if(st->symbolTableMap.count(name) > 0)
+    {
+        if(st == globalSymbolTable){
+            foundInGlobalTable = true;
+        }
+        return st->symbolTableMap.find(name)->second;
+    }
+    else if(st->parentMap!= nullptr)
+    {
+        return findIdentifier(name,symbolTable->parentMap);
+    }
+    else if(st != globalSymbolTable)
+    {
+        if(globalSymbolTable->symbolTableMap.count(name) > 0) {
+            foundInGlobalTable = true;
+            return globalSymbolTable->symbolTableMap.find(name)->second;
+        }
+    }
+    else {
         throw "identifier not found:"+name;
     }
 }
+
 
 

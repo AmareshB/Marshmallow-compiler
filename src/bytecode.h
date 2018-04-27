@@ -38,6 +38,7 @@
 #include <compiler/utils/other_nodes/Node.h>
 
 class bytecode {
+    SymbolTable* globalSymbolTable;
 public:
     SymbolTable *symbolTable;
     bytecode();
