@@ -86,7 +86,11 @@ Node* Parser::parseBlock(SymbolTable &symbolTable,std::string type)
             }
             else
             {
-                statements.push_back(parseStatement(*newSymbolTable));
+                if(type != "function") {
+                    statements.push_back(parseStatement(*newSymbolTable));
+                } else {
+                    statements.push_back(parseStatement(symbolTable));
+                }
             }
         }
         //symbolTable = *symbolTable.parentMap;
