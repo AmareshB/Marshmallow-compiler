@@ -28,6 +28,7 @@ std::vector<int> current_breaks;
 std::unordered_map<std::string,int> funcAddresses;
 int current_loopAddr;
 bool foundInGlobalTable = false;
+bool inFunction = false;
 
 bytecode::bytecode(){
     std::cout << "  \n inside constructor";
@@ -198,14 +199,18 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
         generateByteCode(branchNode->bodyBlock,branchNode->bodyBlock->getType(),vec);
     } else if(typeName == "block") {
         BlockNode *blockNode = static_cast<BlockNode *>(node);
-         symbolTable = symbolTable->childMaps.find(blockNode->name)->second;
+        if(!inFunction) {
+            symbolTable = symbolTable->childMaps.find(blockNode->name)->second;
+        }
         std::cout <<"block size"<<blockNode->childStmt.size();
         while(i < blockNode->childStmt.size()){
             childType = blockNode->childStmt[i]->getType();
             generateByteCode(blockNode->childStmt[i],childType,vec);
             i++;
         }
-        symbolTable = symbolTable->parentMap;
+        if(!inFunction) {
+            symbolTable = symbolTable->parentMap;
+        }
     } else if(typeName == "while") {
         WhileNode *whileNode = static_cast<WhileNode*>(node);
 
@@ -236,31 +241,30 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
         current_breaks.push_back(vec.size());
         vec.push_back(-1);
     } else if(typeName == "function") {
+        inFunction = true;
         FuncNode *funcNode = static_cast<FuncNode*>(node);
         vec.push_back(BR);
         int funcEndAddr = vec.size();
         vec.push_back(-1);
         int funcAddr = vec.size();
-        generateByteCode(funcNode->parameters,funcNode->parameters->getType(),vec);
+        BlockNode *blockNode = static_cast<BlockNode*>(funcNode->block);
+        symbolTable = symbolTable->childMaps.find(blockNode->name)->second;
         generateByteCode(funcNode->block,funcNode->block->getType(),vec);
         vec.at(funcEndAddr) = vec.size();
         IdenNode *idenNode = static_cast<IdenNode*>(funcNode->identifier);
         funcAddresses.insert({idenNode->name,funcAddr});
-
-    } else if(typeName == "parameters") {
-        ParametersNode *parametersNode = static_cast<ParametersNode*>(node);
-        for(int p = 0; p<parametersNode->parameters.size();p++){
-            isAssign = true;
-            generateByteCode(parametersNode->parameters[p],parametersNode->parameters[p]->getType(),vec);
-        }
-
-    } else if(typeName == "callFunc") {
+        symbolTable = symbolTable->parentMap;
+        inFunction = false;
+    }  else if(typeName == "callFunc") {
         ExecFuncNode *execFuncNode = static_cast<ExecFuncNode*>(node);
         generateByteCode(execFuncNode->params,execFuncNode->params->getType(),vec);
+
         IdenNode *idenNode = static_cast<IdenNode*>(execFuncNode->funcName);
         if (funcAddresses.count(idenNode->name) > 0 ) {
             vec.push_back(CALL);
+            ArgumentsNode *argumentsNode = static_cast<ArgumentsNode*>(execFuncNode->params);
             vec.push_back(funcAddresses.find(idenNode->name)->second);
+            vec.push_back(argumentsNode->arguments.size());
         } else {
             throw "Function <"+idenNode->name+"> not defined";
         }
