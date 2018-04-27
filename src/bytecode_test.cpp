@@ -15,15 +15,13 @@ int main() {
 
     SymbolTable *symbolTable1 = new SymbolTable();
     //vector<string> program3 = {"a","=","not","9",">","10","NEWLINE","print","a","NEWLINE"};
-    //vector<std::string> program3 = {"function","add","(","c",",","d",")","NEWLINE","INDENT","return","c","+","d","NEWLINE","DEDENT","add","(","10",",","20",")","NEWLINE"};
+    vector<std::string> program3 = {"function","add","(","c",",","d",")","NEWLINE","INDENT","return","c","+","d","NEWLINE","DEDENT","add","(","10",",","20",")","NEWLINE"};
     //vector<std::string> program3 = {"function","complete","(","c",",","d",",","e",",","f",")","NEWLINE","INDENT","a","=","5","NEWLINE","i","=","1","NEWLINE","if","(","a","%","2","==","0",")","NEWLINE","INDENT","print","(","a",")","NEWLINE","DEDENT","else","NEWLINE","INDENT","while","(","i","<","10",")","NEWLINE","INDENT","print","(","i",")","NEWLINE","i","=","i","+","1","NEWLINE","DEDENT","DEDENT","DEDENT","complete","(","2","+","3",",","3","6","+","3",",","7",")","NEWLINE"};
     //vector<string> program3 = {"if","(","2",">","1",")","NEWLINE","INDENT","print","3","NEWLINE","DEDENT","else","NEWLINE","INDENT","print","4","NEWLINE","DEDENT"};
     //vector<string> program3 = {"while","(","2",">","1",")","NEWLINE","INDENT","print","3","NEWLINE","DEDENT","print","5","NEWLINE"};
     //vector<string> program3 = {"a","=","10","NEWLINE","while","(","a",">","1",")","NEWLINE","INDENT","print","a","NEWLINE","a","=","a","-","1","NEWLINE","DEDENT","print","a","NEWLINE"};
     //vector<string> program3 = {"a","=","10","NEWLINE","b","=","5","NEWLINE","print","a","+","b","NEWLINE"};
-    vector<string> program3 = {"a","=","10","NEWLINE","if","(","a","<","1",")","NEWLINE","INDENT","b","=","a","-","1","NEWLINE",
-            "print","b","NEWLINE","DEDENT","else","NEWLINE","INDENT","b","=","a","+","1","NEWLINE",
-                               "print","b","NEWLINE","DEDENT"};
+   // vector<string> program3 = {"a","=","10","NEWLINE","if","(","a","<","1",")","NEWLINE","INDENT","b","=","a","-","1","NEWLINE", "print","b","NEWLINE","DEDENT","else","NEWLINE","INDENT","b","=","a","+","1","NEWLINE", "print","b","NEWLINE","DEDENT"};
     Parser *parser6 = new Parser(program3);
     Node* node = parser6->getProgram(*symbolTable1);
     TreeHelper treeHelper;
