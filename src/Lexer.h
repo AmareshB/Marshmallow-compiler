@@ -29,6 +29,7 @@ public:
     bool isNewLine(char c);
     int leadingSpaces(int i);
     int getNumber(int i);
+    bool isComma(char c);
 
 };
 
