@@ -53,21 +53,16 @@ Node* Parser::getProgram(SymbolTable &symbolTable)
 Node* Parser::parseBlock(SymbolTable &symbolTable,std::string type)
 {
     SymbolTable *newSymbolTable = new SymbolTable();
-    if(type == "function") {
-        newSymbolTable->currentAddress = -1;
-        newSymbolTable->parentMap = nullptr;
-    }
-    else
-    {
+    if(type != "function"){
         newSymbolTable->parentMap = &symbolTable;
         if(&symbolTable == globalSymbolTable){
             newSymbolTable->currentAddress = -1;
         }else {
             newSymbolTable->currentAddress = symbolTable.currentAddress;
         }
+        blockCount++;
+        symbolTable.childMaps.insert({"block"+to_string(blockCount), newSymbolTable});
     }
-    blockCount++;
-    symbolTable.childMaps.insert({"block"+to_string(blockCount), newSymbolTable});
 
     //symbolTable = *newSymbolTable;
     std::vector<Node*> statements;
@@ -266,7 +261,12 @@ Node* Parser::func_def(SymbolTable &symbolTable) {
     //symbolTable.childMaps.push_back(childTable);
 
     //childTable->parentMap = &symbolTable;
-    Node* parameters = parseParameters(symbolTable);
+    SymbolTable *newSymbolTable = new SymbolTable();
+    newSymbolTable->currentAddress = -1;
+    newSymbolTable->parentMap = nullptr;
+    blockCount++;
+    symbolTable.childMaps.insert({"block"+to_string(blockCount), newSymbolTable});
+    Node* parameters = parseParameters(*newSymbolTable);
     if(tokens[i]!=")")
     {
         cout<<"Missing ')' in function def"<<"at line"<<instLine;
@@ -276,7 +276,7 @@ Node* Parser::func_def(SymbolTable &symbolTable) {
     ++i;
 
     //    childTable.startAddress=symbolTable.endAddress+1;
-    Node* block = parseBlock(symbolTable,"function");
+    Node* block = parseBlock(*newSymbolTable,"function");
     TreeHelper treeHelp;
     res = treeHelp.makeAST("function",identifier,parameters,block);
     return res;
