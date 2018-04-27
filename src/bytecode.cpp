@@ -15,11 +15,17 @@
 #include <compiler/utils/stmt/BranchNode.h>
 #include <compiler/utils/BlockNode.h>
 #include <compiler/utils/stmt/WhileNode.h>
+#include <compiler/utils/stmt/FuncNode.h>
+#include <compiler/utils/other_nodes/ParametersNode.h>
+#include <compiler/utils/stmt/ExecFuncNode.h>
+#include <compiler/utils/other_nodes/ArgumentsNode.h>
+#include <compiler/utils/stmt/ReturnNode.h>
 #include "bytecode.h"
 
 bool isAssign = false;
 
 std::vector<int> current_breaks;
+std::unordered_map<std::string,int> funcAddresses;
 int current_loopAddr;
 bool foundInGlobalTable = false;
 
@@ -229,6 +235,44 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
         vec.push_back(BR);
         current_breaks.push_back(vec.size());
         vec.push_back(-1);
+    } else if(typeName == "function") {
+        FuncNode *funcNode = static_cast<FuncNode*>(node);
+        vec.push_back(BR);
+        int funcEndAddr = vec.size();
+        vec.push_back(-1);
+        int funcAddr = vec.size();
+        generateByteCode(funcNode->parameters,funcNode->parameters->getType(),vec);
+        generateByteCode(funcNode->block,funcNode->block->getType(),vec);
+        vec.at(funcEndAddr) = vec.size();
+        IdenNode *idenNode = static_cast<IdenNode*>(funcNode->identifier);
+        funcAddresses.insert({idenNode->name,funcAddr});
+
+    } else if(typeName == "parameters") {
+        ParametersNode *parametersNode = static_cast<ParametersNode*>(node);
+        for(int p = 0; p<parametersNode->parameters.size();p++){
+            isAssign = true;
+            generateByteCode(parametersNode->parameters[p],parametersNode->parameters[p]->getType(),vec);
+        }
+
+    } else if(typeName == "callFunc") {
+        ExecFuncNode *execFuncNode = static_cast<ExecFuncNode*>(node);
+        generateByteCode(execFuncNode->params,execFuncNode->params->getType(),vec);
+        IdenNode *idenNode = static_cast<IdenNode*>(execFuncNode->funcName);
+        if (funcAddresses.count(idenNode->name) > 0 ) {
+            vec.push_back(CALL);
+            vec.push_back(funcAddresses.find(idenNode->name)->second);
+        } else {
+            throw "Function <"+idenNode->name+"> not defined";
+        }
+    } else if(typeName == "arguments") {
+        ArgumentsNode *argumentsNode = static_cast<ArgumentsNode*>(node);
+        for(int p = argumentsNode->arguments.size() -1 ;p >= 0;p--){
+            generateByteCode(argumentsNode->arguments[p],argumentsNode->arguments[p]->getType(),vec);
+        }
+    } else if(typeName == "return") {
+        ReturnNode *returnNode = static_cast<ReturnNode*>(node);
+        generateByteCode(returnNode->child,returnNode->child->getType(),vec);
+        vec.push_back(RET);
     }
 }
 
