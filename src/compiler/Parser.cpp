@@ -269,7 +269,7 @@ Node* Parser::func_def(SymbolTable &symbolTable) {
     newSymbolTable->currentAddress = -1;
     newSymbolTable->parentMap = nullptr;
     blockCount++;
-    symbolTable.childMaps.insert({"block"+to_string(blockCount), newSymbolTable});
+    symbolTable.childMaps.insert({(static_cast<IdenNode*> (identifier))->name, newSymbolTable});
     Node* parameters = parseParameters(*newSymbolTable);
     if(tokens[i]!=")")
     {
@@ -575,7 +575,7 @@ Node* Parser::m_expr(SymbolTable &symbolTable){
     res = atom(symbolTable);
     TreeHelper treeHelper;
     //need an else condition to throw error i guess
-    i++;
+    //i++;
     if(i >= tokens.size())
         return res;
     if(tokens[i] == "*"){
@@ -607,17 +607,22 @@ Node* Parser::atom(SymbolTable &symbolTable)
             cout<<"Expected )"<<"at line"<<instLine<<"\n";
             return nullptr;
         }
-    }else if(tokens[i][0] >= '0' && tokens[i][0] <= '9'){
+        i++;
+    }else if((tokens[i][0] == '-' && tokens[i][1] >= '0' && tokens[i][1] <= '9') || (tokens[i][0] >= '0' && tokens[i][0] <= '9')){
         //should here be parsing number
         res = new NumberNode(stoi(tokens[i]));
-    }else
-    { // java bugs ; can be written after if
+        i++;
+    } else if(i+1 < tokens.size() && tokens[i+1] == "(") {
+        res = exec_stmt(symbolTable);
+    }
+    else { // java bugs ; can be written after if
         if(!lookup(tokens[i],symbolTable))
         {
             cout<<tokens[i]<<" not defined earlier at line no "<<instLine<<"\n";
             exit(-1);
         }
         res = new IdenNode(tokens[i]);
+        i++;
     }
     return res;
 }

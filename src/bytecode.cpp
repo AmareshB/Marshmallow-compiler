@@ -190,7 +190,9 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
         int complete_addr = vec.size();
         vec.push_back(-1);
         vec.at(fail_addr) = vec.size();
-        generateByteCode(branchNode->branch,branchNode->branch->getType(),vec);
+        if(branchNode->branch != nullptr) {
+            generateByteCode(branchNode->branch, branchNode->branch->getType(), vec);
+        }
         vec.at(complete_addr) = vec.size();
         //vec.push_back(BR);
         //vec.push_back(-1);
@@ -247,13 +249,15 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
         int funcEndAddr = vec.size();
         vec.push_back(-1);
         int funcAddr = vec.size();
-        BlockNode *blockNode = static_cast<BlockNode*>(funcNode->block);
-        symbolTable = symbolTable->childMaps.find(blockNode->name)->second;
-        generateByteCode(funcNode->block,funcNode->block->getType(),vec);
-        vec.at(funcEndAddr) = vec.size();
         IdenNode *idenNode = static_cast<IdenNode*>(funcNode->identifier);
         funcAddresses.insert({idenNode->name,funcAddr});
-        symbolTable = symbolTable->parentMap;
+        //BlockNode *blockNode = static_cast<BlockNode*>(funcNode->block);
+        SymbolTable *oldSymbolTable = symbolTable;
+        symbolTable = symbolTable->childMaps.find(idenNode->name)->second;
+        generateByteCode(funcNode->block,funcNode->block->getType(),vec);
+        vec.at(funcEndAddr) = vec.size();
+
+        symbolTable = oldSymbolTable;
         inFunction = false;
     }  else if(typeName == "callFunc") {
         ExecFuncNode *execFuncNode = static_cast<ExecFuncNode*>(node);
