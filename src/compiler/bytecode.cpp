@@ -30,7 +30,6 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
     int i= 0;
     std::string childType = "";
     if(typeName == "program") {
-        vec.push_back(1);
         ProgramNode *programNode = static_cast<ProgramNode *>(node);
         while(i < programNode->childStmt.size()){
             childType = programNode->childStmt[i]->getType();

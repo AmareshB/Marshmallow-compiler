@@ -29,7 +29,6 @@ private:
     int code_len;
     int nglobals = -1;
     std::vector<int> globals;
-    void run(int ip);
     void add_global(int ind, int val);
     int get_global(int ind);
 

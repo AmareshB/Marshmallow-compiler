@@ -8,7 +8,7 @@ letter ::= [a-zA-Z]
 digit ::= [0-9]
 identifier ::= (letter|"_") (letter | digit | "_")*
 funcname ::= identifier
-integer ::= digit(digit)*
+integer ::= "-"?digit(digit)*
 stmt     ::= assignment_stmt NEWLINE
                 | print_stmt NEWLINE
                 | return_stmt NEWLINE
@@ -50,7 +50,7 @@ This is language is completey developed from scratch using only C++ and Stl Libr
 1. Lexer: This takes in the program as input and creates tokens out of the program.
 	1. This analyzes the input program to create tokens.
 2. Parser: Tokens from the Lexer is fed as input to Parser which generates Parse Tree and Symbol table.
-	1. This part takes care of sematic analysis and generating the parse tree.
+	1. This part takes care of semantic analysis and generating the parse tree.
 	2. This throws an error if the given program has syntax errors
 3. Intermediate Code: This generates the bytecode based on the parse tree in which is in agreement with the runtime.
 	1. This traverses the parse tree and generates the bytecode using opcodes.
