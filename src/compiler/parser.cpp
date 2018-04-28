@@ -14,18 +14,32 @@ static int blockCount = 0;
 
 Parser::Parser(const std::vector<std::string> &tokens) : tokens(tokens) {}
 
-Node* Parser::parseIdentifier() {
-    IdenNode* res = nullptr;
-    if(tokens[i][0]!='_' && (tokens[i][0]<'a' || tokens[i][0]>'z') && (tokens[i][0]<'A' || tokens[i][0]>'Z'))
-        std::cout << "Identifier wrong "<<tokens[0]<<"at line"+instLine;
-    else
+
+/**
+ * traverse up till you get a identifierName in symbol table
+ * @param idenName
+ * @param symbolTable
+ * @return true if found
+ */
+bool Parser::lookup(string idenName, SymbolTable &symbolTable) {
+
+
+    if(symbolTable.symbolTableMap.count(idenName) > 0)
     {
-        res = new IdenNode(tokens[i]);
-        //consume identifier
-        ++i;
+        return true;
     }
-    return res;
+    else if(symbolTable.parentMap!= nullptr)
+    {
+        return lookup(idenName,*symbolTable.parentMap);
+    }
+    else if(&symbolTable!=globalSymbolTable)
+    {
+        if(globalSymbolTable->symbolTableMap.count(idenName) > 0)
+            return true;
+    }
+    return false;
 }
+
 /**
   * The one generating symbol table
   * @param symbolTable
@@ -331,7 +345,6 @@ Node* Parser::parseParameters(SymbolTable &symbolTable) {
  if_stmt ::= "if" expression block
             ( "elif" expression block )*
             ("else" block)?
-
  * @return
  */
 Node* Parser::if_stmt(SymbolTable &symbolTable) {
@@ -384,6 +397,10 @@ Node* Parser::while_stmt(SymbolTable &symbolTable) {
     return treeHelper.makeAST("while",exp,block);
 }
 
+/**
+ * continue ::= “continue”
+ * @return
+ */
 Node* Parser::cont_stmt() {
     //consume continue
     ++i;
@@ -393,6 +410,10 @@ Node* Parser::cont_stmt() {
     return treeHelper.makeAST("continue",lhs,rhs);
 }
 
+/**
+ * break ::= “break”
+ * @return
+ */
 Node* Parser::break_stmt() {
     //consume break
     ++i;
@@ -402,6 +423,11 @@ Node* Parser::break_stmt() {
     return treeHelper.makeAST("break",lhs,rhs);
 }
 
+/**
+ * print ::= “print” expression
+ * @param symbolTable
+ * @return
+ */
 Node* Parser::print_stmt(SymbolTable &symbolTable) {
     //consume print
     ++i;
@@ -412,6 +438,11 @@ Node* Parser::print_stmt(SymbolTable &symbolTable) {
     return res;
 }
 
+/**
+ * return ::= “return” expression
+ * @param symbolTable
+ * @return
+ */
 Node* Parser::return_stmt(SymbolTable &symbolTable) {
     //consume print
     ++i;
@@ -421,6 +452,12 @@ Node* Parser::return_stmt(SymbolTable &symbolTable) {
     res = treeHelper.makeAST("return",res,rhs);
     return res;
 }
+
+/**
+ * assignment_stmt ::= identifier "=" expression
+ * @param symbolTable
+ * @return
+ */
 Node* Parser::assign_stmt(SymbolTable &symbolTable) {
     Node* res = nullptr;
     res = parseIdentifier();
@@ -435,27 +472,12 @@ Node* Parser::assign_stmt(SymbolTable &symbolTable) {
     return res;
 }
 
-/*
-expression ::= or_expr
 
-or_expr ::= and_expr | and_expr "or" or_expr
-
-and_expr ::= not_expr | not_expr "and" and_expr
-
-not_expr ::= comp_expr | "not" not_expr
-
-comp_expr ::= a_expr | a_expr comp_opr comp_expr
-
-a_expr ::= m_expr | m_expr "+" a_expr | m_expr "-" a_expr
-
-m_expr ::= atom| atom "*" m_expr | atom "/" m_expr | atom "%" m_expr
-
-Atom ::= integer | identifier | “(” expression“)”
-
-comp_opr ::= "=="|"<>"|"<"|">"|"<="|">="
-
-*/
-
+/**
+ * expression ::= or_expr
+ * @param symbolTable
+ * @return
+ */
 Node* Parser::expression(SymbolTable &symbolTable){
 
     Node* res = nullptr;
@@ -463,6 +485,11 @@ Node* Parser::expression(SymbolTable &symbolTable){
     return res;
 }
 
+/**
+ * or_expr ::= and_expr | and_expr "or" or_expr
+ * @param symbolTable
+ * @return
+ */
 Node* Parser::or_expr(SymbolTable &symbolTable){
     Node* res = nullptr;
     res = and_expr(symbolTable);
@@ -477,7 +504,11 @@ Node* Parser::or_expr(SymbolTable &symbolTable){
     return res;
 }
 
-
+/**
+ * and_expr ::= not_expr | not_expr "and" and_expr
+ * @param symbolTable
+ * @return
+ */
 Node* Parser::and_expr(SymbolTable &symbolTable){
     Node* res = nullptr;
     res = not_expr(symbolTable);
@@ -492,6 +523,11 @@ Node* Parser::and_expr(SymbolTable &symbolTable){
     return res;
 }
 
+/**
+ * not_expr ::= comp_expr | "not" not_expr
+ * @param symbolTable
+ * @return
+ */
 Node* Parser::not_expr(SymbolTable &symbolTable){
     Node* res = nullptr;
     if(i >= tokens.size())
@@ -512,7 +548,11 @@ Node* Parser::not_expr(SymbolTable &symbolTable){
 }
 
 
-
+/**
+ * comp_expr ::= a_expr | a_expr  comp_opr comp_expr
+ * @param symbolTable
+ * @return
+ */
 Node* Parser::compar_exp(SymbolTable &symbolTable) {
     Node* res = nullptr;
     Node* res1 = nullptr;
@@ -548,7 +588,11 @@ Node* Parser::compar_exp(SymbolTable &symbolTable) {
     return res;
 }
 
-
+/**
+ * a_expr ::= m_expr | m_expr "+" a_expr | m_expr "-" a_expr
+ * @param symbolTable
+ * @return
+ */
 Node* Parser::a_expr(SymbolTable &symbolTable){
     Node* res = nullptr;
     Node* res1 = nullptr;
@@ -568,7 +612,11 @@ Node* Parser::a_expr(SymbolTable &symbolTable){
     return res;
 }
 
-
+/**
+ * m_expr ::= unit| unit "*" m_expr | unit "/" m_expr | unit "%" m_expr
+ * @param symbolTable
+ * @return
+ */
 Node* Parser::m_expr(SymbolTable &symbolTable){
     Node* res = nullptr;
     Node* res1 = nullptr;
@@ -594,7 +642,11 @@ Node* Parser::m_expr(SymbolTable &symbolTable){
     return res;
 }
 
-
+/**
+ * unit ::= integer | identifier | “(” expression“)” | exec_stmt
+ * @param symbolTable
+ * @return
+ */
 Node* Parser::atom(SymbolTable &symbolTable)
 {
     Node* res = nullptr;
@@ -627,31 +679,21 @@ Node* Parser::atom(SymbolTable &symbolTable)
     return res;
 }
 
-//traverse up till you get a identifierName
 
 /**
- *
- * @param idenName
- * @param symbolTable
- * @return true if found
+ * This is to parse a identifier
+ * @return
  */
-bool Parser::lookup(string idenName, SymbolTable &symbolTable) {
-
-
-    if(symbolTable.symbolTableMap.count(idenName) > 0)
+Node* Parser::parseIdentifier() {
+    IdenNode* res = nullptr;
+    if(tokens[i][0]!='_' && (tokens[i][0]<'a' || tokens[i][0]>'z') && (tokens[i][0]<'A' || tokens[i][0]>'Z'))
+        std::cout << "Identifier wrong "<<tokens[0]<<"at line"+instLine;
+    else
     {
-        return true;
+        res = new IdenNode(tokens[i]);
+        //consume identifier
+        ++i;
     }
-    else if(symbolTable.parentMap!= nullptr)
-    {
-        return lookup(idenName,*symbolTable.parentMap);
-    }
-    else if(&symbolTable!=globalSymbolTable)
-    {
-        if(globalSymbolTable->symbolTableMap.count(idenName) > 0)
-            return true;
-    }
-    return false;
+    return res;
 }
-
 
