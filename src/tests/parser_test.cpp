@@ -14,11 +14,11 @@
 using namespace std;
 
 void test1();
-/*
+
 int main()
 {
    test1();
-}*/
+}
 
 /**
  * Test case 1 to check the structure of parse tree and its content
@@ -55,4 +55,8 @@ void test1()
         }
     }
     cout<<"Tested Successfully";
+    delete node;
+    delete symbolTable1;
+    delete parser6;
+
 }

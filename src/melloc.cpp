@@ -7,6 +7,7 @@
 #include "compiler/parser.h"
 #include "compiler/lexer.h"
 #include "compiler/bytecode.h"
+#include "runtime/runtime.h"
 
 int main(int argc, const char* argv[]) {
 
@@ -35,6 +36,8 @@ int main(int argc, const char* argv[]) {
     bytecode *b = new bytecode(symbolTable);
     b->generateByteCode(ast,ast->getType(),byteCode);
 
+    runtime *r = new runtime(&byteCode,byteCode.size());
+    r->run();
     for(int j=0; j<byteCode.size(); j++)
         std::cout<< byteCode[j] << ' ';
 
@@ -42,6 +45,5 @@ int main(int argc, const char* argv[]) {
     std::ofstream fout(output, std::ios::out | std::ios::binary);
     fout.write((char*)&byteCode[0], byteCode.size() * sizeof(byteCode));
     fout.close();
-
     return 0;
 }

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.5)
 project(SER502_Spring2018_Team15)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -17,9 +17,8 @@ add_executable(melloc
         src/compiler/parser.cpp
         src/compiler/bytecode.h
         src/compiler/bytecode.cpp
-        src/tests/parser_test.cpp
-        src/tests/bytecode_test.cpp
-        src/tests/runtime_test.cpp
+        src/runtime/runtime.h
+        src/runtime/runtime.cpp
         src/melloc.cpp)
 
 add_executable(mello
@@ -27,3 +26,14 @@ add_executable(mello
         src/runtime/runtime.h
         src/runtime/runtime.cpp
         src/mello.cpp)
+
+add_executable(parser
+        src/utils/node.h
+        src/utils/symbolTable.h
+        src/utils/treeHelper.h
+        src/compiler/parser.h
+        src/utils/node.cpp
+        src/utils/treeHelper.cpp
+        src/compiler/parser.cpp
+        src/tests/parser_test.cpp
+        )
