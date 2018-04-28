@@ -10,7 +10,7 @@
 
 using  namespace std;
 
-int main() {
+/*int main() {
 
     SymbolTable *symbolTable1 = new SymbolTable();
     //vector<string> program3 = {"a","=","(","9","*","10",")","/","3","NEWLINE","print","a","NEWLINE"};
@@ -42,4 +42,4 @@ int main() {
 
    //cout << "Hello World";
     return 0;
-}
+}*/

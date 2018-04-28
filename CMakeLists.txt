@@ -17,6 +17,9 @@ add_executable(melloc
         src/compiler/parser.cpp
         src/compiler/bytecode.h
         src/compiler/bytecode.cpp
+        src/tests/parser_test.cpp
+        src/tests/bytecode_test.cpp
+        src/tests/runtime_test.cpp
         src/melloc.cpp)
 
 add_executable(mello
