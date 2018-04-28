@@ -3,12 +3,8 @@
 //
 
 #include <string>
-#include <compiler/utils/SymbolTable.h>
-#include <compiler/Parser.h>
-#include "melloc.h"
-#include "Lexer.h"
-#include "bytecode.h"
-#include "runtime.h"
+#include <bits/stdc++.h>
+#include "runtime/runtime.h"
 
 int main(int argc, const char* argv[]) {
 
@@ -21,7 +17,7 @@ int main(int argc, const char* argv[]) {
     std::vector<int> byteCode;
     int num;
     std::fstream fin(program, std::fstream::in);
-    while (fin >> std::noskipws >> num) {
+    while (fin >> num) {
         byteCode.push_back(num);
     }
     fin.close();

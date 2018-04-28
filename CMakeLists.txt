@@ -4,7 +4,23 @@ project(SER502_Spring2018_Team15)
 set(CMAKE_CXX_STANDARD 11)
 add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
 
-include_directories(src)
+add_executable(melloc
+        src/utils/node.h
+        src/utils/node.cpp
+        src/utils/opcodes.h
+        src/utils/symbolTable.h
+        src/utils/treeHelper.h
+        src/utils/treeHelper.cpp
+        src/compiler/lexer.h
+        src/compiler/lexer.cpp
+        src/compiler/parser.h
+        src/compiler/parser.cpp
+        src/compiler/bytecode.h
+        src/compiler/bytecode.cpp
+        src/melloc.cpp)
 
-add_executable(SER502_Spring2018_Team15
-        src/bytecode.h src/runtime.cpp src/runtime_test.cpp src/runtime.h src/lexer.cpp src/lexer.h src/compiler/parser_test.cpp src/compiler/utils/other_nodes/Node.cpp src/compiler/utils/other_nodes/ExpNode.cpp src/compiler/utils/other_nodes/ExpNode.h src/compiler/utils/other_nodes/Node.h src/compiler/utils/other_nodes/IdenNode.cpp src/compiler/utils/other_nodes/IdenNode.h src/compiler/utils/other_nodes/NumberNode.cpp src/compiler/utils/other_nodes/NumberNode.h src/compiler/utils/other_nodes/ParametersNode.cpp src/compiler/utils/other_nodes/ParametersNode.h src/compiler/utils/other_nodes/ProgramNode.cpp src/compiler/utils/other_nodes/ProgramNode.h src/compiler/utils/other_nodes/UnaryNode.cpp src/compiler/utils/other_nodes/UnaryNode.h src/compiler/utils/other_nodes/BinaryNode.cpp src/compiler/utils/other_nodes/BinaryNode.h src/compiler/utils/other_nodes/ArgumentsNode.cpp src/compiler/utils/other_nodes/ArgumentsNode.h src/compiler/utils/stmt/StatementNode.cpp src/compiler/utils/stmt/StatementNode.h src/compiler/utils/stmt/AssignNode.cpp src/compiler/utils/stmt/AssignNode.h src/compiler/utils/stmt/BranchNode.cpp src/compiler/utils/stmt/BranchNode.h src/compiler/utils/stmt/BreakNode.cpp src/compiler/utils/stmt/BreakNode.h src/compiler/utils/stmt/ContinueNode.cpp src/compiler/utils/stmt/ContinueNode.h src/compiler/utils/stmt/ExecFuncNode.cpp src/compiler/utils/stmt/ExecFuncNode.h src/compiler/utils/stmt/FuncNode.cpp src/compiler/utils/stmt/FuncNode.h src/compiler/utils/stmt/PrintNode.cpp src/compiler/utils/stmt/PrintNode.h src/compiler/utils/stmt/WhileNode.cpp src/compiler/utils/stmt/WhileNode.h src/compiler/Parser.cpp src/compiler/Parser.h src/compiler/utils/SymbolTable.cpp src/compiler/utils/SymbolTable.h src/compiler/utils/TreeHelper.cpp src/compiler/utils/TreeHelper.h src/compiler/utils/BlockNode.cpp src/compiler/utils/BlockNode.h src/bytecode.cpp src/bytecode_test.cpp src/bytecode_test.h src/compiler/utils/stmt/ReturnNode.cpp src/compiler/utils/stmt/ReturnNode.h src/melloc.cpp src/melloc.h)
+add_executable(mello
+        src/utils/opcodes.h
+        src/runtime/runtime.h
+        src/runtime/runtime.cpp
+        src/mello.cpp)

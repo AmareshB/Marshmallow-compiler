@@ -3,11 +3,10 @@
 //
 
 #include <string>
-#include <compiler/utils/SymbolTable.h>
-#include <compiler/Parser.h>
-#include "melloc.h"
-#include "Lexer.h"
-#include "bytecode.h"
+#include "utils/SymbolTable.h"
+#include "compiler/parser.h"
+#include "compiler/lexer.h"
+#include "compiler/bytecode.h"
 
 int main(int argc, const char* argv[]) {
 
