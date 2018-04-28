@@ -44,8 +44,7 @@ comp_opr ::=
              "<" | ">" | "==" | ">=" | "<=" | "<>"
 ```
 
-This is language is completely developed from **scratch** using only C++ without any tools to have higher learning curve.
-
+To have a higher learning curve and to **decrease dependency on external tools**, this is language is completely developed from **scratch** using only C++.
 1. Lexer: This takes in the program as input and creates tokens out of the program.
 	1. This analyzes the input program to create tokens.
 2. Parser: Tokens from the Lexer is fed as input to Parser which generates Parse Tree and Symbol table.
