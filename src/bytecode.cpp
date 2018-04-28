@@ -31,73 +31,34 @@ bool foundInGlobalTable = false;
 bool inFunction = false;
 
 bytecode::bytecode(){
-    std::cout << "  \n inside constructor";
-     //symbolTable = new SymbolTable();
 }
 bytecode::bytecode(SymbolTable *symTable) {
     globalSymbolTable = symTable;
     symbolTable = symTable;
-    //cout << "symTable" <<symTable->symbolTableMap[0].;
-    //cout <<"symboltable" << this->symbolTable->symbolTableMap.find("a");
 }
-
-/*vector<int> bytecode::generateByteCode() {
-    cout << "\nInside generatebytecode function\n";
-
-    SymbolTable *symbolTable1 = new SymbolTable();
-    vector<string> program3 = {"print","2","+","3","NEWLINE"};
-    Parser *parser6 = new Parser(program3);
-    Node* node = parser6->getProgram(*symbolTable1);
-    TreeHelper treeHelper;
-    treeHelper.generateAddress(0,*symbolTable1);
-    cout<<node->getType() <<"\n";
-    cout << "----------------- starts\n";
-
-    int children = 0, i = 0;
-    ProgramNode *programNode;
-    if(node->getType()=="program") {
-        programNode = dynamic_cast<ProgramNode *>(node);
-        children = programNode->childStmt.size();
-    }
-    cout <<" Child count" << children;
-
-}*/
 
 void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int> &vec) {
 
-    //int children = 0;
     int i= 0;
     std::string childType = "";
-    //cout << "\nchild " << programNode->childStmt[i]->getType();
-    //node = new Node();
-    //string typeName = node->getType();
-    std::cout << "\ntype " << typeName;
     if(typeName == "program") {
-        std::cout << "\n Inside program block";
         vec.push_back(1);
         ProgramNode *programNode = static_cast<ProgramNode *>(node);
-        std::cout <<programNode->childStmt.size();
         while(i < programNode->childStmt.size()){
             childType = programNode->childStmt[i]->getType();
             generateByteCode(programNode->childStmt[i],childType,vec);
             i++;
         }
         vec.push_back(EXIT);
-        std::cout << "\nEnd of recursion" << int(vec.size())<<"\n";
-        for(int j=0; j<vec.size(); j++)
-            std::cout<< vec[j] << ' ';
     } else if( typeName == "print") {
-        std::cout <<"\ninside  print block ";
         PrintNode *printNode = static_cast<PrintNode *>(node);
         childType = printNode->child->getType();
         generateByteCode(printNode->child,childType,vec);
         vec.push_back(PRINT);
     } else if( typeName == "binaryNode") {
-        std::cout <<"\ninside  binary block ";
         BinaryNode *binaryNode = static_cast<BinaryNode *>(node);
         generateByteCode(binaryNode->rhs,binaryNode->rhs->getType(),vec);
         generateByteCode(binaryNode->lhs,binaryNode->lhs->getType(),vec);
-        std::cout <<"\nbinary node name" << binaryNode->name;
         std::string operation = binaryNode->name;
         if(operation == "+") {
             vec.push_back(ADD);
@@ -132,14 +93,7 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
         int val = * new int(numberNode->val);
         vec.push_back(val);
     } else if(typeName == "identifier") {
-        std::cout <<"\ninside  identifier block ";
         IdenNode *idenNode = static_cast<IdenNode *> (node);
-
-        //vec.push_back(STORE);
-        std::cout << idenNode->getName();
-        //cout<<symbolTable->symbolTableMap.find(idenNode->getName())->second;
-        //int idenAddr = symbolTable->symbolTableMap.find(idenNode->getName())->second;
-        //int val1 = * new int(symbolTable->symbolTableMap.find(idenNode->getName())->second);
         int val1 = findIdentifier(idenNode->getName(),symbolTable);
         if(isAssign){
             if(foundInGlobalTable){
@@ -159,14 +113,9 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
         isAssign =  false;
         vec.push_back(val1);
     } else if (typeName == "assign") {
-        std::cout <<"\ninside  assign block ";
         AssignNode *assignNode = static_cast<AssignNode *>(node);
         generateByteCode(assignNode->rhs,assignNode->rhs->getType(),vec);
-        //vec.push_back(STORE);
         isAssign = true;
-        /*vec.push_back(0);
-        vec.push_back(LOAD);
-        vec.push_back(0);*/
         generateByteCode(assignNode->lhs,assignNode->lhs->getType(),vec);
     } else if(typeName == "unary") {
         UnaryNode *unaryNode = static_cast<UnaryNode *> (node);
@@ -182,7 +131,6 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
         generateByteCode(branchNode->condition,branchNode->condition->getType(),vec);
         vec.push_back(BRF);
         int fail_addr = vec.size();
-        //last.push_back(vec.size() + 1);
         vec.push_back(-1);
 
         generateByteCode(branchNode->bodyBlock,branchNode->bodyBlock->getType(),vec);
@@ -194,8 +142,6 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
             generateByteCode(branchNode->branch, branchNode->branch->getType(), vec);
         }
         vec.at(complete_addr) = vec.size();
-        //vec.push_back(BR);
-        //vec.push_back(-1);
     } else if (typeName == "else"){
         BranchNode *branchNode = static_cast<BranchNode*>(node);
         generateByteCode(branchNode->bodyBlock,branchNode->bodyBlock->getType(),vec);
@@ -204,7 +150,6 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
         if(!inFunction) {
             symbolTable = symbolTable->childMaps.find(blockNode->name)->second;
         }
-        std::cout <<"block size"<<blockNode->childStmt.size();
         while(i < blockNode->childStmt.size()){
             childType = blockNode->childStmt[i]->getType();
             generateByteCode(blockNode->childStmt[i],childType,vec);
@@ -251,7 +196,6 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
         int funcAddr = vec.size();
         IdenNode *idenNode = static_cast<IdenNode*>(funcNode->identifier);
         funcAddresses.insert({idenNode->name,funcAddr});
-        //BlockNode *blockNode = static_cast<BlockNode*>(funcNode->block);
         SymbolTable *oldSymbolTable = symbolTable;
         symbolTable = symbolTable->childMaps.find(idenNode->name)->second;
         generateByteCode(funcNode->block,funcNode->block->getType(),vec);

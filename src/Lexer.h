@@ -16,6 +16,7 @@
 #include <ctype.h>
 
 class Lexer{
+    std::stack<int> st;
     std::vector<char> input;
     std::vector<std::string> tokens;
     std::map<std::string, std::string> Keyword;

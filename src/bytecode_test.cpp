@@ -10,7 +10,7 @@
 #include "runtime.h"
 
 using  namespace std;
-
+/*
 int main() {
 
     SymbolTable *symbolTable1 = new SymbolTable();
@@ -44,3 +44,4 @@ int main() {
    //cout << "Hello World";
     return 0;
 }
+ */

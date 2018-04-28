@@ -12,33 +12,29 @@
 
     Lexer::Lexer(std::vector<char> program) {
 
-        std::stack<int> st;
-        std::vector<char> input;
-        std::map<std::string, std::string> Keyword;
-        std::map<std::string, std::string>::iterator it;
-
         input = program;
 
         std::string Keywords[] = {"print", "and", "not", "or", "while", "if", "elif", "else", "break", "continue",
-                                  "return", "function", "int", "void"};
+                                  "return", "function"};
 
-        for (int i = 0; i < 14; i++) {
+        for (int i = 0; i < 12; i++) {
             Keyword.insert(std::pair<std::string, std::string>(Keywords[i], Keywords[i]));
         }
 
     }
 
-    std::vector<std::string> Lexer::Tokenize() {
+     std::vector<std::string> Lexer::Tokenize() {
         std::vector<std::string> tokens;
         int line_number = 1;
         char c;
-        int last_indent = -1;
-        bool new_line = true;
+        int last_indent = 0;
+        bool new_line = false;
         int i = 0;
 
         while (i < input.size()) {
             char c = input.at(i);
             if (isNewLine(c)) {
+                tokens.push_back("NEWLINE");
                 new_line = true;
                 i++;
                 line_number++;
@@ -54,8 +50,7 @@
                 } else if (indent < last_indent) {
                     st.pop();
                     if (st.top() > last_indent) {
-                        tokens.push_back("ERROR");
-                        break;
+                        throw "Improper indentation at line number:"+line_number;
                     }
                     tokens.push_back("DEDENT");
                     last_indent = indent;
@@ -196,7 +191,7 @@
         else
             return false;
     }
-};
+
 
 
 
