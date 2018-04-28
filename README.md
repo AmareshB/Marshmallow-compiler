@@ -1,5 +1,30 @@
 # Marshmallow
 
+**Members**
+Amaresh Bingumalla
+Balachandar Sampath
+Ejaz Saifudeen
+Prasanth Venugopal
+
+## YouTube Video Link
+This video talks gives an overview about the development and abilities of this programming language.
+
+**Platform**
+    Windows(Mingw Compiler required)
+
+## Tools
+[Cmake] (https://cmake.org/) : CMake is an open-source, cross-platform family of tools designed to build, test and package software.
+
+## Installation and Running
+
+
+
+## Sample Program
+
+## Byte Code
+
+## Output
+
 ### Grammar
 
 ```
@@ -48,17 +73,16 @@ To have a higher learning curve and to **decrease dependency on external tools**
 1. Lexer: This takes in the program as input and creates tokens out of the program.
 	1. This analyzes the input program to create tokens.
 2. Parser: Tokens from the Lexer is fed as input to Parser which generates Parse Tree and Symbol table.
-    1. This is a recursive descent parser with look ahead.
+    	1. This is a recursive descent parser with look ahead.
 	2. This part takes care of semantic analysis and generating the parse tree.
 	3. This generates symbol table which is a doubly linked N-ary tree structure.
 	4. This throws an error if the given program has syntax errors.
 3. Intermediate Code: This generates the bytecode based on the parse tree in which is in agreement with the runtime.
-	1. This traverses the parse tree and generates the bytecode using opcodes.
+	1. This part recursively walks through the tree and generates the byte code using the opcodes.
 4. Runtime Environment:	This takes the bytecode and does the execution of the program written. This gives out the output after completing the execution.
 	1. Stack Model is used for execution.
 	2. Bytecode is traversed and executed with the stack holding current values.
 
--- place holder to write about cmake.
 
 ## Abilities of the Language:
 
