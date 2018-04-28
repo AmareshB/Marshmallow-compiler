@@ -58,12 +58,8 @@ int runtime::get_global(int ind){
 }
 
 void runtime::run() {
-    int ip = code[0];
-    run(ip);
-}
-
-void runtime::run(int ip) {
     int sp = -1;
+    int ip = 0;
     int a = 0;
     int b = 0;
 

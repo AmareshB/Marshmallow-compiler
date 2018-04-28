@@ -25,12 +25,17 @@ bytecode::bytecode(SymbolTable *symTable) {
     symbolTable = symTable;
 }
 
+/**
+ * Recursively traverse parse tree, generate corresponding bytecode and update the bytecode vector
+ * @param node
+ * @param typeName
+ * @param vec
+ */
 void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int> &vec) {
 
     int i= 0;
     std::string childType = "";
     if(typeName == "program") {
-        vec.push_back(1);
         ProgramNode *programNode = static_cast<ProgramNode *>(node);
         while(i < programNode->childStmt.size()){
             childType = programNode->childStmt[i]->getType();
@@ -215,6 +220,13 @@ void bytecode::generateByteCode(Node *node,std::string typeName, std::vector<int
         vec.push_back(RET);
     }
 }
+/**
+ * recursively look in the parent symbolTable up till you get a identifierName in symbol table
+ * if not found, then look in the global symbolTable
+ * @param name
+ * @param st - current symbol table
+ * @return symbolTable where the identifier is found
+ */
 
 int bytecode::findIdentifier(std::string name, SymbolTable *st){
 
