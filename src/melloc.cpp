@@ -3,7 +3,7 @@
 //
 
 #include <string>
-#include "utils/SymbolTable.h"
+#include "utils/symbolTable.h"
 #include "compiler/parser.h"
 #include "compiler/lexer.h"
 #include "compiler/bytecode.h"
@@ -15,8 +15,8 @@ int main(int argc, const char* argv[]) {
         throw "Invalid input. e.g. melloc <input.mlw>";
 
     std::string program = argv[0];*/
-    std::string program = "../data/simpleProgram.mlw";
-
+   // std::string program = "../data/simpleProgram.mlw";
+    std::string program = "../data/leapYearCheck.mlw";
     std::vector<char> programbuff;
     char ch;
     std::fstream fin(program, std::fstream::in);

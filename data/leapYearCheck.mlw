@@ -1,9 +1,8 @@
-year=2016
-if(year%400==0)
-    print "Yes, it's a Leap Year."
-elif(year%100==0)
-    print "Sorry, not a Leap Year."
-elif(year%4==0)
-    print "Yes, it's a Leap Year."
+year = 2016
+if ( year % 400 == 0 )
+ print 1
+elif ( year % 4 == 0 )
+ print 10
 else
-    print "Sorry, not a Leap Year."
+ print 0
+

@@ -1,0 +1,7 @@
+n = 3
+function add(n)
+ n = 5
+ return n
+d = add(n)
+print d
+print n

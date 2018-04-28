@@ -82,8 +82,8 @@ Node* Parser::parseBlock(SymbolTable &symbolTable,std::string type)
     std::vector<Node*> statements;
     if(tokens[i] != "NEWLINE")
     {
-        cout<<"No new line found at "<<tokens[i]<<"at line"+instLine;
-        return nullptr;
+        cout<<"No new line found at "<<tokens[i]<<" at line  "+instLine;
+        exit(-1);
     }
     //consume newline
     ++i;
@@ -115,9 +115,9 @@ Node* Parser::parseBlock(SymbolTable &symbolTable,std::string type)
     }
     else
     {
-        cout<<"no indent inside block"<<tokens[i]<<"at line"<<instLine;
+        cout<<"no indent inside block"<<tokens[i]<<" at line "<<instLine;
+        exit(-1);
     }
-    return nullptr;
 }
 /**
     * stmt     ::= assignment_stmt NEWLINE
@@ -143,8 +143,8 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
         stmtNode = print_stmt(symbolTable);
         if(tokens[i]!="NEWLINE")
         {
-            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine;
-            return nullptr;
+            cout<<"No Newline found at "<<tokens[i]<<" at line "<<instLine;
+            exit(-1);
         }
         //consume newline
         ++i;
@@ -155,8 +155,8 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
         stmtNode = return_stmt(symbolTable);
         if(tokens[i]!="NEWLINE")
         {
-            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine;
-            return nullptr;
+            cout<<"No Newline found at "<<tokens[i]<<" at line "<<instLine;
+            exit(-1);
         }
         //consume newline
         ++i;
@@ -167,8 +167,8 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
         stmtNode = break_stmt();
         if(tokens[i]!="NEWLINE")
         {
-            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine;
-            return nullptr;
+            cout<<"No Newline found at "<<tokens[i]<<" at line "<<instLine;
+            exit(-1);
         }
         //consume newline
         ++i;
@@ -179,8 +179,8 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
         stmtNode = cont_stmt();
         if(tokens[i]!="NEWLINE")
         {
-            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine;
-            return nullptr;
+            cout<<"No Newline found at "<<tokens[i]<<" at line "<<instLine;
+            exit(-1);
         }
         //consume newline
         ++i;
@@ -203,8 +203,8 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
         stmtNode = exec_stmt(symbolTable);
         if(tokens[i]!="NEWLINE")
         {
-            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine;
-            return nullptr;
+            cout<<"No Newline found at "<<tokens[i]<<" at line "<<instLine;
+            exit(-1);
         }
         //consume newline
         ++i;
@@ -215,16 +215,16 @@ Node* Parser::parseStatement( SymbolTable& symbolTable)
         stmtNode = assign_stmt(symbolTable);
         if(tokens[i]!="NEWLINE")
         {
-            cout<<"No Newline found at "<<tokens[i]<<"at line"<<instLine;
-            return nullptr;
+            cout<<"No Newline found at "<<tokens[i]<<" at line "<<instLine;
+            exit(-1);
         }
         //consume newline
         ++i;
         ++instLine;
     } else
     {
-        cout<<"Bad syntax at line "<<tokens[i]<<"at line"<<instLine;
-        return nullptr;
+        cout<<"Bad syntax "<<tokens[i]<<" at line "<<instLine;
+        exit(-1);
     }
     //else if stay tuned for other statements
     return stmtNode;
@@ -239,16 +239,16 @@ Node* Parser::exec_stmt(SymbolTable &symbolTable) {
     Node* identifier = parseIdentifier();
     if(tokens[i]!="(")
     {
-        cout<<"Missing '(' in function call"<<"at line"<<instLine;
-        return nullptr;
+        cout<<"Missing '(' in function call"<<" at line "<<instLine;
+        exit(-1);
     }
     //consume "("
     ++i;
     Node* arguments = parseArguments(symbolTable);
     if(tokens[i]!=")")
     {
-        cout<<"Missing ')' in function call"<<"at line"<<instLine;
-        return nullptr;
+        cout<<"Missing ')' in function call"<<" at line "<<instLine;
+        exit(-1);
     }
     //consume ")"
     ++i;
@@ -270,8 +270,8 @@ Node* Parser::func_def(SymbolTable &symbolTable) {
     Node* res=nullptr;
     if(tokens[i]!="(")
     {
-        cout<<"Missing '(' in function def"<<"at line"<<instLine;
-        return nullptr;
+        cout<<"Missing '(' in function def"<<" at line "<<instLine;
+        exit(-1);
     }
     //consume "("
     ++i;
@@ -287,8 +287,8 @@ Node* Parser::func_def(SymbolTable &symbolTable) {
     Node* parameters = parseParameters(*newSymbolTable);
     if(tokens[i]!=")")
     {
-        cout<<"Missing ')' in function def"<<"at line"<<instLine;
-        return nullptr;
+        cout<<"Missing ')' in function def"<<" at line "<<instLine;
+        exit(-1);
     }
     //consume ")"
     ++i;
@@ -656,8 +656,8 @@ Node* Parser::atom(SymbolTable &symbolTable)
         //need minor changes i guess if we are allowing (3<4)*4...should be top expression like here or_exp
         res = expression(symbolTable);
         if(tokens[i] != ")") {
-            cout<<"Expected )"<<"at line"<<instLine<<"\n";
-            return nullptr;
+            cout<<"Expected )"<<" at line "<<instLine<<"\n";
+            exit(-1);
         }
         i++;
     }else if((tokens[i][0] == '-' && tokens[i][1] >= '0' && tokens[i][1] <= '9') || (tokens[i][0] >= '0' && tokens[i][0] <= '9')){
@@ -670,7 +670,7 @@ Node* Parser::atom(SymbolTable &symbolTable)
     else { // java bugs ; can be written after if
         if(!lookup(tokens[i],symbolTable))
         {
-            cout<<tokens[i]<<" not defined earlier at line no "<<instLine<<"\n";
+            cout<<tokens[i]<<" not defined earlier  at line  no "<<instLine<<"\n";
             exit(-1);
         }
         res = new IdenNode(tokens[i]);
@@ -687,7 +687,7 @@ Node* Parser::atom(SymbolTable &symbolTable)
 Node* Parser::parseIdentifier() {
     IdenNode* res = nullptr;
     if(tokens[i][0]!='_' && (tokens[i][0]<'a' || tokens[i][0]>'z') && (tokens[i][0]<'A' || tokens[i][0]>'Z'))
-        std::cout << "Identifier wrong "<<tokens[0]<<"at line"+instLine;
+        std::cout << "Identifier wrong "<<tokens[0]<<" at line "+instLine;
     else
     {
         res = new IdenNode(tokens[i]);

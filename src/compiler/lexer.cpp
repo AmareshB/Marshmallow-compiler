@@ -48,10 +48,12 @@
                     tokens.push_back("INDENT");
                     last_indent = indent;
                 } else if (indent < last_indent) {
-                    st.pop();
+
+
                     if (st.top() > last_indent) {
                         throw "Improper indentation at line number:"+line_number;
                     }
+                    st.pop();
                     tokens.push_back("DEDENT");
                     last_indent = indent;
                 }
