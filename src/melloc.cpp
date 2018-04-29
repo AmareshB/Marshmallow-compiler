@@ -11,17 +11,10 @@
 
 int main(int argc, const char* argv[]) {
 
-    /*if(argc != 1)
+    if(argc != 1)
         throw "Invalid input. e.g. melloc <input.mlw>";
 
-    std::string program = argv[0];*/
-   // std::string program = "../data/simpleProgram.mlw";
-    //std::string program = "../data/fibonacci.mlw";
-    //std::string program = "../data/leapYearCheck.mlw";
-    //std::string program = "../data/evenNumbers.mlw";
-    //std::string program = "../data/negativeTest.mlw";
-    std::string program = "../data/scopetest.mlw";
-    //std::string program = "../data/ifProgram.mlw";
+    std::string program = argv[0];
 
     std::vector<char> programbuff;
     char ch;
@@ -46,14 +39,6 @@ int main(int argc, const char* argv[]) {
     delete symbolTable;
     delete parser;
     delete b;
-
-    runtime *r = new runtime(&byteCode,byteCode.size());
-    std::cout<<"Bytecode:"<<std::endl;
-    for(int j=0; j<byteCode.size(); j++)
-        std::cout<< byteCode[j] << ' ';
-    std::cout<<std::endl;
-    r->run();
-
 
     std::string output = program.replace(program.length()-3,3,"o") ;
 

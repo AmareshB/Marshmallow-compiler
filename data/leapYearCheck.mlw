@@ -1,7 +1,0 @@
-year = 2016
-if ( year % 400 == 0 )
- print 1
-elif ( year % 4 == 0 )
- print 10
-else
- print 0

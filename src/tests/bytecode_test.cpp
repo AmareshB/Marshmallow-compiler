@@ -5,7 +5,6 @@
 #include <iostream>
 #include "../compiler/parser.h"
 #include "../compiler/bytecode.h"
-#include "../runtime/runtime.h"
 
 void testCase();
 
@@ -49,12 +48,6 @@ void testCase() {
     vector<int> byteCodeVector;
     bytecode *b = new bytecode(symbolTable1);
     b->generateByteCode(node,node->getType(),byteCodeVector);
-    /*std::cout<<"Bytecode:"<<std::endl;
-    for(int j=0; j<byteCodeVector.size(); j++)
-        std::cout<< byteCodeVector[j] << ' ';
-    std::cout<<std::endl;
-    runtime *r = new runtime(&byteCodeVector,byteCodeVector.size());
-    r->run();*/
     if(testBytecode == byteCodeVector){
         std::cout<<"Test Passed";
     } else {

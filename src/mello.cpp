@@ -8,12 +8,10 @@
 
 int main(int argc, const char* argv[]) {
 
-/*if(argc != 1)
+    if(argc != 1)
         throw "Invalid input. e.g. melloc <input.mlw>";
 
-    std::string program = argv[0];*/
-
-    std::string program = "../data/simpleProgram.o";
+    std::string program = argv[0];
 
     std::vector<int> byteCode;
     char byte[sizeof(int)];
