@@ -19,6 +19,8 @@ int main(int argc, const char* argv[]) {
     //std::string program = "../data/fibonacci.mlw";
     //std::string program = "../data/negativeTest.mlw";
     std::string program = "../data/scopetest.mlw";
+    //std::string program = "../data/fibonacci.mlw";
+    std::string program = "../data/leapYearCheck.mlw";
     std::vector<char> programbuff;
     char ch;
     std::fstream fin(program, std::fstream::in);
@@ -39,9 +41,12 @@ int main(int argc, const char* argv[]) {
     b->generateByteCode(ast,ast->getType(),byteCode);
 
     runtime *r = new runtime(&byteCode,byteCode.size());
-    r->run();
+    std::cout<<"Bytecode:"<<std::endl;
     for(int j=0; j<byteCode.size(); j++)
         std::cout<< byteCode[j] << ' ';
+    std::cout<<std::endl;
+    r->run();
+
 
     std::string output = program.replace(program.length()-3,3,"o") ;
     std::ofstream fout(output, std::ios::out | std::ios::binary);
