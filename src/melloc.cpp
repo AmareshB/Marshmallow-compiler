@@ -17,12 +17,12 @@ int main(int argc, const char* argv[]) {
     std::string program = argv[0];*/
    // std::string program = "../data/simpleProgram.mlw";
     //std::string program = "../data/fibonacci.mlw";
-    //std::string program = "../data/leapYearCheck.mlw";
+    std::string program = "../data/ifElse.mlw";
     //std::string program = "../data/evenNumbers.mlw";
     //std::string program = "../data/negativeTest.mlw";
-    std::string program = "../data/scopetest.mlw";
+    //std::string program = "../data/scopetest.mlw";
     //std::string program = "../data/ifProgram.mlw";
-
+    //std::string program = "../data/calculator.mlw";
     std::vector<char> programbuff;
     char ch;
     std::fstream fin(program, std::fstream::in);
