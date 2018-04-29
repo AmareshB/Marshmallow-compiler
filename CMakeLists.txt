@@ -35,10 +35,9 @@ add_executable(parser
         src/utils/node.cpp
         src/utils/treeHelper.cpp
         src/compiler/parser.cpp
-        src/tests/parser_test.cpp
-        src/tests/lexer_test.cpp)
+        src/tests/parser_test.cpp)
 
-add_executable(lexy
+add_executable(lexer
         src/compiler/lexer.h
         src/compiler/lexer.cpp
         src/tests/lexer_test.cpp
