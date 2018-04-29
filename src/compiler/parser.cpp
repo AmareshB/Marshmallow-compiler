@@ -67,6 +67,7 @@ Node* Parser::getProgram(SymbolTable &symbolTable)
 Node* Parser::parseBlock(SymbolTable &symbolTable,std::string type)
 {
     SymbolTable *newSymbolTable = new SymbolTable();
+    int currentBlockCount;
     if(type != "function"){
         newSymbolTable->parentMap = &symbolTable;
         if(&symbolTable == globalSymbolTable){
@@ -75,7 +76,8 @@ Node* Parser::parseBlock(SymbolTable &symbolTable,std::string type)
             newSymbolTable->currentAddress = symbolTable.currentAddress;
         }
         blockCount++;
-        symbolTable.childMaps.insert({"block"+to_string(blockCount), newSymbolTable});
+        currentBlockCount = blockCount;
+        symbolTable.childMaps.insert({"block"+to_string(currentBlockCount), newSymbolTable});
     }
 
     //symbolTable = *newSymbolTable;
@@ -111,7 +113,7 @@ Node* Parser::parseBlock(SymbolTable &symbolTable,std::string type)
         //consume dedent
         ++i;
         TreeHelper treeHelper;
-        return treeHelper.makeAST("block",statements);
+        return treeHelper.makeAST("block"+to_string(currentBlockCount),statements);
     }
     else
     {
