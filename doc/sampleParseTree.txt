@@ -1,0 +1,75 @@
+ProgramNode {
+	name = 'program', childStmt = [AssignNode {
+		name = '=',
+			lhs = IdenNode {
+				name = 'a'
+			}, rhs = NumberNode {
+				val = 5
+			}
+	}, AssignNode {
+		name = '=',
+			lhs = IdenNode {
+				name = 'i'
+			}, rhs = NumberNode {
+				val = 1
+			}
+	}, BranchNode {
+		name = 'if',
+			condition = BinaryNode {
+				name = '==', lhs = BinaryNode {
+						name = '%',
+							lhs = IdenNode {
+								name = 'a'
+							}, rhs = NumberNode {
+								val = 2
+							}
+					},
+					rhs = NumberNode {
+						val = 0
+					}
+			}, bodyBlock = BlockNode {
+				name = 'block',
+					childStmt = [PrintNode {
+						name = 'print', child = IdenNode {
+							name = 'a'
+						}
+					}]
+			},
+			branch = BranchNode {
+				name = 'else', condition = null,
+					bodyBlock = BlockNode {
+						name = 'block', childStmt = [WhileNode {
+							name = 'while',
+								expression = BinaryNode {
+									name = '<', lhs = IdenNode {
+											name = 'i'
+										},
+										rhs = NumberNode {
+											val = 'a'
+										}
+								}, block = BlockNode {
+									name = 'block',
+										childStmt = [PrintNode {
+												name = 'print', child = IdenNode {
+													name = 'i'
+												}
+											},
+											AssignNode {
+												name = '=', lhs = IdenNode {
+													name = 'i'
+												}, rhs = BinaryNode {
+													name = '+',
+														lhs = IdenNode {
+															name = 'i'
+														}, rhs = NumberNode {
+															val = 1
+														}
+												}
+											}
+										]
+								}
+						}]
+					}, branch = null
+			}
+	}]
+}

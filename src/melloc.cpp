@@ -21,6 +21,7 @@ int main(int argc, const char* argv[]) {
     //std::string program = "../data/evenNumbers.mlw";
     //std::string program = "../data/negativeTest.mlw";
     std::string program = "../data/scopetest.mlw";
+    //std::string program = "../data/ifProgram.mlw";
 
     std::vector<char> programbuff;
     char ch;

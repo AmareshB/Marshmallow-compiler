@@ -8,7 +8,6 @@
 #include <queue>
 #include "treeHelper.h"
 using namespace std;
-static int blockCount = 0;
 void TreeHelper::initialise() {
     map_values["%"] = mod;
     map_values["/"] = div;
@@ -93,12 +92,15 @@ Node* TreeHelper::makeAST(std::string name, Node* lhs, Node* rhs) {
 Node* TreeHelper::makeAST(std::string name, std::vector<Node *> &nodes) {
     initialise();
     Node* resultNode = NULL;
+    std::string blockName;
+    if(name.at(name.length()-1) >= '0' && name.at(name.length()-1) <= '9'){
+        blockName = name;
+        name = "block";
+    }
     //will add identifier later
     switch(map_values[name])
     {
         case block: {
-            blockCount++;
-            std::string blockName = name + to_string(blockCount);
             resultNode = new BlockNode(blockName, nodes);
             break;
         }

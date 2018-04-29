@@ -1,0 +1,19 @@
+a = 6
+b = 4
+operation = 2
+if(operation == 1)
+ function add (a, b)
+  return a + b
+ print add(a, b)
+elif(operation == 2)
+ function sub (a, b)
+  return a - b
+ print sub(a ,b)
+elif( operation == 3)
+ function mul (a, b)
+  return a * b
+ print mul(a,b)
+else
+ function div (a,b)
+  return a/b
+ print div(a ,b)

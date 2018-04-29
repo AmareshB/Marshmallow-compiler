@@ -239,7 +239,7 @@ int bytecode::findIdentifier(std::string name, SymbolTable *st){
     }
     else if(st->parentMap!= nullptr)
     {
-        return findIdentifier(name,symbolTable->parentMap);
+        return findIdentifier(name,st->parentMap);
     }
     else if(st != globalSymbolTable)
     {

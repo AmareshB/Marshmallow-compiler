@@ -1,8 +1,10 @@
 n = 3
-function mangle()
- if true
+function mangle(n)
+ d = 5
+ if 2 < 3
   n = 2 * 3 + 5 - 8 / 2
+ else
+  g = 4
  return n
-d = mangle(n)
 print mangle(n)
 print n

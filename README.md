@@ -28,6 +28,10 @@ This video talks gives an overview about the development and abilities of this p
 
 ~$ tar xvf master.tar.gz --strip 1
 
+## Design
+
+<img src="/doc/design.PNG" />
+
 
 ## Sample Program
 ```
@@ -36,13 +40,18 @@ i = 1
 if (a%2 == 0)
  print (a)
 else
- while (i<10)
+ while (i<a)
   print(i)
   i = i+1
  
  ```
+## SAMPLE PARSE TREE STRUCTURE
+<img src="/doc/structure_of_parse_tree.JPG" />
 
-## Byte Code
+## SAMPLE SYMBOL TABLE TREE STRUCTURE
+<img src="/doc/symbolTable.JPG" />
+
+## SAMPLE PROGRAM BYTE CODE
 
 ```
 0 PUSH 5
@@ -71,8 +80,15 @@ else
 40 EXIT
 ```
 
-
 ## Output
+
+```
+1
+2
+3
+4
+```
+
 
 ### Grammar
 
@@ -183,6 +199,9 @@ elif ( a % 2 == 0 )
 else 
  print 0
 ```
+## IF BLOCK
+<img src="/doc/ByteCode_representation_if.PNG" />
+
 11. #### Loop Statements
 	1. while
 ```
@@ -191,11 +210,23 @@ while(a > 0)
  print a
  a = a - 1
 ```
+## WHILE BLOCK
+<img src="/doc/while_representation.PNG" />
+
 12. #### Functions - Need to be defined at the top of the program
 	1. Simple function execution
 	2. Function execution with return values
 	3. Recursion
 	4. Operations on return values
+```
+function mangle(n)
+ d = 5
+  if 2 < 3
+   n = 2 * 3 + 5 - 8 / 2
+  else
+   g = 4
+ return n
+```
 13. #### Scopes
 	1. Handling block scopes, with different symbol table for each scope.
 	2. Handling scopes inside a functions.
