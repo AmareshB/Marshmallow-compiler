@@ -15,9 +15,9 @@ int main(int argc, const char* argv[]) {
         throw "Invalid input. e.g. melloc <input.mlw>";
 
     std::string program = argv[0];*/
-   // std::string program = "../data/simpleProgram.mlw";
+    std::string program = "../data/simpleProgram.mlw";
     //std::string program = "../data/fibonacci.mlw";
-    std::string program = "../data/leapYearCheck.mlw";
+    //std::string program = "../data/leapYearCheck.mlw";
     std::vector<char> programbuff;
     char ch;
     std::fstream fin(program, std::fstream::in);
@@ -46,8 +46,12 @@ int main(int argc, const char* argv[]) {
 
 
     std::string output = program.replace(program.length()-3,3,"o") ;
-    std::ofstream fout(output, std::ios::out | std::ios::binary);
-    fout.write((char*)&byteCode[0], byteCode.size() * sizeof(byteCode));
-    fout.close();
+
+    const char* pointer = reinterpret_cast<const char*>(&byteCode[0]);
+    size_t bytes = byteCode.size() * sizeof(byteCode[0]);
+    std::ofstream opstream;
+    opstream.open(output,std::ios::out | std::ios::binary);
+    opstream.write(pointer, bytes);
+    opstream.close();
     return 0;
 }
