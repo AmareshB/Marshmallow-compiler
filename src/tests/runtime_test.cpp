@@ -8,85 +8,82 @@
 #include "../utils/opcodes.h"
 
 static int test1[] = {
-        1, //Starting opcode and storage mem
         //Divide 2 numbers
-        PUSH, 10, //1
-        PUSH, 20, //3
-        DIV,      //5
-        PRINT,    //6
-        EXIT      //7
+        PUSH, 10, //0
+        PUSH, 20, //2
+        DIV,      //4
+        PRINT,    //5
+        EXIT      //6
 };
 
 static int test2[]{
-        1,
         //Check is number is odd or even, -1 if even, -2 if odd
-        PUSH, 5,  //1
-        STORE, 0, //3
-        PUSH, 2,  //5
-        LOAD, 0,  //7
-        MOD,      //9
-        PUSH, 0,  //10
-        EQ,       //12
-        BRF, 20,  //13
-        PUSH, -1, //15
-        PRINT,    //17
-        BR, 25,   //18
-        PUSH, -2, //20
-        PRINT,    //22
-        BR, 25,   //23
-        EXIT      //25
+        PUSH, 5,  //0
+        STORE, 0, //2
+        PUSH, 2,  //4
+        LOAD, 0,  //6
+        MOD,      //8
+        PUSH, 0,  //9
+        EQ,       //11
+        BRF, 20,  //12
+        PUSH, -1, //14
+        PRINT,    //16
+        BR, 25,   //17
+        PUSH, -2, //19
+        PRINT,    //21
+        BR, 25,   //22
+        EXIT      //24
 
 };
 
 static int test3[] = {
-        1,
         //prints even numbers from 20 - 0
-        PUSH, 20,   //1
-        GSTORE, 0,  //3
-        PUSH, 0,    //5
-        GLOAD, 0,   //7
-        GT,         //9
-        BRF, 36,    //10
-        PUSH, 2,    //12
-        GLOAD, 0,   //14
-        MOD,        //16
-        PUSH, 0,    //17
-        EQ,         //19
-        BRF, 27,    //20
-        GLOAD, 0,   //22
-        PRINT,      //24
-        BR, 27,     //25
-        PUSH, 1,    //27
-        GLOAD, 0,   //29
-        SUB,        //31
-        GSTORE, 0,  //32
-        BR, 5,     //34
-        EXIT        //36
+        PUSH, 20,   //0
+        GSTORE, 0,  //2
+        PUSH, 0,    //4
+        GLOAD, 0,   //6
+        GT,         //8
+        BRF, 35,    //9
+        PUSH, 2,    //11
+        GLOAD, 0,   //13
+        MOD,        //15
+        PUSH, 0,    //16
+        EQ,         //18
+        BRF, 26,    //19
+        GLOAD, 0,   //21
+        PRINT,      //23
+        BR, 26,     //24
+        PUSH, 1,    //26
+        GLOAD, 0,   //28
+        SUB,        //30
+        GSTORE, 0,  //31
+        BR, 5,      //33
+        EXIT        //35
 
 };
 static int test4[] = {
-        23,
+        BR, 24,               // 0
 // Factorial of a number
 //	IF N < 2 RETURN 1
-        PUSH, 2,              // 1
-        LOAD, 0,              // 3
-        LT,                   // 5
-        BRF, 11,              // 6
-        PUSH, 1,              // 8
-        RET,                  // 10
+        PUSH, 2,              // 2
+        LOAD, 0,              // 4
+        LT,                   // 6
+        BRF, 12,              // 7
+        PUSH, 1,              // 9
+        RET,                  // 11
 //	RETURN N * FACT(N-1)
-        PUSH, 1,              // 11
-        LOAD, 0,              // 13
-        SUB,                  // 15
-        CALL, 1, 1,           // 16
-        LOAD, 0,              // 19
-        MUL,                  // 21
-        RET,                  // 22
+        PUSH, 1,              // 12
+        LOAD, 0,              // 14
+        SUB,                  // 16
+        CALL, 2, 1,           // 17
+        LOAD, 0,              // 20
+        MUL,                  // 22
+        RET,                  // 23
 // MAIN
-        PUSH, 5,              // 23
-        CALL, 1, 1,           // 25
-        PRINT,                // 28
-        EXIT                  // 29
+        PUSH, 5,              // 24
+        CALL, 2, 1,           // 26
+        PRINT,                // 29
+        EXIT                  // 30
 };
 
 /*int main() {

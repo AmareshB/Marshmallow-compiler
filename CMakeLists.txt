@@ -27,7 +27,7 @@ add_executable(mello
         src/runtime/runtime.cpp
         src/mello.cpp)
 
-add_executable(parser
+add_executable(parser_test
         src/utils/node.h
         src/utils/symbolTable.h
         src/utils/treeHelper.h
@@ -38,17 +38,18 @@ add_executable(parser
         src/tests/parser_test.cpp
         src/tests/lexer_test.cpp)
 
-add_executable(lexy
+add_executable(lexer_test
         src/compiler/lexer.h
         src/compiler/lexer.cpp
         src/tests/lexer_test.cpp
         )
 
-add_executable(bytecode
+add_executable(bytecode_test
         src/utils/node.h
         src/utils/symbolTable.h
         src/utils/treeHelper.h
         src/compiler/parser.h
+        src/utils/opcodes.h
         src/utils/node.cpp
         src/utils/treeHelper.cpp
         src/compiler/parser.cpp
@@ -58,3 +59,10 @@ add_executable(bytecode
         src/runtime/runtime.h
         src/tests/bytecode_test.cpp
 )
+
+add_executable(runtime_test
+        src/utils/opcodes.h
+        src/runtime/runtime.cpp
+        src/runtime/runtime.h
+        src/tests/runtime_test.cpp
+        )
