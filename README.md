@@ -240,7 +240,10 @@ function mangle(n)
 	2. Handling scopes inside a functions.
 	3. Handling scopes inside conditional and Loop Statements.
 
-### Bonus Points
+### Bonus Features
+
+Implemented the following extra features:
+
 1. Functions
 2. Variable Scope
 3. Recursive Descent Parser from scratch
