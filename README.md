@@ -235,6 +235,18 @@ function mangle(n)
    g = 4
  return n
 ```
+
+Recursion Example:
+
+```
+function fib(n)
+ if n <= 1
+  return n
+ return fib(n - 1) + fib(n - 2)
+ans = fib(7)
+print ans
+
+```
 13. #### Scopes
 	1. Handling block scopes, with different symbol table for each scope.
 	2. Handling scopes inside a functions.
@@ -244,10 +256,13 @@ function mangle(n)
 
 Implemented the following extra features:
 
-1. Functions
+1. Functions - Recursion, Nested
 2. Variable Scope
 3. Recursive Descent Parser from scratch
 4. Lexer from Scratch
 5. Symbol Table Implementation to manage scope
 6. Nested Conditions
 7. Print statement
+8. Return Statement
+9. Break Statement
+10. Continue Statement
