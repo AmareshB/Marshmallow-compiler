@@ -48,13 +48,14 @@
                     tokens.push_back("INDENT");
                     last_indent = indent;
                 } else if (indent < last_indent) {
-
-
                     if (st.top() > last_indent) {
                         throw "Improper indentation at line number:"+line_number;
                     }
-                    st.pop();
-                    tokens.push_back("DEDENT");
+                    while(last_indent > indent) {
+                        st.pop();
+                        tokens.push_back("DEDENT");
+                        last_indent--;
+                    }
                     last_indent = indent;
                 }
                 i += indent;
@@ -67,6 +68,7 @@
 
             if (isComma(c)) {
                 tokens.push_back(",");
+                i++;
                 continue;
             }
 
