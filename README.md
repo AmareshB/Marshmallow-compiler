@@ -17,8 +17,11 @@ This video talks gives an overview about the development and abilities of this p
 
 ## Installation and Running
 ~$ mkdir SER502-Spring2018-Team15
+
 ~$ cd SER502-Spring2018-Team15
+
 ~$ wget https://github.com/ej-z/SER502-Spring2018-Team15.git
+
 ~$ tar xvf master.tar.gz --strip 1
 
 
