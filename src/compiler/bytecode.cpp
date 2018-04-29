@@ -253,5 +253,10 @@ int bytecode::findIdentifier(std::string name, SymbolTable *st){
     }
 }
 
+bytecode::~bytecode() {
+    funcAddresses.clear();
+    current_breaks.clear();
+}
+
 
 

@@ -17,7 +17,9 @@ int main(int argc, const char* argv[]) {
     std::string program = argv[0];*/
    // std::string program = "../data/simpleProgram.mlw";
     //std::string program = "../data/fibonacci.mlw";
-    std::string program = "../data/leapYearCheck.mlw";
+    //std::string program = "../data/leapYearCheck.mlw";
+    std::string program = "../data/evenNumbers.mlw";
+
     std::vector<char> programbuff;
     char ch;
     std::fstream fin(program, std::fstream::in);
@@ -36,6 +38,11 @@ int main(int argc, const char* argv[]) {
     std::vector<int> byteCode;
     bytecode *b = new bytecode(symbolTable);
     b->generateByteCode(ast,ast->getType(),byteCode);
+
+    delete ast;
+    delete symbolTable;
+    delete parser;
+    delete b;
 
     runtime *r = new runtime(&byteCode,byteCode.size());
     std::cout<<"Bytecode:"<<std::endl;
