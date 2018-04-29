@@ -18,5 +18,4 @@ public:
     int currentAddress=-1;
 };
 
-
 #endif //SER502_SPRING2018_TEAM15_SYMBOLTABLE_H

@@ -30,8 +30,47 @@ This video talks gives an overview about the development and abilities of this p
 
 
 ## Sample Program
+```
+a = 5
+i = 1
+if (a%2 == 0)
+ print (a)
+else
+ while (i<10)
+  print(i)
+  i = i+1
+ 
+ ```
 
 ## Byte Code
+
+```
+0 PUSH 5
+2 STORE #0
+4 PUSH 1
+6 STORE #1
+8 PUSH 0
+10 PUSH 2
+12 LOAD #0
+14 MOD
+15 EQ
+16 BRF $22
+18 LOAD #0
+20 PRINT
+21 BR $40
+23 PUSH 10
+25 LOAD #1
+27 LT
+28 BRF $40
+30 LOAD #1
+32 PRINT
+33 PUSH 1
+35 LOAD #1
+37 ADD
+38 STORE #1
+40 EXIT
+```
+
 
 ## Output
 

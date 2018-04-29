@@ -1,0 +1,15 @@
+a = 10 + 50
+b = 60 - 30
+c = 80 - 50
+d = 100 - 10
+e = 75 -25
+f = true;
+g = false
+if ( a == 60 )
+ if ( b == 30 )
+  if ( c == 30  and g == false )
+   if ( d  == 90 or f == true)
+    if(e == 50 and f == true)
+    print f and g
+
+
