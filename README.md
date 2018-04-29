@@ -1,9 +1,13 @@
 # Marshmallow
 
 **Members**
+
 Amaresh Bingumalla
+
 Balachandar Sampath
+
 Ejaz Saifudeen
+
 Prasanth Venugopal
 
 ## YouTube Video Link
@@ -26,8 +30,47 @@ This video talks gives an overview about the development and abilities of this p
 
 
 ## Sample Program
+```
+a = 5
+i = 1
+if (a%2 == 0)
+ print (a)
+else
+ while (i<10)
+  print(i)
+  i = i+1
+ 
+ ```
 
 ## Byte Code
+
+```
+0 PUSH 5
+2 STORE #0
+4 PUSH 1
+6 STORE #1
+8 PUSH 0
+10 PUSH 2
+12 LOAD #0
+14 MOD
+15 EQ
+16 BRF $22
+18 LOAD #0
+20 PRINT
+21 BR $40
+23 PUSH 10
+25 LOAD #1
+27 LT
+28 BRF $40
+30 LOAD #1
+32 PRINT
+33 PUSH 1
+35 LOAD #1
+37 ADD
+38 STORE #1
+40 EXIT
+```
+
 
 ## Output
 
@@ -98,33 +141,62 @@ To have a higher learning curve and to **decrease dependency on external tools**
 	Int
 ### This language supports:
 
-1. #### Assignments
+1. #### Assignment Operations
+
+	`a = 10`
+
 2. #### Arithmetic Operators
 	1. "+", "-", "*", "/", "%" - modulo
+	
+	` b = 4 + 8`
 3. #### Logical Operators
 	1. or
 	2. and
 	3. not
 4. #### Comparision Operators
 	1. "<", "<=", ">", ">=", "==", "<>"
-5. #### Assignment Operations
-6. #### Identifiers
+5. #### Identifiers
 	1. Global variables
 	2. Local variables
-7. #### Print statements
-8. #### Continue Statements.
-9. #### Return Statements.
-10. #### Break statements.
-11. #### Conditional Statements
+6. #### Print statements
+	
+	`print 100`
+7. #### Continue Statements.
+	
+	`continue`
+8. #### Return Statements.
+
+	Example 1: `return 10`
+	
+	Example 2: `return a`
+9. #### Break statements.
+
+	`break`
+10. #### Conditional Statements
 	1. if-elif-else
-12. #### Loop Statements
+
+```a = 10
+if ( a % 5 == 0 )
+ print 5
+elif ( a % 2 == 0 )
+ print 2
+else 
+ print 0
+```
+11. #### Loop Statements
 	1. while
-13. #### Functions - Need to be defined at the top of the program
+```
+a = 10
+while(a > 0)
+ print a
+ a = a - 1
+```
+12. #### Functions - Need to be defined at the top of the program
 	1. Simple function execution
 	2. Function execution with return values
 	3. Recursion
 	4. Operations on return values
-14. #### Scopes
+13. #### Scopes
 	1. Handling block scopes, with different symbol table for each scope.
 	2. Handling scopes inside a functions.
 	3. Handling scopes inside conditional and Loop Statements.

@@ -14,6 +14,7 @@
 #include <array>
 #include <ostream>
 #include <ctype.h>
+#include <stack>
 
 class Lexer{
     std::stack<int> st;

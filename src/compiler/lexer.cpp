@@ -203,6 +203,11 @@
             return false;
     }
 
+    Lexer::~Lexer() {
+    input.clear();
+    Keyword.clear();
+    st.empty();
+}
 
 
 

@@ -58,5 +58,4 @@ void test1()
     delete node;
     delete symbolTable1;
     delete parser6;
-
 }
