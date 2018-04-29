@@ -25,7 +25,7 @@ static int test2[]{
         MOD,      //8
         PUSH, 0,  //9
         EQ,       //11
-        BRF, 20,  //12
+        BRF, 19,  //12
         PUSH, -1, //14
         PRINT,    //16
         BR, 25,   //17
@@ -57,7 +57,7 @@ static int test3[] = {
         GLOAD, 0,   //28
         SUB,        //30
         GSTORE, 0,  //31
-        BR, 5,      //33
+        BR, 4,      //33
         EXIT        //35
 
 };
@@ -86,13 +86,16 @@ static int test4[] = {
         EXIT                  // 30
 };
 
-/*int main() {
+int main() {
 
     runtime *r;
-
-    r = new runtime(test1, sizeof(test1)/ sizeof(int)); r->run();
-    r = new runtime(test2, sizeof(test2)/ sizeof(int)); r->run();
-    r = new runtime(test3, sizeof(test3)/ sizeof(int)); r->run();
-    r = new runtime(test4, sizeof(test4)/ sizeof(int)); r->run();
+    std::vector<int> test11(test1, test1 + sizeof test1 / sizeof test1[0]);
+    r = new runtime(&test11, sizeof(test1)/ sizeof(int)); r->run();
+    std::vector<int> test22(test2, test2 + sizeof test2 / sizeof test2[0]);
+    r = new runtime(&test22, sizeof(test2)/ sizeof(int)); r->run();
+    std::vector<int> test33(test3, test3 + sizeof test3 / sizeof test3[0]);
+    r = new runtime(&test33, sizeof(test3)/ sizeof(int)); r->run();
+    std::vector<int> test44(test4, test4 + sizeof test4 / sizeof test4[0]);
+    r = new runtime(&test44, sizeof(test4)/ sizeof(int)); r->run();
     delete(r);
-}*/
+}
