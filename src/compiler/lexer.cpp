@@ -134,6 +134,15 @@
                 if (it == Keyword.find(sb)) {
                     tokens.push_back(sb);
                 } else {
+                    if(sb == "true"){
+                        tokens.push_back("1");
+                        continue;
+                    }
+
+                    else if(sb == "false"){
+                        tokens.push_back("0");
+                        continue;
+                    }
                     tokens.push_back(sb);
                 }
                 continue;
