@@ -69,7 +69,7 @@ comp_opr ::=
              "<" | ">" | "==" | ">=" | "<=" | "<>"
 ```
 
-## YouTube Video Link : https://youtu.be/xsFWnLc8laA
+### YouTube Video Link : https://youtu.be/xsFWnLc8laA
 
 This video talks gives an overview about the development and abilities of this programming language.
 
@@ -241,10 +241,10 @@ function mangle(n)
 	3. Handling scopes inside conditional and Loop Statements.
 
 ### Bonus Points
-Functions
-Variable Scope
-Recursive Descent Parser from scratch
-Lexer from Scratch
-Symbol Table Implementation to manage scope
-Nested Conditions
-Print statement
+1. Functions
+2. Variable Scope
+3. Recursive Descent Parser from scratch
+4. Lexer from Scratch
+5. Symbol Table Implementation to manage scope
+6. Nested Conditions
+7. Print statement
