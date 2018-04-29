@@ -16,7 +16,10 @@ This video talks gives an overview about the development and abilities of this p
 [Cmake] (https://cmake.org/) : CMake is an open-source, cross-platform family of tools designed to build, test and package software.
 
 ## Installation and Running
-
+~$ mkdir SER502-Spring2018-Team15
+~$ cd SER502-Spring2018-Team15
+~$ wget https://github.com/ej-z/SER502-Spring2018-Team15.git
+~$ tar xvf master.tar.gz --strip 1
 
 
 ## Sample Program
@@ -68,6 +71,7 @@ unit ::= integer | identifier | “(” expression“)” | exec_stmt
 comp_opr ::=
              "<" | ">" | "==" | ">=" | "<=" | "<>"
 ```
+
 
 To have a higher learning curve and to **decrease dependency on external tools**, this is language is completely developed from **scratch** using only C++.
 1. Lexer: This takes in the program as input and creates tokens out of the program.
