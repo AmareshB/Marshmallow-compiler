@@ -86,6 +86,9 @@ To have a higher learning curve and to **decrease dependency on external tools**
 
 ## Abilities of the Language:
 
+### Datatypes supported:
+	Boolean
+	Int
 ### This language supports:
 
 1. #### Assignments
