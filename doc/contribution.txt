@@ -54,4 +54,16 @@ Meeting 9: (04/21/2018)
 Ejaz: Helped Byte code for branching part done.
 Amaresh: Byte code for statements except functions done - pending tests.
 Balachandar: Helped with fixing symbolTable to support scopes.
-Prashanth: Working on tokenizing function calls and declrations.
+Prashanth: Working on tokenizing function calls and declarations.
+
+Meeting 10: (04/24/2018)
+Ejaz: Fixes on symbol table to support functions
+Amaresh: Fixes on bytecode generation for function support and other bug fixes
+Balachandar: Fixes on parse tree for branching and functions and other fixes
+Prashanth: Fixes for function on lexing part and testing.
+
+Meeting 11: (04/28/2018)
+Ejaz: Worked on creating cmake file.
+Amaresh: Worked on documentation part.
+Balachandar: Refactored code and worked on documentation.
+Prashanth: Worked on video preparation and ppt.

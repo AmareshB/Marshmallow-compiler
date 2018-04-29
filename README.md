@@ -69,7 +69,8 @@ comp_opr ::=
              "<" | ">" | "==" | ">=" | "<=" | "<>"
 ```
 
-## YouTube Video Link
+## YouTube Video Link : https://youtu.be/xsFWnLc8laA
+
 This video talks gives an overview about the development and abilities of this programming language.
 
 **Platform**
