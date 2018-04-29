@@ -7,7 +7,7 @@
 
 
 #include <string>
-#include <bits/stdc++.h>
+#include "stdc++.h"
 
 class SymbolTable {
 

@@ -49,7 +49,7 @@
                     last_indent = indent;
                 } else if (indent < last_indent) {
                     if (st.top() > last_indent) {
-                        throw "Improper indentation at line number:"+line_number;
+                        throw "Improper indentation at line number:"+std::to_string(line_number);
                     }
                     while(last_indent > indent) {
                         st.pop();
