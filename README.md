@@ -28,6 +28,9 @@ This video talks gives an overview about the development and abilities of this p
 
 ~$ tar xvf master.tar.gz --strip 1
 
+## Design
+
+![Design Diagram](https://github.com/ej-z/SER502-Spring2018-Team15/tree/master/doc/design.png)
 
 ## Sample Program
 ```
@@ -36,7 +39,7 @@ i = 1
 if (a%2 == 0)
  print (a)
 else
- while (i<10)
+ while (i<a)
   print(i)
   i = i+1
  
@@ -73,6 +76,14 @@ else
 
 
 ## Output
+
+```
+1
+2
+3
+4
+```
+
 
 ### Grammar
 
