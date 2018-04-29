@@ -37,3 +37,18 @@ add_executable(parser
         src/compiler/parser.cpp
         src/tests/parser_test.cpp
         )
+
+add_executable(bytecode
+        src/utils/node.h
+        src/utils/symbolTable.h
+        src/utils/treeHelper.h
+        src/compiler/parser.h
+        src/utils/node.cpp
+        src/utils/treeHelper.cpp
+        src/compiler/parser.cpp
+        src/compiler/bytecode.h
+        src/compiler/bytecode.cpp
+        src/runtime/runtime.cpp
+        src/runtime/runtime.h
+        src/tests/bytecode_test.cpp
+)
