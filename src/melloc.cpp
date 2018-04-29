@@ -20,7 +20,7 @@ int main(int argc, const char* argv[]) {
     //std::string program = "../data/negativeTest.mlw";
     std::string program = "../data/scopetest.mlw";
     //std::string program = "../data/fibonacci.mlw";
-    std::string program = "../data/leapYearCheck.mlw";
+   // std::string program = "../data/leapYearCheck.mlw";
     std::vector<char> programbuff;
     char ch;
     std::fstream fin(program, std::fstream::in);

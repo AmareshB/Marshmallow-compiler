@@ -36,14 +36,12 @@ add_executable(parser
         src/utils/treeHelper.cpp
         src/compiler/parser.cpp
         src/tests/parser_test.cpp
-
         src/tests/lexer_test.cpp)
 
 add_executable(lexy
         src/compiler/lexer.h
         src/compiler/lexer.cpp
         src/tests/lexer_test.cpp
-
         )
 
 add_executable(bytecode
@@ -59,5 +57,4 @@ add_executable(bytecode
         src/runtime/runtime.cpp
         src/runtime/runtime.h
         src/tests/bytecode_test.cpp
-
 )
