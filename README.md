@@ -2,13 +2,27 @@
 
 **Members**
 
-Amaresh Bingumalla
+[Amaresh Bingumalla](https://github.com/AmareshB)
 
-Balachandar Sampath
+[Balachandar Sampath](https://github.com/Bala000)
 
-Ejaz Saifudeen
+[Ejaz Saifudeen](https://github.com/ej-z)
 
-Prasanth Venugopal
+[Prasanth Venugopal](https://github.com/pvenugo)
+
+To have a higher learning curve and to **decrease dependency on external tools**, this is language is completely developed from ***scratch*** using only C++.
+1. Lexer: This takes in the program as input and creates tokens out of the program.
+	1. This analyzes the input program to create tokens.
+2. Parser: Tokens from the Lexer is fed as input to Parser which generates Parse Tree and Symbol table.
+    	1. This is a recursive descent parser with look ahead.
+	2. This part takes care of semantic analysis and generating the parse tree.
+	3. This generates symbol table which is a doubly linked N-ary tree structure.
+	4. This throws an error if the given program has syntax errors.
+3. Intermediate Code: This generates the bytecode based on the parse tree in which is in agreement with the runtime.
+	1. This part recursively walks through the tree and generates the byte code using the opcodes.
+4. Runtime Environment:	This takes the bytecode and does the execution of the program written. This gives out the output after completing the execution.
+	1. Stack Model is used for execution.
+	2. Bytecode is traversed and executed with the stack holding current values.
 
 
 ### Grammar
@@ -59,10 +73,12 @@ comp_opr ::=
 This video talks gives an overview about the development and abilities of this programming language.
 
 **Platform**
-    Windows(Mingw Compiler required)
+    Windows(Mingw required)
+    Mac OS (cmake required)
+    Linux (cmake required)
 
 ## Tools
-[Cmake] (https://cmake.org/) : CMake is an open-source, cross-platform family of tools designed to build, test and package software.
+[Cmake](https://cmake.org/) : CMake is an open-source, cross-platform family of tools designed to build, test and package software.
 
 ## Installation and Running
 
@@ -74,9 +90,9 @@ This video talks gives an overview about the development and abilities of this p
 
 ~$ make
 
-~$ ./melloc "../data/<input source code file.mlw>"
+~$ ./melloc "../data/&lt;input source code file.mlw&gt;"
 
-~$ ./mello "../data/<input bytecode file.o>"
+~$ ./mello "../data/&lt;input bytecode file.o&gt;"
 
 ## Design
 
@@ -139,19 +155,6 @@ else
 4
 ```
 
-To have a higher learning curve and to **decrease dependency on external tools**, this is language is completely developed from **scratch** using only C++.
-1. Lexer: This takes in the program as input and creates tokens out of the program.
-	1. This analyzes the input program to create tokens.
-2. Parser: Tokens from the Lexer is fed as input to Parser which generates Parse Tree and Symbol table.
-    	1. This is a recursive descent parser with look ahead.
-	2. This part takes care of semantic analysis and generating the parse tree.
-	3. This generates symbol table which is a doubly linked N-ary tree structure.
-	4. This throws an error if the given program has syntax errors.
-3. Intermediate Code: This generates the bytecode based on the parse tree in which is in agreement with the runtime.
-	1. This part recursively walks through the tree and generates the byte code using the opcodes.
-4. Runtime Environment:	This takes the bytecode and does the execution of the program written. This gives out the output after completing the execution.
-	1. Stack Model is used for execution.
-	2. Bytecode is traversed and executed with the stack holding current values.
 
 
 ## Abilities of the Language:
@@ -235,3 +238,12 @@ function mangle(n)
 	1. Handling block scopes, with different symbol table for each scope.
 	2. Handling scopes inside a functions.
 	3. Handling scopes inside conditional and Loop Statements.
+
+### Bonus Points
+Functions
+Variable Scope
+Recursive Descent Parser from scratch
+Lexer from Scratch
+Symbol Table Implementation to manage scope
+Nested Conditions
+Print statement
