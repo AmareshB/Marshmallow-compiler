@@ -30,7 +30,8 @@ This video talks gives an overview about the development and abilities of this p
 
 ## Design
 
-![Design Diagram](https://github.com/ej-z/SER502-Spring2018-Team15/tree/master/doc/design.PNG)
+<img src="/doc/design.PNG" />
+
 
 ## Sample Program
 ```
@@ -44,6 +45,9 @@ else
   i = i+1
  
  ```
+
+## SAMPLE SYMBOL TABLE TREE STRUCTURE
+<img src="/doc/symbolTable.JPG" />
 
 ## Byte Code
 
