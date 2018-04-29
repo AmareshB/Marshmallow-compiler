@@ -45,11 +45,13 @@ else
   i = i+1
  
  ```
+## SAMPLE PARSE TREE STRUCTURE
+<img src="/doc/structure_of_parse_tree.JPG" />
 
 ## SAMPLE SYMBOL TABLE TREE STRUCTURE
 <img src="/doc/symbolTable.JPG" />
 
-## Byte Code
+## SAMPLE PROGRAM BYTE CODE
 
 ```
 0 PUSH 5
@@ -77,7 +79,6 @@ else
 38 STORE #1
 40 EXIT
 ```
-
 
 ## Output
 
@@ -198,6 +199,9 @@ elif ( a % 2 == 0 )
 else 
  print 0
 ```
+## IF BLOCK
+<img src="/doc/ByteCode_representation_if.PNG" />
+
 11. #### Loop Statements
 	1. while
 ```
@@ -206,6 +210,9 @@ while(a > 0)
  print a
  a = a - 1
 ```
+## WHILE BLOCK
+<img src="/doc/while_representation.PNG" />
+
 12. #### Functions - Need to be defined at the top of the program
 	1. Simple function execution
 	2. Function execution with return values
