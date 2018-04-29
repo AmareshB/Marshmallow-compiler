@@ -207,6 +207,15 @@ while(a > 0)
 	2. Function execution with return values
 	3. Recursion
 	4. Operations on return values
+```
+function mangle(n)
+ d = 5
+  if 2 < 3
+   n = 2 * 3 + 5 - 8 / 2
+  else
+   g = 4
+ return n
+```
 13. #### Scopes
 	1. Handling block scopes, with different symbol table for each scope.
 	2. Handling scopes inside a functions.
