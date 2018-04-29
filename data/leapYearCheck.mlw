@@ -5,4 +5,3 @@ elif ( year % 4 == 0 )
  print 10
 else
  print 0
-

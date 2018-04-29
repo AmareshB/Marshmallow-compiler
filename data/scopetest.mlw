@@ -1,7 +1,8 @@
 n = 3
-function add(n)
- n = 5
+function mangle()
+ if true
+  n = 2 * 3 + 5 - 8 / 2
  return n
-d = add(n)
-print d
+d = mangle(n)
+print mangle(n)
 print n
